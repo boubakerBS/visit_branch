@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="field_visit.GpsCapture">
+        <div class="d-flex align-items-center gap-2 p-2 border rounded"
+             t-attf-class="{{state.status === 'ok' ? 'border-success bg-success-subtle' : state.status === 'error' ? 'border-danger bg-danger-subtle' : 'border-secondary'}}">
+            <t t-if="state.status === 'capturing'">
+                <i class="fa fa-spinner fa-spin"/>
+                <span>Getting your current location...</span>
+            </t>
+            <t t-if="state.status === 'ok'">
+                <i class="fa fa-check-circle text-success"/>
+                <span>
+                    Location captured:
+                    <span t-esc="state.lat.toFixed(6)"/>, <span t-esc="state.lng.toFixed(6)"/>
+                </span>
+            </t>
+            <t t-if="state.status === 'error'">
+                <i class="fa fa-exclamation-triangle text-danger"/>
+                <span t-esc="errorMessage"/>
+                <button class="btn btn-sm btn-outline-danger ms-2" t-on-click="retry">
+                    Try Again
+                </button>
+            </t>
+        </div>
+    </t>
+
+</templates>

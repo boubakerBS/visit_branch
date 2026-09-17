@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_branch_list" model="ir.ui.view">
+        <field name="name">field.branch.list</field>
+        <field name="model">field.branch</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="city"/>
+                <field name="delegate_count"/>
+                <field name="max_custody_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_branch_form" model="ir.ui.view">
+        <field name="name">field.branch.form</field>
+        <field name="model">field.branch</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_field_delegate_config)d"
+                                type="action" class="oe_stat_button"
+                                icon="fa-users"
+                                context="{'default_branch_id': id}">
+                            <field name="delegate_count" widget="statinfo"
+                                   string="Delegates"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Riyadh - East Branch"/></h1>
+                    </div>
+                    <group>
+                        <group string="Location">
+                            <field name="code"/>
+                            <field name="street"/>
+                            <field name="city"/>
+                            <field name="country_id"/>
+                            <label for="latitude" string="Coordinates"/>
+                            <div class="o_row">
+                                <field name="latitude" placeholder="Latitude"/>
+                                <field name="longitude" placeholder="Longitude"/>
+                            </div>
+                        </group>
+                        <group string="Custody &amp; Currency">
+                            <field name="currency_id"/>
+                            <field name="max_custody_amount"/>
+                        </group>
+                    </group>
+                    <group string="Supervisors"
+                           help="Only supervisors listed here can see and manage this branch's delegates, customers, plans and visits.">
+                        <field name="supervisor_ids" widget="many2many_tags"
+                               nolabel="1" colspan="2"/>
+                    </group>
+                    <group string="Default Working Days"
+                           help="Inherited by new delegates created under this branch; each delegate can still override them.">
+                        <group>
+                            <field name="default_sat"/>
+                            <field name="default_sun"/>
+                            <field name="default_mon"/>
+                            <field name="default_tue"/>
+                        </group>
+                        <group>
+                            <field name="default_wed"/>
+                            <field name="default_thu"/>
+                            <field name="default_fri"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_branch" model="ir.actions.act_window">
+        <field name="name">Branches</field>
+        <field name="res_model">field.branch</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smart_action">Create your first branch</p>
+            <p>A branch holds the GPS starting point and default working
+               days used when planning delegate routes.</p>
+        </field>
+    </record>
+
+</odoo>

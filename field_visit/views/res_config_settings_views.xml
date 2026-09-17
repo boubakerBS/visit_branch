@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_config_settings_field_visit" model="ir.ui.view">
+        <field name="name">res.config.settings.field.visit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Field Visit"
+                     string="Field Visit"
+                     name="field_visit">
+                    <block title="Route Planning"
+                           name="route_planning_container">
+                        <setting string="Distance Provider"
+                                 id="field_visit_distance_provider_setting"
+                                 help="Used to order stops within a day's route and to estimate travel distance/time between customers.">
+                            <field name="field_visit_distance_provider"
+                                   widget="radio"/>
+                        </setting>
+                        <setting string="Google Maps API Key"
+                                 id="field_visit_google_maps_api_key_setting"
+                                 invisible="field_visit_distance_provider != 'google'">
+                            <field name="field_visit_google_maps_api_key"
+                                   password="True"/>
+                        </setting>
+                    </block>
+                    <block title="Location Verification"
+                           name="location_verification_container">
+                        <setting string="Verification Range"
+                                 id="field_visit_proximity_threshold_setting"
+                                 help="How close (in meters) a delegate's captured GPS position must be to a customer's registered coordinates when starting or completing a visit. Outside this range, a reason is required.">
+                            <field name="field_visit_proximity_threshold_meters"/>
+                            <span>meters</span>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+
+ </record>
+ 
+</odoo>

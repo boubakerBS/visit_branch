@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_field_visit_map" model="ir.actions.client">
+        <field name="name">Map</field>
+        <field name="tag">field_visit_map</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+
+    <record id="module_category_field_visit" model="ir.module.category">
+        <field name="name">Field Visit Management</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <!-- Odoo 19 change: res.groups no longer links to ir.module.category
+         directly via category_id. It now links to res.groups.privilege,
+         which in turn links to the category (confirmed against
+         addons/event/security/event_security.xml in the 19.0 source). -->
+    <record id="groups_privilege_field_visit" model="res.groups.privilege">
+        <field name="name">Field Visit Management</field>
+        <field name="category_id" ref="module_category_field_visit"/>
+    </record>
+
+    <record id="group_field_delegate" model="res.groups">
+        <field name="name">Delegate</field>
+        <field name="sequence">10</field>
+        <field name="privilege_id" ref="groups_privilege_field_visit"/>
+        <field name="comment">Can see their own visit plans and visits (read-only in this version).</field>
+    </record>
+
+    <record id="group_field_supervisor" model="res.groups">
+        <field name="name">Branch Supervisor</field>
+        <field name="sequence">20</field>
+        <field name="privilege_id" ref="groups_privilege_field_visit"/>
+        <field name="implied_ids" eval="[(4, ref('group_field_delegate'))]"/>
+        <field name="comment">Full access: delegates, customer assignment, planning wizards - scoped to their own assigned branch(es).</field>
+    </record>
+
+    <record id="group_field_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="sequence">30</field>
+        <field name="privilege_id" ref="groups_privilege_field_visit"/>
+        <field name="implied_ids" eval="[(4, ref('group_field_supervisor'))]"/>
+        <field name="comment">Creates and manages branches, assigns supervisors, sees all branches company-wide.</field>
+    </record>
+
+</data>
+<data noupdate="1">
+
+    <!-- ================= Record rules ================= -->
+
+    <!-- Multi-company: every user (any group) only sees records of
+         their allowed companies, or records with no company set.
+         This is the same pattern Odoo core uses (see
+         addons/event/security/event_security.xml). It applies BEFORE
+         the delegate/supervisor rules below (global rules AND group
+         rules combine with AND). -->
+    <record id="rule_field_visit_plan_company" model="ir.rule">
+        <field name="name">Field Visit Plan: multi-company</field>
+        <field name="model_id" ref="model_field_visit_plan"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+
+    <record id="rule_field_visit_company" model="ir.rule">
+        <field name="name">Field Visit: multi-company</field>
+        <field name="model_id" ref="model_field_visit"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+
+    <record id="rule_field_customer_assignment_company" model="ir.rule">
+        <field name="name">Field Customer Assignment: multi-company</field>
+        <field name="model_id" ref="model_field_customer_assignment"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+
+    <record id="rule_field_branch_company" model="ir.rule">
+        <field name="name">Field Branch: multi-company</field>
+        <field name="model_id" ref="model_field_branch"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+
+    <record id="rule_field_delegate_config_company" model="ir.rule">
+        <field name="name">Field Delegate Config: multi-company</field>
+        <field name="model_id" ref="model_field_delegate_config"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+
+    <record id="rule_field_visit_plan_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own visit plans only</field>
+        <field name="model_id" ref="model_field_visit_plan"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_field_visit_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own visits only</field>
+        <field name="model_id" ref="model_field_visit"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_field_visit_route_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own routes only</field>
+        <field name="model_id" ref="model_field_visit_route"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_field_customer_assignment_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own customer assignments only</field>
+        <field name="model_id" ref="model_field_customer_assignment"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Supervisors are implied members of group_field_delegate too
+         (see implied_ids above). Scope them to the branch(es) they
+         are actually assigned to as a supervisor on field.branch -
+         NOT the whole company. This is the "clean permissions" fix:
+         a supervisor now only ever sees their own branch's delegates,
+         customers, plans and visits. -->
+    <record id="rule_field_branch_supervisor_own" model="ir.rule">
+        <field name="name">Supervisor: own branch(es) only</field>
+        <field name="model_id" ref="model_field_branch"/>
+        <field name="domain_force">[('supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <record id="rule_field_delegate_config_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: delegates of own branch(es) only</field>
+        <field name="model_id" ref="model_field_delegate_config"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+
+    <record id="rule_field_visit_plan_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: visit plans of own branch(es) only</field>
+        <field name="model_id" ref="model_field_visit_plan"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+
+    <record id="rule_field_visit_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: visits of own branch(es) only</field>
+        <field name="model_id" ref="model_field_visit"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+
+    <record id="rule_field_visit_route_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: routes of own branch(es) only</field>
+        <field name="model_id" ref="model_field_visit_route"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+
+    <record id="rule_field_customer_assignment_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: customer assignments of own branch(es) only</field>
+        <field name="model_id" ref="model_field_customer_assignment"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+
+    <!-- Administrator: unrestricted within the company, on every model
+         (this is what makes branch creation possible - Administrators
+         are not subject to the "own branch(es) only" rules above,
+         since those rules only target group_field_supervisor). -->
+    <record id="rule_field_branch_admin_all" model="ir.rule">
+        <field name="name">Administrator: all branches (within company)</field>
+        <field name="model_id" ref="model_field_branch"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <record id="rule_field_delegate_config_admin_all" model="ir.rule">
+        <field name="name">Administrator: all delegates (within company)</field>
+        <field name="model_id" ref="model_field_delegate_config"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <record id="rule_field_visit_plan_admin_all" model="ir.rule">
+        <field name="name">Administrator: all visit plans (within company)</field>
+        <field name="model_id" ref="model_field_visit_plan"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <record id="rule_field_visit_admin_all" model="ir.rule">
+        <field name="name">Administrator: all visits (within company)</field>
+        <field name="model_id" ref="model_field_visit"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <record id="rule_field_visit_route_admin_all" model="ir.rule">
+        <field name="name">Administrator: all routes (within company)</field>
+        <field name="model_id" ref="model_field_visit_route"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <record id="rule_field_customer_assignment_admin_all" model="ir.rule">
+        <field name="name">Administrator: all customer assignments (within company)</field>
+        <field name="model_id" ref="model_field_customer_assignment"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <!-- ============ field.sale.order ============ -->
+    <record id="rule_field_sale_order_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own sale orders only</field>
+        <field name="model_id" ref="model_field_sale_order"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+    </record>
+    <record id="rule_field_sale_order_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: sale orders of own branch(es) only</field>
+        <field name="model_id" ref="model_field_sale_order"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+    <record id="rule_field_sale_order_admin_all" model="ir.rule">
+        <field name="name">Administrator: all sale orders (within company)</field>
+        <field name="model_id" ref="model_field_sale_order"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <!-- ============ field.payment ============ -->
+    <record id="rule_field_payment_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own payments only</field>
+        <field name="model_id" ref="model_field_payment"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+    </record>
+    <record id="rule_field_payment_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: payments of own branch(es) only</field>
+        <field name="model_id" ref="model_field_payment"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+    <record id="rule_field_payment_admin_all" model="ir.rule">
+        <field name="name">Administrator: all payments (within company)</field>
+        <field name="model_id" ref="model_field_payment"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+</data>
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_payment_list" model="ir.ui.view">
+        <field name="name">field.payment.list</field>
+        <field name="model">field.payment</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="state == 'in_custody'"
+                  decoration-success="state == 'handed_over'">
+                <field name="name"/>
+                <field name="payment_date"/>
+                <field name="customer_id"/>
+                <field name="delegate_id"/>
+                <field name="amount" sum="Total"/>
+                <field name="payment_method"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_payment_form" model="ir.ui.view">
+        <field name="name">field.payment.form</field>
+        <field name="model">field.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(action_report_field_payment)d" type="action"
+                            string="Print Receipt" class="btn-secondary"
+                            icon="fa-print"/>
+                    <button name="action_hand_over" type="object"
+                            string="Confirm Receipt" class="btn-primary"
+                            invisible="state != 'in_custody'"
+                            groups="field_visit.group_field_supervisor"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="in_custody,handed_over"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id" readonly="1"/>
+                            <field name="visit_id" readonly="1"/>
+                            <field name="payment_date"/>
+                        </group>
+                        <group>
+                            <field name="delegate_id" readonly="1"/>
+                            <field name="amount"/>
+                            <field name="payment_method"/>
+                        </group>
+                    </group>
+                    <group invisible="state == 'in_custody'">
+                        <field name="handed_over_datetime" readonly="1"/>
+                        <field name="handed_over_by_id" readonly="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_payment" model="ir.actions.act_window">
+        <field name="name">Collections</field>
+        <field name="res_model">field.payment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

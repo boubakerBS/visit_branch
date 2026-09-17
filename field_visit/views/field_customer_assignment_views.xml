@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_customer_assignment_kanban" model="ir.ui.view">
+        <field name="name">field.customer.assignment.kanban</field>
+        <field name="model">field.customer.assignment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="delegate_id" records_draggable="1"
+                    group_create="0">
+                <field name="customer_id"/>
+                <field name="weekly_visit_frequency"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click p-2">
+                            <strong><field name="customer_id"/></strong>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_field_customer_assignment_list" model="ir.ui.view">
+        <field name="name">field.customer.assignment.list</field>
+        <field name="model">field.customer.assignment</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="customer_id"/>
+                <field name="delegate_id"/>
+                <field name="branch_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_field_customer_assignment" model="ir.actions.act_window">
+        <field name="name">Customer Assignment</field>
+        <field name="res_model">field.customer.assignment</field>
+        <field name="view_mode">kanban,list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smart_action">Assign your first customer</p>
+            <p>Drag a customer card between columns to reassign it to a
+               different delegate - this updates the delegate directly,
+               the same way any Odoo Kanban grouped view works.</p>
+        </field>
+    </record>
+
+</odoo>

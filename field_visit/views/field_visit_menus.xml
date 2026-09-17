@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_field_visit_root" name="Field Visits"
+              sequence="60" web_icon="field_visit,static/description/icon.png"/>
+
+    <menuitem id="menu_field_visit_dashboard" name="Dashboard"
+              parent="menu_field_visit_root" sequence="5"
+              action="action_field_visit_dashboard"/>
+
+    <menuitem id="menu_field_visit_planning" name="Planning"
+              parent="menu_field_visit_root" sequence="10"/>
+    <menuitem id="menu_field_visit_plan" name="Visit Plans"
+              parent="menu_field_visit_planning" sequence="5"
+              action="action_field_visit_plan"/>
+    <menuitem id="menu_field_visit_plan_generate" name="Generate Plan"
+              parent="menu_field_visit_planning" sequence="10"
+              action="action_field_visit_plan_generate"/>
+    <menuitem id="menu_field_customer_assignment" name="Customer Assignment"
+              parent="menu_field_visit_planning" sequence="20"
+              action="action_field_customer_assignment"/>
+    <menuitem id="menu_field_visit" name="Visits"
+              parent="menu_field_visit_planning" sequence="30"
+              action="action_field_visit"/>
+    <menuitem id="menu_field_visit_route" name="Daily Routes"
+              parent="menu_field_visit_planning" sequence="40"
+              action="action_field_visit_route"/>
+    <menuitem id="menu_field_visit_map" name="Map"
+              parent="menu_field_visit_planning" sequence="45"
+              action="action_field_visit_map"/>
+    <menuitem id="menu_field_sale_order" name="Sale Orders"
+              parent="menu_field_visit_planning" sequence="50"
+              action="action_field_sale_order"/>
+    <menuitem id="menu_field_payment" name="Collections"
+              parent="menu_field_visit_planning" sequence="60"
+              action="action_field_payment"/>
+
+    <menuitem id="menu_field_visit_config" name="Configuration"
+              parent="menu_field_visit_root" sequence="90"
+              groups="field_visit.group_field_supervisor"/>
+    <menuitem id="menu_field_branch" name="Branches"
+              parent="menu_field_visit_config" sequence="10"
+              action="action_field_branch"/>
+    <menuitem id="menu_field_delegate_config" name="Delegates"
+              parent="menu_field_visit_config" sequence="20"
+              action="action_field_delegate_config"/>
+    <menuitem id="menu_field_customer" name="Customers"
+              parent="menu_field_visit_config" sequence="30"
+              action="action_field_customer"/>
+    <menuitem id="menu_field_supervisor" name="Supervisors"
+              parent="menu_field_visit_config" sequence="40"
+              action="action_field_supervisor"/>
+
+
+</odoo>

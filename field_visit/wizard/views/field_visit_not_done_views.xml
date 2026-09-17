@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_not_done_form" model="ir.ui.view">
+        <field name="name">field.visit.not.done.form</field>
+        <field name="model">field.visit.not.done</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="customer_id" readonly="1"/>
+                    <field name="reason" widget="radio"/>
+                    <field name="note" placeholder="Any extra details..."/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Confirm - Not Done"
+                            class="btn-danger"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_visit_not_done" model="ir.actions.act_window">
+        <field name="name">Mark Visit as Not Done</field>
+        <field name="res_model">field.visit.not.done</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

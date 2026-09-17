@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_list" model="ir.ui.view">
+        <field name="name">field.visit.list</field>
+        <field name="model">field.visit</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'cancelled'"
+                  decoration-success="state == 'done'"
+                  decoration-danger="state == 'not_done'">
+                <field name="visit_date"/>
+                <field name="customer_id"/>
+                <field name="delegate_id"/>
+                <field name="sequence" widget="handle"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_visit_form" model="ir.ui.view">
+        <field name="name">field.visit.form</field>
+        <field name="model">field.visit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_trip" type="object"
+                            string="Start Trip" class="btn-primary"
+                            invisible="state != 'planned' or not is_today"/>
+                    <button name="action_start_visit" type="object"
+                            string="Arrived - Start Visit" class="btn-primary"
+                            invisible="state != 'traveling' or not is_today"/>
+                    <button name="action_complete_visit" type="object"
+                            string="Complete Visit" class="btn-primary"
+                            invisible="state != 'in_progress' or not is_today"/>
+                    <button name="action_create_sale_order" type="object"
+                            string="New Sale Order" class="btn-secondary"
+                            icon="fa-shopping-cart"
+                            invisible="state != 'in_progress' or not is_today"/>
+                    <button name="action_create_payment" type="object"
+                            string="New Payment" class="btn-secondary"
+                            icon="fa-money"
+                            invisible="state != 'in_progress' or not is_today"/>
+                    <button name="action_open_not_done_wizard" type="object"
+                            string="Mark as Not Done" class="btn-secondary"
+                            invisible="state not in ('planned','traveling') or not is_today"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="planned,traveling,in_progress,done"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Not scheduled today"
+                            invisible="is_today"/>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id" readonly="state != 'planned'"/>
+                            <field name="visit_date" readonly="1"/>
+                            <field name="route_id" readonly="1"/>
+                            <field name="is_today" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="delegate_id" readonly="1"/>
+                            <field name="plan_id" readonly="1"/>
+                            <field name="plan_line_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Journey" invisible="state == 'planned'">
+                        <group>
+                            <field name="distance_from_previous_km" readonly="1"/>
+                            <field name="datetime_trip_start" readonly="1"/>
+                            <field name="travel_minutes" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="datetime_arrival" readonly="1"/>
+                            <field name="datetime_end" readonly="1"/>
+                            <field name="duration_minutes" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Location Verification"
+                           invisible="state in ('planned','traveling')">
+                        <group>
+                            <field name="arrival_latitude" readonly="1"/>
+                            <field name="arrival_longitude" readonly="1"/>
+                            <field name="arrival_distance_from_customer_km" readonly="1"/>
+                            <field name="arrival_location_verified" readonly="1" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="end_latitude" readonly="1"/>
+                            <field name="end_longitude" readonly="1"/>
+                            <field name="end_distance_from_customer_km" readonly="1"/>
+                            <field name="end_location_verified" readonly="1" widget="boolean_toggle"/>
+                        </group>
+                        <group colspan="2">
+                            <field name="customer_latitude" readonly="1" string="Customer's Registered Latitude"/>
+                            <field name="customer_longitude" readonly="1" string="Customer's Registered Longitude"/>
+                        </group>
+                        <field name="location_exception_reason" readonly="1"
+                               colspan="2" invisible="not location_exception_reason"/>
+                    </group>
+                    <group invisible="state != 'not_done'">
+                        <field name="not_done_reason" readonly="1"/>
+                        <field name="not_done_note" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Visit Notes" name="notes">
+                            <field name="notes"
+                                   placeholder="What happened during this visit..."
+                                   readonly="state not in ('in_progress','done')"/>
+                        </page>
+                        <page string="Sale Orders" name="sale_orders"
+                              invisible="not sale_order_ids">
+                            <field name="sale_order_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="fulfillment_source"/>
+                                    <field name="amount_total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Payments" name="payments"
+                              invisible="not payment_ids">
+                            <field name="payment_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                    <field name="payment_method"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Weekday Kanban: used mainly during the Trial period, when the
+         supervisor is actively adjusting the actual dated visits for
+         the current short window. Dragging a card to another day
+         updates visit_weekday, whose inverse shifts visit_date. -->
+    <record id="view_field_visit_kanban" model="ir.ui.view">
+        <field name="name">field.visit.kanban</field>
+        <field name="model">field.visit</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="visit_weekday" records_draggable="1"
+                    group_create="0">
+                <field name="customer_id"/>
+                <field name="visit_date"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click p-2 {{record.state.raw_value == 'done' ? 'bg-success-light' : record.state.raw_value == 'in_progress' ? 'bg-warning-light' : record.state.raw_value == 'traveling' ? 'bg-info-light' : ''}}">
+                            <strong><field name="customer_id"/></strong>
+                            <div class="text-muted"><field name="visit_date"/></div>
+                            <field name="state" widget="label_selection"
+                                   options="{'classes': {'planned': 'default', 'traveling': 'info', 'in_progress': 'warning', 'done': 'success', 'not_done': 'danger'}}"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+<record id="view_field_visit_search" model="ir.ui.view">
+    <field name="name">field.visit.search</field>
+    <field name="model">field.visit</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="customer_id"/>
+            <field name="delegate_id"/>
+            <field name="visit_date"/>
+
+            <!-- Filters -->
+            <filter string="Today" name="today" domain="[('visit_date','=','today')]"/>
+            <filter string="Visit Date" name="visit_date_filter" date="visit_date"/>
+            <separator/>
+            <filter string="Planned" name="planned" domain="[('state', '=', 'planned')]"/>
+            <filter string="In Progress" name="in_progress" domain="[('state', 'in', ['traveling', 'in_progress'])]"/>
+            <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+
+            <!-- Group By -->
+            <group>
+                <filter string="Delegate" name="group_delegate" context="{'group_by': 'delegate_id'}"/>
+                <filter string="Visit Date" name="group_visit_date" context="{'group_by': 'visit_date'}"/>
+                <filter string="Day" name="group_day" context="{'group_by': 'visit_weekday'}"/>
+            </group>
+            
+        </search>
+    </field>
+</record>
+
+
+    <record id="action_field_visit" model="ir.actions.act_window">
+        <field name="name">Visits</field>
+        <field name="res_model">field.visit</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_field_visit_search"/>
+        <field name="context">{'search_default_today': 1}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================= Customers ================= -->
+    <!-- Reuses the standard res.partner list/form views (from Contacts)
+         - only the domain is specific to this module: internal users
+         (delegates, supervisors...) are excluded so this screen only
+         ever shows real, assignable customers. -->
+    <record id="action_field_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('user_ids', '=', False)]</field>
+        <field name="context">{'default_user_ids': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smart_action">Create your first customer</p>
+            <p>This list only ever shows real contacts - internal
+               users (delegates, supervisors) never appear here.</p>
+        </field>
+    </record>
+
+    <!-- ================= Supervisors ================= -->
+    <!-- Plain res.users, filtered to members of the Supervisor group.
+         Assigning a supervisor to a branch is done from the Branch
+         form (Supervisors field) - this screen is a read-oriented
+         reference list. -->
+    <record id="action_field_supervisor" model="ir.actions.act_window">
+        <field name="name">Supervisors</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain" eval="[('group_ids', 'in', [ref('field_visit.group_field_supervisor')])]"/>
+        <field name="help" type="html">
+            <p>Users who belong to the "Branch Supervisor" group. Assign
+               them to a branch from that branch's form to scope what
+               they can see.</p>
+        </field>
+    </record>
+
+</odoo>

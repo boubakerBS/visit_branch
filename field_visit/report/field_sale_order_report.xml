@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_field_sale_order" model="ir.actions.report">
+        <field name="name">Sale Order</field>
+        <field name="model">field.sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">field_visit.report_field_sale_order_document</field>
+        <field name="report_file">field_visit.report_field_sale_order_document</field>
+        <field name="print_report_name">'Sale Order - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_field_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_field_sale_order_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Sale Order</h2>
+                        <h3 class="text-center text-muted">
+                            <span t-field="o.name"/>
+                        </h3>
+                        <hr/>
+                        <div class="row mt32">
+                            <div class="col-6">
+                                <strong>Customer:</strong>
+                                <p t-field="o.customer_id.name"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong>Date:</strong>
+                                <p t-field="o.order_date"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Delegate:</strong>
+                                <p t-field="o.delegate_id.user_id.name"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong>Fulfilled From:</strong>
+                                <p t-field="o.fulfillment_source"/>
+                            </div>
+                        </div>
+                        <table class="table table-bordered mt32">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-end">Quantity</th>
+                                    <th class="text-end">Unit Price</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td><span t-field="line.product_id.name"/></td>
+                                    <td class="text-end"><span t-field="line.quantity"/></td>
+                                    <td class="text-end">
+                                        <span t-field="line.price_unit"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="line.subtotal"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Total</strong></td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-field="o.amount_total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="row mt64">
+                            <div class="col-6">
+                                <p>Delegate Signature: ______________________</p>
+                            </div>
+                            <div class="col-6">
+                                <p>Customer Signature: ______________________</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

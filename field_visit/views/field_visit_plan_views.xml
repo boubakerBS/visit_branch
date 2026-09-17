@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_plan_list" model="ir.ui.view">
+        <field name="name">field.visit.plan.list</field>
+        <field name="model">field.visit.plan</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="delegate_id"/>
+                <field name="branch_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="schedule_generated_until"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'trial'"
+                       decoration-success="state == 'approved'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_visit_plan_form" model="ir.ui.view">
+        <field name="name">field.visit.plan.form</field>
+        <field name="model">field.visit.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(action_field_visit_plan_generate)d"
+                            type="action" string="Generate Trial Period"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            context="{'default_delegate_id': delegate_id}"/>
+                    <button name="action_approve" type="object"
+                            string="Approve Pattern" class="btn-primary"
+                            invisible="state != 'trial'"
+                            help="Snapshot the current weekly template as the confirmed, reusable pattern."/>
+                    <button name="%(action_field_visit_plan_extend)d"
+                            type="action" string="Extend Schedule"
+                            class="btn-primary"
+                            invisible="state != 'approved'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state == 'cancelled'"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,trial,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_visits" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <field name="visit_count" widget="statinfo"
+                                   string="Visits"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="delegate_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="branch_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="date_start"
+                                   readonly="state != 'draft'"/>
+                            <field name="date_end"
+                                   readonly="state != 'draft'"/>
+                            <field name="schedule_generated_until" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Weekly Template" name="template">
+                            <field name="line_ids"
+                                   context="{'default_plan_id': id}">
+                                <list editable="bottom">
+                                    <field name="customer_id"/>
+                                    <field name="visit_day"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="estimated_distance_km"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_visit_plan" model="ir.actions.act_window">
+        <field name="name">Visit Plans</field>
+        <field name="res_model">field.visit.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smart_action">No visit plans yet</p>
+            <p>Fastest way to start: Planning &gt; Generate Plan.
+               You can also create one manually here and use the
+               "Generate Trial Period" button on it afterwards.</p>
+        </field>
+    </record>
+
+</odoo>

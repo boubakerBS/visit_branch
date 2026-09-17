@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="field_visit.MapAction">
+        <div class="d-flex flex-column h-100 w-100">
+            <div class="d-flex align-items-center gap-3 p-2 border-bottom bg-white flex-wrap"
+                 style="flex: 0 0 auto;">
+                <strong>Branches &amp; Customers Map</strong>
+                <span class="d-flex align-items-center gap-1 ms-3">
+                    <span style="display:inline-block;width:12px;height:12px;background:#714B67;border-radius:3px;"/>
+                    Branch
+                </span>
+                <span class="d-flex align-items-center gap-1">
+                    <span style="display:inline-block;width:10px;height:10px;background:#2F6FDB;border-radius:50%;"/>
+                    Customer
+                </span>
+                <span class="d-flex align-items-center gap-1">
+                    <span style="display:inline-block;width:12px;height:12px;background:#E8871E;border-radius:50%;"/>
+                    Route Path
+                </span>
+                <span class="d-flex align-items-center gap-1">
+                    <span style="display:inline-block;width:12px;height:12px;background:#1c7430;border-radius:50%;box-shadow:0 0 0 3px rgba(28,116,48,.3);"/>
+                    Delegate Now
+                </span>
+                <div class="ms-auto d-flex align-items-center gap-2">
+                    <label for="route_select" class="mb-0">Show delegate route:</label>
+                    <select id="route_select" class="form-select form-select-sm"
+                            style="width:auto;" t-on-change="onRouteChange">
+                        <option value="">-- None --</option>
+                        <t t-foreach="state.routes" t-as="route" t-key="route.id">
+                            <option t-att-value="route.id">
+                                <t t-esc="route.delegate_id[1]"/> - <t t-esc="route.route_date"/> (<t t-esc="route.stop_count"/> stops)
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+            <div t-if="state.loading" class="d-flex align-items-center justify-content-center flex-grow-1">
+                <i class="fa fa-spinner fa-spin fa-2x"/>
+            </div>
+            <div t-ref="mapContainer" style="flex: 1 1 auto; min-height: 500px;"/>
+        </div>
+    </t>
+
+</templates>

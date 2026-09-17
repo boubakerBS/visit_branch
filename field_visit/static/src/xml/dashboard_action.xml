@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="field_visit.Dashboard">
+        <div class="o_field_visit_dashboard p-4" style="overflow-y:auto; height:100%;">
+            <h2 class="mb-4" t-esc="labels.title"/>
+
+            <div t-if="state.loading" class="d-flex align-items-center justify-content-center" style="height:200px;">
+                <i class="fa fa-spinner fa-spin fa-2x"/>
+            </div>
+
+            <div t-else="" class="d-flex flex-column gap-4">
+
+                <!-- Today's visits -->
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm" style="cursor:pointer;" t-on-click="openVisitsToday">
+                            <div class="text-muted small" t-esc="labels.plannedToday"/>
+                            <div class="fs-2 fw-bold" t-esc="state.todayPlanned"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm" style="cursor:pointer;" t-on-click="openVisitsToday">
+                            <div class="text-muted small" t-esc="labels.inProgress"/>
+                            <div class="fs-2 fw-bold text-warning" t-esc="state.todayInProgress"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm" style="cursor:pointer;" t-on-click="openVisitsToday">
+                            <div class="text-muted small" t-esc="labels.doneToday"/>
+                            <div class="fs-2 fw-bold text-success" t-esc="state.todayDone"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm" style="cursor:pointer;" t-on-click="openVisitsToday">
+                            <div class="text-muted small" t-esc="labels.notDoneToday"/>
+                            <div class="fs-2 fw-bold text-danger" t-esc="state.todayNotDone"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week completion + active delegates -->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-white shadow-sm">
+                            <div class="text-muted small" t-esc="labels.weekCompletionRate"/>
+                            <div class="fs-2 fw-bold" t-esc="state.weekCompletionPct + '%'"/>
+                            <div class="text-muted small">
+                                <t t-esc="state.weekDone"/> <t t-esc="labels.doneOfTotal"/> <t t-esc="state.weekTotal"/> <t t-esc="labels.total"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-white shadow-sm">
+                            <div class="text-muted small" t-esc="labels.activeDelegatesNow"/>
+                            <div class="fs-2 fw-bold" style="color:#1c7430;" t-esc="state.activeDelegates"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-white shadow-sm" style="cursor:pointer;" t-on-click="openSaleOrders">
+                            <div class="text-muted small" t-esc="labels.salesToday"/>
+                            <div class="fs-2 fw-bold" t-esc="state.salesTodayCount"/>
+                            <div class="text-muted small">
+                                <t t-esc="state.salesTodayAmount.toLocaleString()"/> <t t-esc="labels.total"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custody -->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-white shadow-sm" style="cursor:pointer;" t-on-click="openCollections">
+                            <div class="text-muted small" t-esc="labels.custodyPending"/>
+                            <div class="fs-2 fw-bold" t-esc="state.custodyPending.toLocaleString()"/>
+                        </div>
+                    </div>
+                    <div class="col-md-8" t-if="state.custodyAlerts.length">
+                        <div class="p-3 border border-danger rounded bg-danger-subtle shadow-sm">
+                            <div class="fw-bold text-danger mb-2">
+                                <i class="fa fa-exclamation-triangle"/> <t t-esc="labels.custodyLimitReached"/>
+                            </div>
+                            <div t-foreach="state.custodyAlerts" t-as="alert" t-key="alert.name" class="small">
+                                <t t-esc="alert.name"/> — <t t-esc="alert.amount.toLocaleString()"/>
+                                / <t t-esc="alert.threshold.toLocaleString()"/> <t t-esc="labels.allowed"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week chart -->
+                <div class="p-3 border rounded bg-white shadow-sm">
+                    <div class="text-muted small mb-2" t-esc="labels.visitsThisWeek"/>
+                    <div style="max-height:260px;">
+                        <canvas t-ref="weekChart"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </t>
+
+</templates>

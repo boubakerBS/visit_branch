@@ -1,0 +1,2247 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_visit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260429\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-20 13:41+0000\n"
+"PO-Revision-Date: 2026-08-20 13:41+0000\n"
+"Last-Translator: Meydan Field Team\n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: field_visit
+#: model:ir.actions.report,print_report_name:field_visit.action_report_field_payment
+msgid "'Receipt - %s' % (object.name)"
+msgstr "'إيصال - %s' % (object.name)"
+
+#. module: field_visit
+#: model:ir.actions.report,print_report_name:field_visit.action_report_field_sale_order
+msgid "'Sale Order - %s' % (object.name)"
+msgstr "'أمر بيع - %s' % (object.name)"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_delegate_config__visits_per_day_estimate
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_generate__visits_per_day_estimate
+msgid ""
+"(customers x weekly frequency) / working days, rounded up. Shown to the "
+"supervisor as a sanity check before generating the schedule."
+msgstr ""
+"(عدد العملاء × التكرار الأسبوعي) ÷ أيام العمل، مقرَّب لأعلى. يُعرض للمشرف "
+"كفحص منطقي قبل توليد الجدول."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_form
+msgid "<span class=\"o_stat_text\">Generate Plan</span>"
+msgstr "<span class=\"o_stat_text\">توليد خطة</span>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "<span>meters</span>"
+msgstr "<span>متر</span>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+msgid "<strong>Amount</strong>"
+msgstr "<strong>المبلغ</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+msgid "<strong>Branch</strong>"
+msgstr "<strong>الفرع</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+msgid "<strong>Collected By</strong>"
+msgstr "<strong>حصّله</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>العميل:</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "<strong>Date:</strong>"
+msgstr "<strong>التاريخ:</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "<strong>Delegate:</strong>"
+msgstr "<strong>المندوب:</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "<strong>Fulfilled From:</strong>"
+msgstr "<strong>مصدر التوريد:</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+msgid "<strong>Payment Method</strong>"
+msgstr "<strong>طريقة الدفع</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+msgid "<strong>Received From:</strong>"
+msgstr "<strong>استُلم من:</strong>"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "<strong>Total</strong>"
+msgstr "<strong>الإجمالي</strong>"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_branch
+msgid ""
+"A branch holds the GPS starting point and default working\n"
+"               days used when planning delegate routes."
+msgstr ""
+"يحتفظ الفرع بنقطة انطلاق GPS وأيام العمل الافتراضية المستخدمة عند تخطيط "
+"مسارات المناديب."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_extend__extend_mode__days
+msgid "A number of days"
+msgstr "عدد أيام محدد"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+msgid "Action"
+msgstr "الإجراء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_needaction
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_needaction
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_needaction
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__active
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__active
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__active
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__active
+msgid "Active"
+msgstr "نشِط"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_exception_decoration
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_exception_decoration
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "زخرفة استثناء النشاط"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_state
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_state
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_type_icon
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_type_icon
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "أيقونة نوع النشاط"
+
+#. module: field_visit
+#: model:res.groups,name:field_visit.group_field_admin
+msgid "Administrator"
+msgstr "مدير عام"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+msgid "Allowed Range"
+msgstr "النطاق المسموح"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__amount
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__amount_total
+msgid "Amount Total"
+msgstr "إجمالي المبلغ"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_not_done_form
+msgid "Any extra details..."
+msgstr "أي تفاصيل إضافية..."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__apply_to_remaining
+msgid "Apply to all future occurrences of this customer"
+msgstr "تطبيق على كل الزيارات المستقبلية لهذا العميل"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid "Approve Pattern"
+msgstr "اعتماد النمط"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan__state__approved
+msgid "Approved"
+msgstr "معتمدة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_line__estimated_distance_km
+msgid ""
+"Approximate distance from the previous stop of the same day (or from the "
+"branch for the first stop)."
+msgstr ""
+"المسافة التقريبية من التوقف السابق بنفس اليوم (أو من الفرع لأول توقف)."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__arrival_distance_from_customer_km
+msgid "Arrival Distance From Customer Km"
+msgstr "المسافة عند الوصول من العميل (كم)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__arrival_latitude
+msgid "Arrival Latitude"
+msgstr "خط عرض الوصول"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__arrival_location_verified
+msgid "Arrival Location Verified"
+msgstr "تم التحقق من موقع الوصول"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__arrival_longitude
+msgid "Arrival Longitude"
+msgstr "خط طول الوصول"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_gps_checkin__stage__arrival
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Arrived - Start Visit"
+msgstr "وصلت - بدء الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__datetime_arrival
+msgid "Arrived / Visit Started At"
+msgstr "وقت الوصول / بدء الزيارة"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_customer_assignment
+msgid "Assign your first customer"
+msgstr "خصّص أول عميل لك"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_form
+msgid "Assigned Customers"
+msgstr "العملاء المخصَّصون"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_attachment_count
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_attachment_count
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__payment_method__transfer
+msgid "Bank Transfer"
+msgstr "تحويل بنكي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__branch_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__branch_id
+msgid "Branch"
+msgstr "الفرع"
+
+#. module: field_visit
+#: model:res.groups,name:field_visit.group_field_supervisor
+msgid "Branch Supervisor"
+msgstr "مشرف الفرع"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_branch
+#: model:ir.ui.menu,name:field_visit.menu_field_branch
+msgid "Branches"
+msgstr "الفروع"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_res_users__field_visit_branch_ids
+msgid ""
+"Branches this user supervises. Determines which delegates, customer "
+"assignments, plans and visits they can see and manage."
+msgstr ""
+"الفروع اللي يشرف عليها هذا المستخدم. تحدد أي مناديب وتوزيعات عملاء وخطط "
+"وزيارات يقدر يشوفها ويديرها."
+
+#. module: field_visit
+#: model:res.groups,comment:field_visit.group_field_delegate
+msgid "Can see their own visit plans and visits (read-only in this version)."
+msgstr "يقدر يشوف خطط زياراته وزياراته فقط (قراءة فقط بهذي النسخة)."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_receive_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_not_done_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_extend_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_generate_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__cancelled
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan__state__cancelled
+msgid "Cancelled"
+msgstr "ملغاة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__payment_method__cash
+msgid "Cash"
+msgstr "نقداً"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__payment_method__check
+msgid "Check"
+msgstr "شيك"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__fulfillment_source
+msgid ""
+"Chosen by the delegate. Either way, the order is considered complete as soon"
+" as it is submitted - no approval step."
+msgstr ""
+"يختاره المندوب. بأي الحالتين، الطلب يُعتبر مكتملاً فور إرساله - بدون خطوة "
+"موافقة."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__city
+msgid "City"
+msgstr "المدينة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__code
+msgid "Code"
+msgstr "الرمز"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_payment
+#: model:ir.ui.menu,name:field_visit.menu_field_payment
+msgid "Collections"
+msgstr "التحصيلات"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__company_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_gps_checkin__stage__complete
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Complete Visit"
+msgstr "إنهاء الزيارة"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_res_config_settings
+msgid "Config Settings"
+msgstr "إعدادات الضبط"
+
+#. module: field_visit
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_delegate_config
+msgid "Configure your first delegate"
+msgstr "أضف أول مندوب لك"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_not_done_form
+msgid "Confirm - Not Done"
+msgstr "تأكيد - لم تُنفَّذ"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_gps_checkin
+msgid "Confirm Location"
+msgstr "تأكيد الموقع"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_receive_form
+msgid "Confirm Receipt"
+msgstr "تأكيد الاستلام"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_res_partner
+msgid "Contact"
+msgstr "جهة اتصال"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "Coordinates"
+msgstr "الإحداثيات"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__country_id
+msgid "Country"
+msgstr "الدولة"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_branch
+msgid "Create your first branch"
+msgstr "أنشئ أول فرع لك"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_customer
+msgid "Create your first customer"
+msgstr "أنشئ أول عميل لك"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__create_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__create_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: field_visit
+#: model:res.groups,comment:field_visit.group_field_admin
+msgid ""
+"Creates and manages branches, assigns supervisors, sees all branches "
+"company-wide."
+msgstr "ينشئ ويدير الفروع، يعيّن المشرفين، يشوف كل الفروع على مستوى الشركة."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__currency_id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__currency_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__currency_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__currency_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "Custody & Currency"
+msgstr "العهدة والعملة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__customer_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__customer_id
+msgid "Customer"
+msgstr "العميل"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__not_done_reason__customer_absent
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_not_done__reason__customer_absent
+msgid "Customer Absent"
+msgstr "العميل غائب"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_customer_assignment
+#: model:ir.ui.menu,name:field_visit.menu_field_customer_assignment
+msgid "Customer Assignment"
+msgstr "توزيع العملاء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__customer_count
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__customer_count
+msgid "Customer Count"
+msgstr "عدد العملاء"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Customer Signature: ______________________"
+msgstr "توقيع العميل: ______________________"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_customer
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__customer_assignment_ids
+#: model:ir.ui.menu,name:field_visit.menu_field_customer
+msgid "Customers"
+msgstr "العملاء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__route_id
+msgid "Daily Route"
+msgstr "رحلة اليوم"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_route
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_route
+msgid "Daily Routes"
+msgstr "رحلات اليوم"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__date_end
+msgid "Date End"
+msgstr "تاريخ النهاية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__date_start
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__date_start
+msgid "Date Start"
+msgstr "تاريخ البداية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__visit_weekday
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "Day"
+msgstr "اليوم"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "Default Working Days"
+msgstr "أيام العمل الافتراضية"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_branch__max_custody_amount
+msgid ""
+"Default maximum amount a delegate may hold in custody (collected but not yet"
+" handed over) before a warning email is sent to the supervisor. Can be "
+"overridden per delegate later when the collections module is added."
+msgstr ""
+"الحد الأقصى الافتراضي للمبلغ اللي يقدر المندوب يحتفظ فيه كعهدة (محصَّل لكن "
+"لسه ما سُلِّم) قبل إرسال تنبيه للمشرف. يقدر يُخصَّص لكل مندوب لاحقاً عند "
+"إضافة موديول التحصيلات."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__delegate_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__delegate_id
+#: model:res.groups,name:field_visit.group_field_delegate
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "Delegate"
+msgstr "المندوب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__delegate_count
+msgid "Delegate Count"
+msgstr "عدد المناديب"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Delegate Signature: ______________________"
+msgstr "توقيع المندوب: ______________________"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__delegate_user_id
+msgid "Delegate User"
+msgstr "مستخدم المندوب"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_route
+msgid "Delegate's Daily Route"
+msgstr "رحلة المندوب اليومية"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_delegate_config
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__delegate_config_ids
+#: model:ir.ui.menu,name:field_visit.menu_field_delegate_config
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "Delegates"
+msgstr "المناديب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__not_done_note
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__note
+msgid "Details"
+msgstr "التفاصيل"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_distance__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__display_name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__display_name
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:field_visit.field_res_partner__display_name
+#: model:ir.model.fields,field_description:field_visit.field_res_users__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__distance_from_previous_km
+msgid "Distance From Previous Km"
+msgstr "المسافة من السابق (كم)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_distance_provider
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Distance Provider"
+msgstr "مزوّد المسافة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__distance_km
+msgid "Distance from Target"
+msgstr "المسافة من الهدف"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit__distance_from_previous_km
+msgid ""
+"Distance from the previous stop (or the branch, for the first stop of the "
+"day). Computed when the trip to this customer starts, using the configured "
+"distance provider."
+msgstr ""
+"المسافة من التوقف السابق (أو الفرع، لأول توقف باليوم). تُحسب وقت بدء الرحلة "
+"لهذا العميل، باستخدام مزوّد المسافة المُعدّ."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__done
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_route__state__done
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "Done"
+msgstr "مكتملة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__state
+msgid ""
+"Draft: not generated yet.\n"
+"Trial: an initial short period (e.g. one week) has been generated as real dated visits so the supervisor can adjust it freely.\n"
+"Approved: the supervisor confirmed the pattern from the trial period matches reality; the template lines now reflect it and further extensions are allowed.\n"
+"Cancelled: no further visits will be generated."
+msgstr ""
+"مسودة: لسه ما تولّدت.\n"
+"تجريبية: تم توليد فترة أولية قصيرة (أسبوع مثلاً) كزيارات فعلية بتواريخ محددة عشان المشرف يعدّلها بحرية.\n"
+"معتمدة: أكّد المشرف إن النمط من الفترة التجريبية مطابق للواقع؛ سطور القالب تعكسه الآن ويُسمح بتمديدات إضافية.\n"
+"ملغاة: ما راح تتولّد أي زيارات إضافية."
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_customer_assignment
+msgid ""
+"Drag a customer card between columns to reassign it to a\n"
+"               different delegate - this updates the delegate directly,\n"
+"               the same way any Odoo Kanban grouped view works."
+msgstr ""
+"اسحب بطاقة عميل بين الأعمدة لإعادة تخصيصه لمندوب مختلف - هذا يحدّث المندوب "
+"مباشرة، بنفس طريقة أي Kanban مُجمَّع بـOdoo."
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_visit_route
+msgid ""
+"Each row is one delegate's full day: leaving the branch,\n"
+"               every stop in order, and returning - with total distance\n"
+"               and time."
+msgstr ""
+"كل صف يمثّل يوم مندوب كامل: المغادرة من الفرع، كل توقف بالترتيب، والعودة - "
+"مع إجمالي المسافة والوقت."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_sale_order__fulfillment_source__email_supervisor
+msgid "Emailed to Supervisor"
+msgstr "إرسال إيميل للمشرف"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__not_done_reason__emergency
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_not_done__reason__emergency
+msgid "Emergency"
+msgstr "حالة طارئة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__end_distance_from_customer_km
+msgid "End Distance From Customer Km"
+msgstr "المسافة عند الانتهاء من العميل (كم)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__end_latitude
+msgid "End Latitude"
+msgstr "خط عرض الانتهاء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__end_location_verified
+msgid "End Location Verified"
+msgstr "تم التحقق من موقع الانتهاء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__end_longitude
+msgid "End Longitude"
+msgstr "خط طول الانتهاء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__estimated_distance_km
+msgid "Estimated Distance Km"
+msgstr "المسافة التقديرية (كم)"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_generate_form
+msgid "Estimated visits/day"
+msgstr "الزيارات التقديرية/اليوم"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_extend_form
+msgid "Extend"
+msgstr "تمديد"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__extend_days
+msgid "Extend Days"
+msgstr "عدد أيام التمديد"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__extend_mode
+msgid "Extend Mode"
+msgstr "طريقة التمديد"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_plan_extend
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid "Extend Schedule"
+msgstr "تمديد الجدولة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__extend_until_date
+msgid "Extend Until Date"
+msgstr "تمديد حتى تاريخ"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_plan_extend
+msgid "Extend Visit Plan Schedule"
+msgstr "تمديد جدولة خطة الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_extend__extend_mode
+msgid ""
+"Extending the schedule is always an explicit, one-time action - there is no "
+"silent background job that keeps generating visits indefinitely."
+msgstr ""
+"تمديد الجدولة دايماً فعل صريح لمرة وحدة - ما فيه أي مهمة خلفية صامتة تستمر "
+"بتوليد الزيارات إلى ما لا نهاية."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_gps_checkin__gps_ok
+msgid ""
+"False until the browser has successfully returned a real GPS position. The "
+"Confirm button stays hidden until this is True."
+msgstr ""
+"False لحد ما المتصفح يرجّع موقع GPS حقيقي بنجاح. زر التأكيد يبقى مخفي لحد ما"
+" تصير True."
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_visit_plan
+msgid ""
+"Fastest way to start: Planning &gt; Generate Plan.\n"
+"               You can also create one manually here and use the\n"
+"               \"Generate Trial Period\" button on it afterwards."
+msgstr ""
+"أسرع طريقة للبدء: التخطيط > توليد خطة.\n"
+"               تقدر كمان تنشئ واحدة يدوياً هنا وتستخدم زر\n"
+"               \"توليد الفترة التجريبية\" عليها بعدين."
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_customer_assignment
+msgid "Field Customer Assignment"
+msgstr "توزيع العملاء الميداني"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_delegate_config
+msgid "Field Delegate Configuration"
+msgstr "إعداد المندوب الميداني"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_payment
+msgid "Field Payment Voucher"
+msgstr "سند القبض الميداني"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_sale_order
+msgid "Field Sale Order"
+msgstr "أمر البيع الميداني"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_sale_order_line
+msgid "Field Sale Order Line"
+msgstr "سطر أمر البيع الميداني"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_users_form_field_visit
+msgid "Field Visit"
+msgstr "الزيارة الميدانية"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit
+msgid "Field Visit (materialized, dated)"
+msgstr "الزيارة الميدانية (مُجسَّدة بتاريخ)"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_branch
+msgid "Field Visit Branch"
+msgstr "فرع الزيارات الميدانية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_users__field_visit_branch_ids
+msgid "Field Visit Branches"
+msgstr "فروع الزيارات الميدانية"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_distance
+msgid "Field Visit Distance Provider"
+msgstr "مزوّد مسافة الزيارات الميدانية"
+
+#. module: field_visit
+#: model:ir.module.category,name:field_visit.module_category_field_visit
+#: model:res.groups.privilege,name:field_visit.groups_privilege_field_visit
+msgid "Field Visit Management"
+msgstr "إدارة الزيارات الميدانية"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_plan
+msgid "Field Visit Plan"
+msgstr "خطة الزيارة الميدانية"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_plan_line
+msgid "Field Visit Plan Line (recurring weekly template)"
+msgstr "سطر خطة الزيارة الميدانية (قالب أسبوعي متكرر)"
+
+#. module: field_visit
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_root
+msgid "Field Visits"
+msgstr "الزيارات الميدانية"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit__location_exception_reason
+msgid ""
+"Filled in when the delegate was outside the allowed proximity range at "
+"arrival and/or completion, explaining why. Reviewable by the supervisor."
+msgstr ""
+"يُملأ لما يكون المندوب خارج نطاق القرب المسموح وقت الوصول و/أو الانتهاء، "
+"موضّحاً السبب. قابل للمراجعة من المشرف."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_generate__date_start
+msgid "First day of the trial period."
+msgstr "أول يوم بالفترة التجريبية."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_follower_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_follower_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_partner_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_partner_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (الشركاء)"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__activity_type_icon
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__activity_type_icon
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "أيقونة Font Awesome مثل fa-tasks"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_fri
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_fri
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__fri
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__fri
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__fri
+msgid "Friday"
+msgstr "الجمعة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_sale_order__fulfillment_source__car_stock
+msgid "From Delegate's Car Stock"
+msgstr "من مخزون سيارة المندوب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__fulfillment_source
+msgid "Fulfillment Source"
+msgstr "مصدر التوريد"
+
+#. module: field_visit
+#: model:res.groups,comment:field_visit.group_field_supervisor
+msgid ""
+"Full access: delegates, customer assignment, planning wizards - scoped to "
+"their own assigned branch(es)."
+msgstr ""
+"صلاحية كاملة: المناديب، توزيع العملاء، معالجات التخطيط - مقتصرة على "
+"الفرع/الفروع المخصَّصة له."
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_gps_checkin
+msgid "GPS Location Check-in"
+msgstr "تسجيل موقع GPS"
+
+#. module: field_visit
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_plan_generate
+msgid "Generate Plan"
+msgstr "توليد خطة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_generate_form
+msgid "Generate Trial Period"
+msgstr "توليد الفترة التجريبية"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_plan_generate
+#: model:ir.model,name:field_visit.model_field_visit_plan_generate
+msgid "Generate Trial Visit Plan"
+msgstr "توليد خطة زيارة تجريبية"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/gps_capture.xml:0
+msgid "Getting your current location..."
+msgstr "جاري تحديد موقعك الحالي..."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_google_maps_api_key
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Google Maps API Key"
+msgstr "مفتاح Google Maps API"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_distance_provider__google
+msgid "Google Maps Distance Matrix (real driving distance)"
+msgstr "Google Maps Distance Matrix (مسافة القيادة الفعلية)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__gps_ok
+msgid "Gps Ok"
+msgstr "تم التحقق من GPS"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__handed_over_datetime
+msgid "Handed Over Datetime"
+msgstr "وقت التسليم"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__state__handed_over
+msgid "Handed Over to Supervisor"
+msgstr "تم التسليم للمشرف"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__has_message
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__has_message
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__has_message
+msgid "Has Message"
+msgstr "يحتوي على رسالة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"How close (in meters) a delegate's captured GPS position must be to a "
+"customer's registered coordinates when starting or completing a visit. "
+"Outside this range, a reason is required."
+msgstr ""
+"إلى أي مدى (بالمتر) يجب أن يكون موقع GPS الملتقط للمندوب قريباً من إحداثيات "
+"العميل المسجَّلة عند بدء أو إنهاء الزيارة. خارج هذا النطاق، يُطلب سبب."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_res_config_settings__field_visit_proximity_threshold_meters
+msgid ""
+"How close (in meters) a delegate's captured GPS position must be to a "
+"customer's registered coordinates when starting or completing a visit. "
+"Outside this range, the delegate must provide a reason before proceeding."
+msgstr ""
+"إلى أي مدى (بالمتر) يجب أن يكون موقع GPS الملتقط للمندوب قريباً من إحداثيات "
+"العميل المسجَّلة عند بدء أو إنهاء الزيارة. خارج هذا النطاق، يجب على المندوب "
+"توضيح السبب قبل المتابعة."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_customer_assignment__weekly_visit_frequency
+#: model:ir.model.fields,help:field_visit.field_field_delegate_config__weekly_visit_frequency
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_generate__weekly_visit_frequency
+msgid ""
+"How many times per week EACH customer assigned to this delegate is visited. "
+"Applies uniformly to all of the delegate's customers."
+msgstr ""
+"كم مرة بالأسبوع يُزار كل عميل مخصَّص لهذا المندوب. يُطبَّق بشكل موحّد على كل"
+" عملاء المندوب."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__id
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__id
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__id
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_distance__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__id
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__id
+#: model:ir.model.fields,field_description:field_visit.field_res_partner__id
+#: model:ir.model.fields,field_description:field_visit.field_res_users__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_exception_icon
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_exception_icon
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_exception_icon
+msgid "Icon"
+msgstr "أيقونة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__activity_exception_icon
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__activity_exception_icon
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "أيقونة للإشارة إلى نشاط استثنائي."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__message_needaction
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__message_needaction
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "إذا تم التحديد، فإن الرسائل الجديدة تتطلب انتباهك."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__message_has_error
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__message_has_error
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا تم التحديد، فإن بعض الرسائل بها خطأ في التسليم."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__state__in_custody
+msgid "In Delegate's Custody"
+msgstr "بعهدة المندوب"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__in_progress
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_route__state__in_progress
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid ""
+"Inherited by new delegates created under this branch; each delegate can "
+"still override them."
+msgstr ""
+"تُورَّث للمناديب الجدد اللي يُنشؤون تحت هذا الفرع؛ كل مندوب يقدر يغيّرها "
+"لحاله."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_is_follower
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_is_follower
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__is_today
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__is_today
+msgid "Is Today"
+msgstr "هو اليوم"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__is_within_range
+msgid "Is Within Range"
+msgstr "ضمن النطاق"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Journey"
+msgstr "الرحلة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__write_uid
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__write_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__latitude
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__latitude
+#: model:ir.model.fields,field_description:field_visit.field_res_partner__field_visit_latitude
+#: model:ir.model.fields,field_description:field_visit.field_res_users__field_visit_latitude
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_partner_form_field_visit
+msgid "Latitude"
+msgstr "خط العرض"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__datetime_departure
+msgid "Left Branch At"
+msgstr "وقت مغادرة الفرع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__datetime_trip_start
+msgid "Left Previous Stop At"
+msgstr "وقت مغادرة التوقف السابق"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__line_ids
+msgid "Line"
+msgstr "السطر"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__line_count
+msgid "Line Count"
+msgstr "عدد السطور"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "Location"
+msgstr "الموقع"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__not_done_reason__location_closed
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_not_done__reason__location_closed
+msgid "Location Closed"
+msgstr "المكان مغلق"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__location_exception_reason
+msgid "Location Exception Reason"
+msgstr "سبب استثناء الموقع"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Location Verification"
+msgstr "التحقق من الموقع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_proximity_threshold_meters
+msgid "Location Verification Range (meters)"
+msgstr "نطاق التحقق من الموقع (متر)"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/gps_capture.xml:0
+msgid "Location captured."
+msgstr "تم تحديد الموقع."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__longitude
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__longitude
+#: model:ir.model.fields,field_description:field_visit.field_res_partner__field_visit_longitude
+#: model:ir.model.fields,field_description:field_visit.field_res_users__field_visit_longitude
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_partner_form_field_visit
+msgid "Longitude"
+msgstr "خط الطول"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_not_done
+#: model:ir.model,name:field_visit.model_field_visit_not_done
+msgid "Mark Visit as Not Done"
+msgstr "تسجيل الزيارة كـ\"لم تُنفَّذ\""
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Mark as Not Done"
+msgstr "تسجيل كـ\"لم تُنفَّذ\""
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__max_custody_amount
+msgid "Max Custody Amount"
+msgstr "الحد الأقصى للعهدة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_has_error
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_has_error
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسالة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_mon
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_mon
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__mon
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__mon
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__mon
+msgid "Monday"
+msgstr "الاثنين"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
+msgid "Move"
+msgstr "نقل"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_plan_move_line
+#: model:ir.model,name:field_visit.model_field_visit_plan_move_line
+msgid "Move Customer To Another Day"
+msgstr "نقل العميل ليوم آخر"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__my_activity_date_deadline
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__my_activity_date_deadline
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "الموعد النهائي لنشاطي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__name
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__name
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__new_day
+msgid "New Day"
+msgstr "اليوم الجديد"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "New Payment"
+msgstr "سند قبض جديد"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "New Sale Order"
+msgstr "أمر بيع جديد"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_date_deadline
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_date_deadline
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_summary
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_summary
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_type_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_type_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_visit_plan
+msgid "No visit plans yet"
+msgstr "لا توجد خطط زيارات بعد"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__not_done
+msgid "Not Done"
+msgstr "لم تُنفَّذ"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__not_done_reason
+msgid "Not Done Reason"
+msgstr "سبب عدم التنفيذ"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_route__state__not_started
+msgid "Not Started"
+msgstr "لم تبدأ"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Not scheduled today"
+msgstr "غير مجدولة اليوم"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_needaction_counter
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_needaction_counter
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__message_has_error_counter
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__message_has_error_counter
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد الأخطاء"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__message_needaction_counter
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__message_needaction_counter
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__message_has_error_counter
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__message_has_error_counter
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل ذات خطأ التسليم"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_move_line__apply_to_remaining
+msgid ""
+"Off (default): only this single dated visit moves - the recurring pattern is untouched.\n"
+"On: the recurring template line is updated AND every not-yet-happened future visit generated from it is shifted to the new weekday as well."
+msgstr ""
+"إيقاف (افتراضي): تتحرك فقط هذي الزيارة المحدَّدة بتاريخها - النمط المتكرر ما يتأثر.\n"
+"تفعيل: يُحدَّث سطر القالب المتكرر، وكل زيارة مستقبلية لسه ما صارت من نفس السطر تنتقل ليوم الأسبوع الجديد كمان."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_extend__extend_mode__week
+msgid "One more week"
+msgstr "أسبوع إضافي"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_generate__trial_length__week
+msgid "One week (7 days)"
+msgstr "أسبوع واحد (7 أيام)"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_customer_assignment__customer_id
+msgid ""
+"Only real contacts are selectable - partners linked to an internal user "
+"account (delegates, supervisors...) are excluded."
+msgstr ""
+"فقط جهات الاتصال الحقيقية قابلة للاختيار - الشركاء المرتبطون بحساب مستخدم "
+"داخلي (مناديب، مشرفين...) مستبعدون."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_users_form_field_visit
+msgid ""
+"Only relevant for users in the \"Branch Supervisor\"\n"
+"                        or \"Administrator\" group. A supervisor only sees\n"
+"                        delegates, customers, plans and visits belonging\n"
+"                        to the branches listed here."
+msgstr ""
+"فقط ذو صلة للمستخدمين بمجموعة \"مشرف الفرع\"\n"
+"                        أو \"مدير عام\". المشرف يشوف بس المناديب والعملاء\n"
+"                        والخطط والزيارات التابعة\n"
+"                        للفروع المذكورة هنا."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_res_config_settings__field_visit_google_maps_api_key
+msgid ""
+"Only required if 'Google Maps Distance Matrix' is selected above. Leave "
+"empty to keep using the free straight-line estimate."
+msgstr ""
+"مطلوب فقط لو اخترت 'Google Maps Distance Matrix' فوق. اتركه فاضي عشان تستمر "
+"باستخدام التقدير المجاني بخط مستقيم."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid ""
+"Only supervisors listed here can see and manage this branch's delegates, "
+"customers, plans and visits."
+msgstr ""
+"فقط المشرفون المذكورون هنا يقدرون يشوفوا ويديروا مناديب وعملاء وخطط وزيارات "
+"هذا الفرع."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_generate__trial_length
+msgid ""
+"Only this short trial period is generated as real, dated visits. Nothing "
+"beyond it is created automatically - the supervisor reviews and adjusts this"
+" period, approves the pattern, then explicitly extends the schedule further "
+"(see the 'Extend Schedule' action on the plan)."
+msgstr ""
+"تُولَّد فقط هذي الفترة التجريبية القصيرة كزيارات فعلية بتواريخ محددة. لا شيء"
+" بعدها يُنشأ تلقائياً - المشرف يراجع ويعدّل هذي الفترة، يعتمد النمط، وبعدين "
+"يمدّد الجدولة صراحة (شوف إجراء 'تمديد الجدولة' بالخطة)."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_generate_form
+msgid ""
+"Only this trial period is generated as real, dated\n"
+"                    visits. Review and adjust it freely, then use\n"
+"                    \"Approve Pattern\" followed by \"Extend Schedule\" to\n"
+"                    continue further - nothing is generated silently in\n"
+"                    the background."
+msgstr ""
+"تُولَّد فقط هذي الفترة التجريبية كزيارات فعلية بتواريخ محددة.\n"
+"                    راجعها وعدّلها بحرية، وبعدين استخدم\n"
+"                    \"اعتماد النمط\" متبوعاً بـ\"تمديد الجدولة\" للاستمرار\n"
+"                    - ما فيه شيء يتولّد بصمت بالخلفية."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__order_id
+msgid "Order"
+msgstr "الطلب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__order_date
+msgid "Order Date"
+msgstr "تاريخ الطلب"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_sale_order_form
+msgid "Order Lines"
+msgstr "سطور الطلب"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__not_done_reason__other
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_not_done__reason__other
+msgid "Other"
+msgstr "أخرى"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__payment_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__payment_ids
+msgid "Payment"
+msgstr "سند القبض"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__payment_count
+msgid "Payment Count"
+msgstr "عدد سندات القبض"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__payment_date
+msgid "Payment Date"
+msgstr "تاريخ الدفع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__payment_method
+msgid "Payment Method"
+msgstr "طريقة الدفع"
+
+#. module: field_visit
+#: model:ir.actions.report,name:field_visit.action_report_field_payment
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
+msgid "Payment Receipt"
+msgstr "إيصال سند القبض"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__payment_total
+msgid "Payment Total"
+msgstr "إجمالي المبالغ المحصَّلة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Payments"
+msgstr "سندات القبض"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__plan_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__plan_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__plan_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__plan_id
+msgid "Plan"
+msgstr "الخطة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__plan_line_id
+msgid "Plan Line"
+msgstr "سطر الخطة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__planned
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "Planned"
+msgstr "مجدولة"
+
+#. module: field_visit
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_planning
+msgid "Planning"
+msgstr "التخطيط"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__price_unit
+msgid "Price Unit"
+msgstr "سعر الوحدة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_sale_order_form
+msgid "Print"
+msgstr "طباعة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_form
+msgid "Print Receipt"
+msgstr "طباعة الإيصال"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__product_id
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Product"
+msgstr "الصنف"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__proximity_threshold_km
+msgid "Proximity Threshold Km"
+msgstr "حد القرب (كم)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__quantity
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Quantity"
+msgstr "الكمية"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__schedule_generated_until
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_extend__schedule_generated_until
+msgid ""
+"Real field.visit records exist up to (and including) this date. Extending "
+"the schedule moves this date forward; nothing is generated automatically "
+"beyond it."
+msgstr ""
+"سجلات الزيارة الفعلية موجودة حتى (وتشمل) هذا التاريخ. تمديد الجدولة يحرّك "
+"هذا التاريخ للأمام؛ لا شيء يتولّد تلقائياً بعده."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__reason
+msgid "Reason"
+msgstr "السبب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__name
+msgid "Receipt No."
+msgstr "رقم الإيصال"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_payment_receive
+msgid "Receive Custody"
+msgstr "استلام العهدة"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_payment_receive
+msgid "Receive Custody From Delegate"
+msgstr "استلام العهدة من المندوب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__handed_over_by_id
+msgid "Received By"
+msgstr "استلمها"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid "Reset to Draft"
+msgstr "إعادة إلى مسودة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_user_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__activity_user_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__return_distance_from_branch_km
+msgid "Return Distance From Branch Km"
+msgstr "مسافة العودة من الفرع (كم)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__return_exception_reason
+msgid "Return Exception Reason"
+msgstr "سبب استثناء العودة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__return_latitude
+msgid "Return Latitude"
+msgstr "خط عرض العودة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__return_location_verified
+msgid "Return Location Verified"
+msgstr "تم التحقق من موقع العودة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__return_longitude
+msgid "Return Longitude"
+msgstr "خط طول العودة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_gps_checkin__stage__return_to_branch
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_route_form
+msgid "Return to Branch"
+msgstr "العودة للفرع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__datetime_return
+msgid "Returned to Branch At"
+msgstr "وقت العودة للفرع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__route_id
+msgid "Route"
+msgstr "الرحلة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__route_date
+msgid "Route Date"
+msgstr "تاريخ الرحلة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Route Planning"
+msgstr "تخطيط المسارات"
+
+#. module: field_visit
+#: model:ir.actions.report,name:field_visit.action_report_field_sale_order
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__sale_order_ids
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Sale Order"
+msgstr "أمر البيع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__sale_order_count
+msgid "Sale Order Count"
+msgstr "عدد أوامر البيع"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_sale_order
+#: model:ir.ui.menu,name:field_visit.menu_field_sale_order
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Sale Orders"
+msgstr "أوامر البيع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_sat
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_sat
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__sat
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__sat
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__sat
+msgid "Saturday"
+msgstr "السبت"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__schedule_generated_until
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__schedule_generated_until
+msgid "Schedule Generated Until"
+msgstr "الجدولة مولَّدة حتى"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_users_form_field_visit
+msgid "Select the branch(es) this user supervises..."
+msgstr "اختر الفرع/الفروع اللي يشرف عليها هذا المستخدم..."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__state__sent_to_dynamics
+msgid "Sent to Dynamics"
+msgstr "مرسل إلى Dynamics"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__sequence
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__sequence
+msgid "Sequence"
+msgstr "الترتيب"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_delegate_config
+msgid ""
+"Set one uniform weekly visit frequency and working days\n"
+"               per delegate - it applies to every customer assigned to\n"
+"               them."
+msgstr ""
+"حدّد تكرار زيارة أسبوعي موحّد وأيام عمل لكل مندوب\n"
+"               - يُطبَّق على كل عميل مخصَّص له."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_branch__code
+msgid "Short internal code, e.g. BR-RYD-E"
+msgstr "رمز داخلي مختصر، مثل BR-RYD-E"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid ""
+"Snapshot the current weekly template as the confirmed, reusable pattern."
+msgstr ""
+"أخذ لقطة من القالب الأسبوعي الحالي كنمط مؤكَّد وقابل لإعادة الاستخدام."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__stage
+msgid "Stage"
+msgstr "المرحلة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__stage_label
+msgid "Stage Label"
+msgstr "تسمية المرحلة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_gps_checkin__stage__trip_start
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Start Trip"
+msgstr "بدء الرحلة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__state
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__state
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__state
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__activity_state
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__activity_state
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الحالة استناداً إلى الأنشطة\n"
+"متأخر: تاريخ الاستحقاق قد مضى بالفعل\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"مخطط: أنشطة مستقبلية."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_route_form
+msgid "Stops"
+msgstr "التوقفات"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_distance_provider__haversine
+msgid "Straight-line estimate (free, no setup)"
+msgstr "تقدير بخط مستقيم (مجاني، بدون إعداد)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__street
+msgid "Street"
+msgstr "الشارع"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order_line__subtotal
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Subtotal"
+msgstr "المجموع الفرعي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_sun
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_sun
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__sun
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__sun
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__sun
+msgid "Sunday"
+msgstr "الأحد"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_supervisor
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__supervisor_ids
+#: model:ir.ui.menu,name:field_visit.menu_field_supervisor
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "Supervisors"
+msgstr "المشرفون"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__date_end
+msgid ""
+"Target end date for the overall plan. Actual visits are only materialized "
+"gradually up to 'Schedule Generated Until', not all at once for the whole "
+"period."
+msgstr ""
+"تاريخ النهاية المستهدف للخطة الكاملة. الزيارات الفعلية تُجسَّد تدريجياً فقط "
+"حتى 'الجدولة مولَّدة حتى'، مو دفعة وحدة للفترة كاملة."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit__plan_line_id
+msgid ""
+"Template line this visit was generated from. Empty for visits added manually"
+" outside the recurring pattern."
+msgstr ""
+"سطر القالب اللي تولّدت منه هذي الزيارة. فاضي للزيارات المضافة يدوياً خارج "
+"النمط المتكرر."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__visit_id
+msgid ""
+"The visit this order was created during. Only visits that are currently 'In "
+"Progress' can create an order."
+msgstr ""
+"الزيارة اللي أُنشئ خلالها هذا الطلب. فقط الزيارات الحالية بحالة 'قيد "
+"التنفيذ' يقدر ينشئ منها طلب."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__visit_id
+msgid ""
+"The visit this payment was collected during. Only visits that are currently "
+"'In Progress' can create a payment voucher."
+msgstr ""
+"الزيارة اللي حُصِّل خلالها هذا المبلغ. فقط الزيارات الحالية بحالة 'قيد "
+"التنفيذ' يقدر يُنشأ منها سند قبض."
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_customer
+msgid ""
+"This list only ever shows real contacts - internal\n"
+"               users (delegates, supervisors) never appear here."
+msgstr ""
+"هذي القائمة تعرض فقط جهات الاتصال الحقيقية - المستخدمون\n"
+"               الداخليون (مناديب، مشرفون) ما يظهرون هنا أبداً."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_thu
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_thu
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__thu
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__thu
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__thu
+msgid "Thursday"
+msgstr "الخميس"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit__duration_minutes
+msgid ""
+"Time spent WITH the customer (arrival to end) - does not include travel "
+"time."
+msgstr "الوقت المستغرق مع العميل (من الوصول للانتهاء) - لا يشمل وقت التنقّل."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit__travel_minutes
+msgid "Time spent traveling to this stop (trip start to arrival)."
+msgstr "الوقت المستغرق بالتنقّل لهذا التوقف (من بدء الرحلة للوصول)."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "Today"
+msgstr "اليوم"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_list
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_sale_order_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_sale_order_list
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_route_list
+msgid "Total"
+msgstr "الإجمالي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment_receive__total_amount
+msgid "Total Amount"
+msgstr "إجمالي المبلغ"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__total_distance_km
+msgid "Total Distance (km)"
+msgstr "إجمالي المسافة (كم)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__total_duration_minutes
+msgid "Total Duration (min)"
+msgstr "إجمالي المدة (دقيقة)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__travel_minutes
+msgid "Travel Time (minutes)"
+msgstr "وقت التنقّل (دقائق)"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__traveling
+msgid "Traveling"
+msgstr "في الطريق"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan__state__trial
+msgid "Trial"
+msgstr "تجريبية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__trial_length
+msgid "Trial Length"
+msgstr "مدة الفترة التجريبية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__trip_start_latitude
+msgid "Trip Start Latitude"
+msgstr "خط عرض بدء الرحلة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__trip_start_longitude
+msgid "Trip Start Longitude"
+msgstr "خط طول بدء الرحلة"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/gps_capture.xml:0
+msgid "Try Again"
+msgstr "أعد المحاولة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_tue
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_tue
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__tue
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__tue
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__tue
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_generate__trial_length__two_weeks
+msgid "Two weeks (14 days)"
+msgstr "أسبوعان (14 يوماً)"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_payment__activity_exception_decoration
+#: model:ir.model.fields,help:field_visit.field_field_sale_order__activity_exception_decoration
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع نشاط الاستثناء المسجَّل."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.report_field_sale_order_document
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_extend__extend_mode__until_date
+msgid "Until a specific date"
+msgstr "حتى تاريخ محدد"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_extend__extend_mode__until_plan_end
+msgid "Until the plan's end date"
+msgstr "حتى تاريخ نهاية الخطة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"Used to order stops within a day's route and to estimate travel "
+"distance/time between customers."
+msgstr ""
+"يُستخدم لترتيب التوقفات ضمن مسار اليوم ولتقدير مسافة/وقت التنقّل بين "
+"العملاء."
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_res_users
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__user_id
+msgid "User"
+msgstr "المستخدم"
+
+#. module: field_visit
+#: model_terms:ir.actions.act_window,help:field_visit.action_field_supervisor
+msgid ""
+"Users who belong to the \"Branch Supervisor\" group. Assign\n"
+"               them to a branch from that branch's form to scope what\n"
+"               they can see."
+msgstr ""
+"المستخدمون المنتمون لمجموعة \"مشرف الفرع\". عيّنهم لفرع\n"
+"               من نموذج ذلك الفرع لتحديد نطاق ما يقدرون يشوفونه."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Verification Range"
+msgstr "نطاق التحقق"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__visit_id
+#: model:ir.model.fields,field_description:field_visit.field_field_sale_order__visit_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__visit_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_not_done__visit_id
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__visit_id
+msgid "Visit"
+msgstr "الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__visit_count
+msgid "Visit Count"
+msgstr "عدد الزيارات"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__visit_date
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__current_visit_date
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+msgid "Visit Date"
+msgstr "تاريخ الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__visit_day
+msgid "Visit Day"
+msgstr "يوم الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__duration_minutes
+msgid "Visit Duration (minutes)"
+msgstr "مدة الزيارة (دقائق)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__datetime_end
+msgid "Visit Ended At"
+msgstr "وقت انتهاء الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__notes
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Visit Notes"
+msgstr "ملاحظات الزيارة"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_plan
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_plan
+msgid "Visit Plans"
+msgstr "خطط الزيارات"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__visit_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_route__visit_ids
+#: model:ir.ui.menu,name:field_visit.menu_field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid "Visits"
+msgstr "الزيارات"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__visits_per_day_estimate
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__visits_per_day_estimate
+msgid "Visits Per Day Estimate"
+msgstr "تقدير الزيارات باليوم"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_branch__default_wed
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__work_wed
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__wed
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__wed
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__wed
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__line_ids
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid "Weekly Template"
+msgstr "القالب الأسبوعي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__weekly_visit_frequency
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__weekly_visit_frequency
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__weekly_visit_frequency
+msgid "Weekly Visit Frequency"
+msgstr "تكرار الزيارة الأسبوعي"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "What happened during this visit..."
+msgstr "ماذا حصل أثناء هذي الزيارة..."
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_line__visit_day
+msgid ""
+"Which day of the week this customer is visited on. Dragging the card to "
+"another column in the Kanban view updates this field directly (standard Odoo"
+" behaviour)."
+msgstr ""
+"اليوم اللي يُزار فيه هذا العميل بالأسبوع. سحب البطاقة لعمود ثاني بعرض Kanban"
+" يحدّث هذا الحقل مباشرة (سلوك Odoo القياسي)."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__exception_reason
+msgid "Why are you not at the expected location?"
+msgstr "ليش أنت مو بالموقع المتوقّع؟"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_form
+msgid "Working Days"
+msgstr "أيام العمل"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+msgid "Your Location"
+msgstr "موقعك"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+msgid "e.g. Customer asked to meet at a different location..."
+msgstr "مثال: العميل طلب المقابلة بمكان مختلف..."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
+msgid "e.g. Riyadh - East Branch"
+msgstr "مثال: فرع الرياض - شرق"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_line_kanban
+msgid "km"
+msgstr "كم"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_list
+msgid "~Visits/Day"
+msgstr "~الزيارات/اليوم"
+
+#. module: field_visit
+msgid "Field Visit Dashboard"
+msgstr "لوحة تحكم الزيارات الميدانية"
+
+#. module: field_visit
+msgid "Planned Today"
+msgstr "مخطَّطة اليوم"
+
+#. module: field_visit
+msgid "Done Today"
+msgstr "مكتملة اليوم"
+
+#. module: field_visit
+msgid "Not Done Today"
+msgstr "لم تُنفَّذ اليوم"
+
+#. module: field_visit
+msgid "This Week's Completion Rate"
+msgstr "نسبة إنجاز هذا الأسبوع"
+
+#. module: field_visit
+msgid "done of"
+msgstr "مكتملة من"
+
+#. module: field_visit
+msgid "total"
+msgstr "الإجمالي"
+
+#. module: field_visit
+msgid "Active Delegates Right Now"
+msgstr "المناديب النشطون الآن"
+
+#. module: field_visit
+msgid "Sales Today"
+msgstr "مبيعات اليوم"
+
+#. module: field_visit
+msgid "Custody Pending Hand-over"
+msgstr "عهدة بانتظار التسليم"
+
+#. module: field_visit
+msgid "Custody Limit Reached"
+msgstr "تم بلوغ الحد الأقصى للعهدة"
+
+#. module: field_visit
+msgid "allowed"
+msgstr "المسموح به"
+
+#. module: field_visit
+msgid "Visits This Week"
+msgstr "زيارات هذا الأسبوع"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_route_list" model="ir.ui.view">
+        <field name="name">field.visit.route.list</field>
+        <field name="model">field.visit.route</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'done'"
+                  decoration-warning="state == 'in_progress'">
+                <field name="route_date"/>
+                <field name="delegate_id"/>
+                <field name="branch_id"/>
+                <field name="total_distance_km" sum="Total"/>
+                <field name="total_duration_minutes"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_visit_route_form" model="ir.ui.view">
+        <field name="name">field.visit.route.form</field>
+        <field name="model">field.visit.route</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_return_to_branch" type="object"
+                            string="Return to Branch" class="btn-primary"
+                            invisible="state != 'in_progress' or not is_today"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="not_started,in_progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <field name="is_today" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="delegate_id" readonly="1"/>
+                            <field name="branch_id" readonly="1"/>
+                            <field name="route_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="datetime_departure" readonly="1"/>
+                            <field name="datetime_return" readonly="1"/>
+                            <field name="total_distance_km" readonly="1"/>
+                            <field name="total_duration_minutes" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Stops" name="stops">
+                            <field name="visit_ids">
+                                <list decoration-muted="state == 'cancelled'"
+                                      decoration-success="state == 'done'"
+                                      decoration-warning="state in ('traveling','in_progress')"
+                                      decoration-danger="state == 'not_done'">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="customer_id"/>
+                                    <field name="distance_from_previous_km"/>
+                                    <field name="datetime_trip_start"/>
+                                    <field name="datetime_arrival"/>
+                                    <field name="datetime_end"/>
+                                    <field name="travel_minutes"/>
+                                    <field name="duration_minutes"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_visit_route" model="ir.actions.act_window">
+        <field name="name">Daily Routes</field>
+        <field name="res_model">field.visit.route</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_today': 1}</field>
+        <field name="help" type="html">
+            <p>Each row is one delegate's full day: leaving the branch,
+               every stop in order, and returning - with total distance
+               and time.</p>
+        </field>
+    </record>
+
+</odoo>

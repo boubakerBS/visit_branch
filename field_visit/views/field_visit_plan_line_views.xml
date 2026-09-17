@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_plan_line_kanban" model="ir.ui.view">
+        <field name="name">field.visit.plan.line.kanban</field>
+        <field name="model">field.visit.plan.line</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="visit_day" records_draggable="1"
+                    group_create="0">
+                <field name="customer_id"/>
+                <field name="estimated_distance_km"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click p-2">
+                            <strong><field name="customer_id"/></strong>
+                            <div class="text-muted">
+                                <field name="estimated_distance_km"/> km
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_field_visit_plan_line_list" model="ir.ui.view">
+        <field name="name">field.visit.plan.line.list</field>
+        <field name="model">field.visit.plan.line</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="customer_id"/>
+                <field name="visit_day"/>
+                <field name="sequence" widget="handle"/>
+                <field name="estimated_distance_km"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

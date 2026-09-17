@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_plan_generate_form" model="ir.ui.view">
+        <field name="name">field.visit.plan.generate.form</field>
+        <field name="model">field.visit.plan.generate</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="delegate_id"/>
+                    <field name="branch_id" readonly="1"/>
+                    <field name="customer_count" readonly="1"/>
+                    <field name="weekly_visit_frequency" readonly="1"/>
+                    <field name="visits_per_day_estimate" readonly="1"
+                           string="Estimated visits/day"/>
+                </group>
+                <group>
+                    <field name="date_start"/>
+                    <field name="trial_length" widget="radio"/>
+                </group>
+                <p class="text-muted">
+                    Only this trial period is generated as real, dated
+                    visits. Review and adjust it freely, then use
+                    "Approve Pattern" followed by "Extend Schedule" to
+                    continue further - nothing is generated silently in
+                    the background.
+                </p>
+                <footer>
+                    <button name="action_generate" type="object"
+                            string="Generate Trial Period"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_visit_plan_generate" model="ir.actions.act_window">
+        <field name="name">Generate Trial Visit Plan</field>
+        <field name="res_model">field.visit.plan.generate</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
