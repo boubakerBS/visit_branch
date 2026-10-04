@@ -27,17 +27,19 @@
               action="action_field_visit_route"/>
     <menuitem id="menu_field_visit_map" name="Map"
               parent="menu_field_visit_planning" sequence="45"
-              action="action_field_visit_map"/>
+              action="action_field_visit_map"
+			  groups="field_visit.group_field_admin"/>
     <menuitem id="menu_field_sale_order" name="Sale Orders"
               parent="menu_field_visit_planning" sequence="50"
               action="action_field_sale_order"/>
     <menuitem id="menu_field_payment" name="Collections"
               parent="menu_field_visit_planning" sequence="60"
-              action="action_field_payment"/>
+              action="action_field_payment"
+ 			  groups="field_visit.group_field_supervisor"/>
 
     <menuitem id="menu_field_visit_config" name="Configuration"
-              parent="menu_field_visit_root" sequence="90"
-              groups="field_visit.group_field_supervisor"/>
+              parent="menu_field_visit_root" sequence="60"
+              groups="field_visit.group_field_admin"/>
     <menuitem id="menu_field_branch" name="Branches"
               parent="menu_field_visit_config" sequence="10"
               action="action_field_branch"/>
