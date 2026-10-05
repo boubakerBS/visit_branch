@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_branch_delegate,field.branch.delegate,model_field_branch,group_field_delegate,1,0,0,0
 access_field_branch_supervisor,field.branch.supervisor,model_field_branch,group_field_supervisor,1,1,0,0
 access_field_branch_admin,field.branch.admin,model_field_branch,group_field_admin,1,1,1,1
 access_field_delegate_config_supervisor,field.delegate.config.supervisor,model_field_delegate_config,group_field_supervisor,1,1,1,1
