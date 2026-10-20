@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 class FieldPayment(models.Model):
@@ -37,6 +37,7 @@ class FieldPayment(models.Model):
         ('cash', 'Cash'),
         ('check', 'Check'),
         ('transfer', 'Bank Transfer'),
+        ('mada', 'Mada Card Device'),
     ], default='cash', required=True)
 
     state = fields.Selection([
@@ -48,6 +49,15 @@ class FieldPayment(models.Model):
     handed_over_datetime = fields.Datetime(readonly=True)
     handed_over_by_id = fields.Many2one(
         'res.users', readonly=True, string="Received By")
+
+    @api.constrains('amount')
+    def _check_amount_positive(self):
+        for payment in self:
+            if payment.amount <= 0:
+                raise ValidationError(_(
+                    "The receipt amount must be greater than zero. A "
+                    "payment voucher cannot be issued for a zero (or "
+                    "negative) amount."))
 
     @api.model_create_multi
     def create(self, vals_list):

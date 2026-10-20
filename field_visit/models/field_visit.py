@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from .field_visit_selection_data import WEEKDAYS, WEEKDAY_KEYS
 
@@ -184,6 +184,21 @@ class FieldVisit(models.Model):
          "A visit for this customer on this date already exists for "
          "this template line."),
     ]
+
+    def write(self, vals):
+        # Rescheduling a visit (changing its date) is a planning
+        # decision - reserved for the branch supervisor/administrator.
+        # The delegate executes the plan but must not be able to move
+        # their own visit date around. Enforced here (not just in the
+        # view) so it also protects writes coming from the API or any
+        # future wizard.
+        if 'visit_date' in vals and not self.env.user.has_group(
+                'field_visit.group_field_supervisor'):
+            raise UserError(_(
+                "Only a branch supervisor or administrator can change "
+                "the visit date. Please ask your supervisor to "
+                "reschedule this visit."))
+        return super().write(vals)
 
     @api.depends('customer_id', 'visit_date')
     def _compute_name(self):
