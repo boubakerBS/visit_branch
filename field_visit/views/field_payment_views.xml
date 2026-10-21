@@ -50,6 +50,9 @@
                             <field name="payment_method"/>
                         </group>
                     </group>
+                    <group>
+                        <field name="notes" placeholder="Add any notes about this payment..."/>
+                    </group>
                     <group invisible="state == 'in_custody'">
                         <field name="handed_over_datetime" readonly="1"/>
                         <field name="handed_over_by_id" readonly="1"/>

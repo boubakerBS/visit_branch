@@ -2388,3 +2388,8 @@ msgstr "الإجمالي"
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_list
 msgid "~Visits/Day"
 msgstr "~الزيارات/اليوم"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__notes
+msgid "Notes"
+msgstr "ملاحظات"

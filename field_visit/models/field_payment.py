@@ -39,6 +39,7 @@ class FieldPayment(models.Model):
         ('transfer', 'Bank Transfer'),
         ('mada', 'Mada Card Device'),
     ], default='cash', required=True)
+    notes = fields.Text(string="Notes")
 
     state = fields.Selection([
         ('in_custody', "In Delegate's Custody"),
