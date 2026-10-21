@@ -4,17 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 19.0-20260429\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 13:41+0000\n"
-"PO-Revision-Date: 2026-08-20 13:41+0000\n"
-"Last-Translator: Meydan Field Team\n"
+"POT-Creation-Date: 2026-10-21 07:19+0000\n"
+"PO-Revision-Date: 2026-10-21 07:19+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: \n"
 
 #. module: field_visit
 #: model:ir.actions.report,print_report_name:field_visit.action_report_field_payment
@@ -35,6 +34,12 @@ msgid ""
 msgstr ""
 "(عدد العملاء × التكرار الأسبوعي) ÷ أيام العمل، مقرَّب لأعلى. يُعرض للمشرف "
 "كفحص منطقي قبل توليد الجدول."
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "-- None --"
+msgstr "-- لا شيء --"
 
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_form
@@ -130,6 +135,12 @@ msgstr "إجراء مطلوب"
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_line__active
 msgid "Active"
 msgstr "نشِط"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Active Delegates Right Now"
+msgstr "المناديب النشطون الآن"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_payment__activity_ids
@@ -261,11 +272,8 @@ msgid "Bank Transfer"
 msgstr "تحويل بنكي"
 
 #. module: field_visit
-#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__payment_method__mada
-msgid "Mada Card Device"
-msgstr "جهاز مدى"
-
-#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
 #: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__branch_id
 #: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__branch_id
 #: model:ir.model.fields,field_description:field_visit.field_field_payment__branch_id
@@ -288,6 +296,12 @@ msgstr "مشرف الفرع"
 #: model:ir.ui.menu,name:field_visit.menu_field_branch
 msgid "Branches"
 msgstr "الفروع"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "Branches & Customers Map"
+msgstr "خريطة الفروع والعملاء"
 
 #. module: field_visit
 #: model:ir.model.fields,help:field_visit.field_res_users__field_visit_branch_ids
@@ -376,7 +390,7 @@ msgstr "إنهاء الزيارة"
 #. module: field_visit
 #: model:ir.model,name:field_visit.model_res_config_settings
 msgid "Config Settings"
-msgstr "إعدادات الضبط"
+msgstr "تهيئة الإعدادات"
 
 #. module: field_visit
 #: model:ir.ui.menu,name:field_visit.menu_field_visit_config
@@ -412,7 +426,7 @@ msgstr "تأكيد الاستلام"
 #. module: field_visit
 #: model:ir.model,name:field_visit.model_res_partner
 msgid "Contact"
-msgstr "جهة اتصال"
+msgstr "جهة الاتصال"
 
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
@@ -491,11 +505,45 @@ msgid "Currency"
 msgstr "العملة"
 
 #. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__current_latitude
+msgid "Current Latitude"
+msgstr "خط العرض الحالي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__current_location_updated_at
+msgid "Current Location Updated At"
+msgstr "وقت تحديث الموقع الحالي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__current_longitude
+msgid "Current Longitude"
+msgstr "خط الطول الحالي"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__current_status
+msgid "Current Status"
+msgstr "الحالة الحالية"
+
+#. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_branch_form
 msgid "Custody & Currency"
 msgstr "العهدة والعملة"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Custody Limit Reached"
+msgstr "تم بلوغ حد العهدة"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Custody Pending Hand-over"
+msgstr "عهدة بانتظار التسليم"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
 #: model:ir.model.fields,field_description:field_visit.field_field_customer_assignment__customer_id
 #: model:ir.model.fields,field_description:field_visit.field_field_payment__customer_id
 #: model:ir.model.fields,field_description:field_visit.field_field_sale_order__customer_id
@@ -532,6 +580,16 @@ msgid "Customer Signature: ______________________"
 msgstr "توقيع العميل: ______________________"
 
 #. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Customer's Registered Latitude"
+msgstr "خط عرض العميل المسجل"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Customer's Registered Longitude"
+msgstr "خط طول العميل المسجل"
+
+#. module: field_visit
 #: model:ir.actions.act_window,name:field_visit.action_field_customer
 #: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__customer_assignment_ids
 #: model:ir.ui.menu,name:field_visit.menu_field_customer
@@ -548,6 +606,12 @@ msgstr "رحلة اليوم"
 #: model:ir.ui.menu,name:field_visit.menu_field_visit_route
 msgid "Daily Routes"
 msgstr "رحلات اليوم"
+
+#. module: field_visit
+#: model:ir.actions.client,name:field_visit.action_field_visit_dashboard
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_dashboard
+msgid "Dashboard"
+msgstr "لوحة المعلومات"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__date_end
@@ -600,6 +664,12 @@ msgstr "المندوب"
 #: model:ir.model.fields,field_description:field_visit.field_field_branch__delegate_count
 msgid "Delegate Count"
 msgstr "عدد المناديب"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "Delegate Now"
+msgstr "المندوب الآن"
 
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.report_field_payment_document
@@ -687,6 +757,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
 msgid "Done"
 msgstr "مكتملة"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Done Today"
+msgstr "المنجزة اليوم"
 
 #. module: field_visit
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan__state__draft
@@ -824,7 +900,7 @@ msgid ""
 "               You can also create one manually here and use the\n"
 "               \"Generate Trial Period\" button on it afterwards."
 msgstr ""
-"أسرع طريقة للبدء: التخطيط > توليد خطة.\n"
+"أسرع طريقة للبدء: التخطيط &gt; توليد خطة.\n"
 "               تقدر كمان تنشئ واحدة يدوياً هنا وتستخدم زر\n"
 "               \"توليد الفترة التجريبية\" عليها بعدين."
 
@@ -873,6 +949,12 @@ msgstr "فرع الزيارات الميدانية"
 #: model:ir.model.fields,field_description:field_visit.field_res_users__field_visit_branch_ids
 msgid "Field Visit Branches"
 msgstr "فروع الزيارات الميدانية"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Field Visit Dashboard"
+msgstr "لوحة معلومات الزيارات الميدانية"
 
 #. module: field_visit
 #: model:ir.model,name:field_visit.model_field_visit_distance
@@ -999,7 +1081,7 @@ msgstr "مفتاح Google Maps API"
 
 #. module: field_visit
 #: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_distance_provider__google
-msgid "Google Maps Distance Matrix (real driving distance)"
+msgid "Google Maps Distance Matrix (real driving distance, paid)"
 msgstr "Google Maps Distance Matrix (مسافة القيادة الفعلية)"
 
 #. module: field_visit
@@ -1114,6 +1196,8 @@ msgid "In Delegate's Custody"
 msgstr "بعهدة المندوب"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__state__in_progress
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_route__state__in_progress
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
@@ -1194,6 +1278,7 @@ msgstr "آخر تحديث في"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_branch__latitude
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__customer_latitude
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__latitude
 #: model:ir.model.fields,field_description:field_visit.field_res_partner__field_visit_latitude
 #: model:ir.model.fields,field_description:field_visit.field_res_users__field_visit_latitude
@@ -1252,11 +1337,12 @@ msgstr "نطاق التحقق من الموقع (متر)"
 #. module: field_visit
 #. odoo-javascript
 #: code:addons/field_visit/static/src/xml/gps_capture.xml:0
-msgid "Location captured."
-msgstr "تم تحديد الموقع."
+msgid "Location captured:"
+msgstr "تم التقاط الموقع:"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_branch__longitude
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__customer_longitude
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__longitude
 #: model:ir.model.fields,field_description:field_visit.field_res_partner__field_visit_longitude
 #: model:ir.model.fields,field_description:field_visit.field_res_users__field_visit_longitude
@@ -1264,6 +1350,17 @@ msgstr "تم تحديد الموقع."
 #: model_terms:ir.ui.view,arch_db:field_visit.view_partner_form_field_visit
 msgid "Longitude"
 msgstr "خط الطول"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__payment_method__mada
+msgid "Mada Card Device"
+msgstr "جهاز مدى"
+
+#. module: field_visit
+#: model:ir.actions.client,name:field_visit.action_field_visit_map
+#: model:ir.ui.menu,name:field_visit.menu_field_visit_map
+msgid "Map"
+msgstr "الخريطة"
 
 #. module: field_visit
 #: model:ir.actions.act_window,name:field_visit.action_field_visit_not_done
@@ -1383,6 +1480,12 @@ msgid "Not Done Reason"
 msgstr "سبب عدم التنفيذ"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Not Done Today"
+msgstr "غير المنفذة اليوم"
+
+#. module: field_visit
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_route__state__not_started
 msgid "Not Started"
 msgstr "لم تبدأ"
@@ -1421,6 +1524,11 @@ msgid "Number of messages with delivery error"
 msgstr "عدد الرسائل ذات خطأ التسليم"
 
 #. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_distance_provider__osrm
+msgid "OSRM real road distance (free, public server)"
+msgstr "مسافة الطريق الفعلية OSRM (مجاني، خادم عام)"
+
+#. module: field_visit
 #: model:ir.model.fields,help:field_visit.field_field_visit_plan_move_line__apply_to_remaining
 msgid ""
 "Off (default): only this single dated visit moves - the recurring pattern is untouched.\n"
@@ -1438,6 +1546,16 @@ msgstr "أسبوع إضافي"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_generate__trial_length__week
 msgid "One week (7 days)"
 msgstr "أسبوع واحد (7 أيام)"
+
+#. module: field_visit
+#. odoo-python
+#: code:addons/field_visit/models/field_visit.py:0
+msgid ""
+"Only a branch supervisor or administrator can change the visit date. Please "
+"ask your supervisor to reschedule this visit."
+msgstr ""
+"فقط مشرف الفرع أو المسؤول يمكنه تعديل تاريخ الزيارة. الرجاء التواصل مع "
+"المشرف لإعادة جدولة الزيارة."
 
 #. module: field_visit
 #: model:ir.model.fields,help:field_visit.field_field_customer_assignment__customer_id
@@ -1583,6 +1701,12 @@ msgid "Planned"
 msgstr "مجدولة"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Planned Today"
+msgstr "المخطط لها اليوم"
+
+#. module: field_visit
 #: model:ir.ui.menu,name:field_visit.menu_field_visit_planning
 msgid "Planning"
 msgstr "التخطيط"
@@ -1714,6 +1838,12 @@ msgid "Route Date"
 msgstr "تاريخ الرحلة"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "Route Path"
+msgstr "مسار الرحلة"
+
+#. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
 msgid "Route Planning"
 msgstr "تخطيط المسارات"
@@ -1736,6 +1866,12 @@ msgstr "عدد أوامر البيع"
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
 msgid "Sale Orders"
 msgstr "أوامر البيع"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Sales Today"
+msgstr "مبيعات اليوم"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_branch__default_sat
@@ -1782,6 +1918,12 @@ msgstr ""
 #: model:ir.model.fields,help:field_visit.field_field_branch__code
 msgid "Short internal code, e.g. BR-RYD-E"
 msgstr "رمز داخلي مختصر، مثل BR-RYD-E"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "Show delegate route:"
+msgstr "عرض مسار المندوب:"
 
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
@@ -1887,6 +2029,16 @@ msgstr ""
 "النمط المتكرر."
 
 #. module: field_visit
+#. odoo-python
+#: code:addons/field_visit/models/field_payment.py:0
+msgid ""
+"The receipt amount must be greater than zero. A payment voucher cannot be "
+"issued for a zero (or negative) amount."
+msgstr ""
+"يجب أن يكون مبلغ السند أكبر من صفر. لا يمكن إصدار سند قبض بمبلغ صفر (أو "
+"سالب)."
+
+#. module: field_visit
 #: model:ir.model.fields,help:field_visit.field_field_sale_order__visit_id
 msgid ""
 "The visit this order was created during. Only visits that are currently 'In "
@@ -1903,6 +2055,12 @@ msgid ""
 msgstr ""
 "الزيارة اللي حُصِّل خلالها هذا المبلغ. فقط الزيارات الحالية بحالة 'قيد "
 "التنفيذ' يقدر يُنشأ منها سند قبض."
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "This Week's Completion Rate"
+msgstr "نسبة الإنجاز هذا الأسبوع"
 
 #. module: field_visit
 #: model_terms:ir.actions.act_window,help:field_visit.action_field_customer
@@ -2113,6 +2271,8 @@ msgid "Visit Plans"
 msgstr "خطط الزيارات"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
 #: model:ir.actions.act_window,name:field_visit.action_field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan__visit_ids
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_route__visit_ids
@@ -2126,6 +2286,12 @@ msgstr "الزيارات"
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_generate__visits_per_day_estimate
 msgid "Visits Per Day Estimate"
 msgstr "تقدير الزيارات باليوم"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "Visits This Week"
+msgstr "الزيارات هذا الأسبوع"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_branch__default_wed
@@ -2180,6 +2346,18 @@ msgid "Your Location"
 msgstr "موقعك"
 
 #. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "allowed"
+msgstr "المسموح"
+
+#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
+msgid "done of"
+msgstr "منجز من"
+
+#. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
 msgid "e.g. Customer asked to meet at a different location..."
 msgstr "مثال: العميل طلب المقابلة بمكان مختلف..."
@@ -2195,74 +2373,18 @@ msgid "km"
 msgstr "كم"
 
 #. module: field_visit
-#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_list
-msgid "~Visits/Day"
-msgstr "~الزيارات/اليوم"
+#. odoo-javascript
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "stops)"
+msgstr "محطات)"
 
 #. module: field_visit
-msgid "Field Visit Dashboard"
-msgstr "لوحة تحكم الزيارات الميدانية"
-
-#. module: field_visit
-msgid "Planned Today"
-msgstr "مخطَّطة اليوم"
-
-#. module: field_visit
-msgid "Done Today"
-msgstr "مكتملة اليوم"
-
-#. module: field_visit
-msgid "Not Done Today"
-msgstr "لم تُنفَّذ اليوم"
-
-#. module: field_visit
-msgid "This Week's Completion Rate"
-msgstr "نسبة إنجاز هذا الأسبوع"
-
-#. module: field_visit
-msgid "done of"
-msgstr "مكتملة من"
-
-#. module: field_visit
+#. odoo-javascript
+#: code:addons/field_visit/static/src/js/dashboard_action.js:0
 msgid "total"
 msgstr "الإجمالي"
 
 #. module: field_visit
-msgid "Active Delegates Right Now"
-msgstr "المناديب النشطون الآن"
-
-#. module: field_visit
-msgid "Sales Today"
-msgstr "مبيعات اليوم"
-
-#. module: field_visit
-msgid "Custody Pending Hand-over"
-msgstr "عهدة بانتظار التسليم"
-
-#. module: field_visit
-msgid "Custody Limit Reached"
-msgstr "تم بلوغ الحد الأقصى للعهدة"
-
-#. module: field_visit
-msgid "allowed"
-msgstr "المسموح به"
-
-#. module: field_visit
-msgid "Visits This Week"
-msgstr "زيارات هذا الأسبوع"
-
-#. module: field_visit
-#. odoo-python
-#: code:addons/field_visit/models/field_visit.py:0
-msgid ""
-"Only a branch supervisor or administrator can change the visit date. Please "
-"ask your supervisor to reschedule this visit."
-msgstr "فقط مشرف الفرع أو المسؤول يمكنه تعديل تاريخ الزيارة. الرجاء التواصل مع المشرف لإعادة جدولة الزيارة."
-
-#. module: field_visit
-#. odoo-python
-#: code:addons/field_visit/models/field_payment.py:0
-msgid ""
-"The receipt amount must be greater than zero. A payment voucher cannot be "
-"issued for a zero (or negative) amount."
-msgstr "يجب أن يكون مبلغ السند أكبر من صفر. لا يمكن إصدار سند قبض بمبلغ صفر (أو سالب)."
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_list
+msgid "~Visits/Day"
+msgstr "~الزيارات/اليوم"
