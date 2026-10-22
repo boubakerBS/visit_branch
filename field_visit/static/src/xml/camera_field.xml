@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="field_visit.Camera">
+        <div class="d-flex flex-column align-items-center gap-3 p-3">
+            <input type="file" accept="image/*" capture="environment"
+                   class="d-none" t-ref="fileInput" t-on-change="onFileChange"/>
+            <button type="button" class="btn btn-primary btn-lg"
+                    t-if="!props.readonly"
+                    t-att-disabled="state.busy"
+                    t-on-click="openCamera">
+                <i class="fa fa-camera me-2"/>
+                <t t-if="state.preview">Retake Photo</t>
+                <t t-else="">Take Photo</t>
+            </button>
+            <t t-if="state.busy">
+                <span><i class="fa fa-spinner fa-spin"/> Processing photo...</span>
+            </t>
+            <img t-if="state.preview" t-att-src="state.preview"
+                 class="img-fluid rounded border" style="max-height: 360px;"/>
+            <span t-if="state.error" class="text-danger" t-esc="state.error"/>
+        </div>
+    </t>
+
+</templates>

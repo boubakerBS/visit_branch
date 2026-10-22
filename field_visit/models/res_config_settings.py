@@ -25,5 +25,30 @@ class ResConfigSettings(models.TransientModel):
         config_parameter='field_visit.proximity_threshold_meters',
         help="How close (in meters) a delegate's captured GPS position "
              "must be to a customer's registered coordinates when "
-             "starting or completing a visit. Outside this range, the "
-             "delegate must provide a reason before proceeding.")
+             "starting a visit. The delegate cannot start the visit "
+             "outside this range.")
+
+    field_visit_sms_enabled = fields.Boolean(
+        string="SMS to Customer on Payment",
+        config_parameter='field_visit.sms_enabled',
+        help="Send an SMS to the customer as soon as a payment voucher "
+             "is issued. Uses Odoo's SMS service (requires SMS credits "
+             "or a configured SMS provider).")
+    field_visit_sms_template = fields.Text(
+        string="SMS Message",
+        config_parameter='field_visit.sms_template',
+        help="Optional custom text. Available placeholders: {amount}, "
+             "{date}, {receipt}, {customer}, {company}. Leave empty to "
+             "use the standard message in the customer's language.")
+
+    field_visit_tracking_enabled = fields.Boolean(
+        string="Live Delegate Tracking",
+        default=True,
+        config_parameter='field_visit.tracking_enabled',
+        help="While a delegate is traveling or visiting, their phone "
+             "reports its position so the supervisor can follow them "
+             "on the map. Nothing is tracked outside active visits.")
+    field_visit_tracking_interval_seconds = fields.Integer(
+        string="Update Every (seconds)",
+        default=30,
+        config_parameter='field_visit.tracking_interval_seconds')

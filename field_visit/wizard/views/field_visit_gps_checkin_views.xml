@@ -17,20 +17,20 @@
                     <field name="longitude" invisible="1"/>
                     <field name="gps_ok" invisible="1"/>
                 </group>
-                <group invisible="not gps_ok">
+                <group invisible="not gps_ok or stage == 'trip_start'">
                     <field name="distance_km" readonly="1"/>
                     <field name="proximity_threshold_km" readonly="1" string="Allowed Range"/>
                     <field name="is_within_range" invisible="1"/>
+                    <field name="is_blocked" invisible="1"/>
                 </group>
-                <group invisible="is_within_range or not gps_ok">
-                    <field name="exception_reason"
-                           placeholder="e.g. Customer asked to meet at a different location..."
-                           required="not is_within_range"/>
-                </group>
+                <div class="alert alert-danger" role="alert"
+                     invisible="not is_blocked">
+                    <field name="status_message" readonly="1" nolabel="1"/>
+                </div>
                 <footer>
                     <button name="action_confirm" type="object"
                             string="Confirm" class="btn-primary"
-                            invisible="not gps_ok"/>
+                            invisible="not gps_ok or is_blocked"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

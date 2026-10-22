@@ -6,6 +6,7 @@ from . import field_visit_plan
 from . import field_visit_plan_line
 from . import field_visit_route
 from . import field_visit
+from . import field_visit_photo
 from . import field_sale_order
 from . import field_sale_order_line
 from . import field_payment

@@ -32,6 +32,10 @@
                     <button name="action_complete_visit" type="object"
                             string="Complete Visit" class="btn-primary"
                             invisible="state != 'in_progress' or not is_today"/>
+                    <button name="action_add_photo" type="object"
+                            string="Take Photo" class="btn-secondary"
+                            icon="fa-camera"
+                            invisible="state != 'in_progress' or not is_today"/>
                     <button name="action_create_sale_order" type="object"
                             string="New Sale Order" class="btn-secondary"
                             icon="fa-shopping-cart"
@@ -114,6 +118,10 @@
                             <field name="notes"
                                    placeholder="What happened during this visit..."
                                    readonly="state not in ('in_progress','done')"/>
+                        </page>
+                        <page string="Photos" name="photos"
+                              invisible="not photo_ids">
+                            <field name="photo_ids" mode="kanban" readonly="1"/>
                         </page>
                         <page string="Sale Orders" name="sale_orders"
                               invisible="not sale_order_ids">

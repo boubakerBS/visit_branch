@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_photo_form" model="ir.ui.view">
+        <field name="name">field.visit.photo.form</field>
+        <field name="model">field.visit.photo</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="visit_id" invisible="1"/>
+                    <!-- On a phone, the widget's button opens the camera
+                         directly; on a computer it opens the file picker. -->
+                    <field name="image" widget="field_visit_camera" nolabel="1"/>
+                    <group>
+                        <field name="caption"
+                               placeholder="Optional description (e.g. shop front, shelf, receipt)..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_visit_photo_kanban" model="ir.ui.view">
+        <field name="name">field.visit.photo.kanban</field>
+        <field name="model">field.visit.photo</field>
+        <field name="arch" type="xml">
+            <kanban create="0" edit="0">
+                <field name="image_256"/>
+                <field name="caption"/>
+                <field name="taken_at"/>
+                <templates>
+                    <t t-name="card">
+                        <field name="image_256" widget="image" class="w-100"/>
+                        <div class="mt-1">
+                            <field name="caption"/>
+                        </div>
+                        <div class="text-muted small">
+                            <field name="taken_at"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_field_visit_photo_list" model="ir.ui.view">
+        <field name="name">field.visit.photo.list</field>
+        <field name="model">field.visit.photo</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="taken_at"/>
+                <field name="customer_id"/>
+                <field name="delegate_id"/>
+                <field name="caption"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

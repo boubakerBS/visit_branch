@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -42,8 +42,12 @@ class FieldVisitGpsCheckin(models.TransientModel):
         compute='_compute_distance')
     is_within_range = fields.Boolean(compute='_compute_distance')
 
-    exception_reason = fields.Text(
-        string="Why are you not at the expected location?")
+    # The delegate must physically be at the customer to START a visit
+    # (stage 'arrival'). There is no "reason" escape hatch any more:
+    # outside the allowed range the Confirm button is hidden and the
+    # server refuses the action as well.
+    is_blocked = fields.Boolean(compute='_compute_distance')
+    status_message = fields.Char(compute='_compute_distance')
 
     @api.depends('stage')
     def _compute_stage_label(self):
@@ -51,16 +55,22 @@ class FieldVisitGpsCheckin(models.TransientModel):
         for rec in self:
             rec.stage_label = labels.get(rec.stage, '')
 
-    @api.depends('latitude', 'longitude', 'gps_ok', 'visit_id', 'route_id')
+    @api.depends('latitude', 'longitude', 'gps_ok', 'stage',
+                 'visit_id', 'route_id')
     def _compute_distance(self):
         distance_model = self.env['field.visit.distance']
         threshold_m = int(self.env['ir.config_parameter'].sudo().get_param(
             'field_visit.proximity_threshold_meters', 500))
         for rec in self:
             rec.proximity_threshold_km = threshold_m / 1000.0
-            if not rec.gps_ok:
-                rec.distance_km = 0.0
-                rec.is_within_range = True
+            rec.distance_km = 0.0
+            rec.is_within_range = True
+            rec.is_blocked = False
+            rec.status_message = False
+            # Starting the trip is done from wherever the delegate is
+            # (usually the branch or the previous customer) - there is
+            # nothing to compare against.
+            if not rec.gps_ok or rec.stage == 'trip_start':
                 continue
 
             if rec.stage == 'return_to_branch':
@@ -70,36 +80,52 @@ class FieldVisitGpsCheckin(models.TransientModel):
                 target_lat = rec.visit_id.customer_id.field_visit_latitude
                 target_lng = rec.visit_id.customer_id.field_visit_longitude
 
+            if rec.stage == 'arrival' and not (target_lat or target_lng):
+                rec.is_within_range = False
+                rec.is_blocked = True
+                rec.status_message = _(
+                    "This customer has no registered location, so your "
+                    "arrival cannot be verified. Please ask your "
+                    "supervisor to set the customer's location.")
+                continue
+
             rec.distance_km = distance_model.get_distance_km(
                 rec.latitude, rec.longitude, target_lat, target_lng)
             rec.is_within_range = rec.distance_km <= rec.proximity_threshold_km
+            if rec.stage == 'arrival' and not rec.is_within_range:
+                rec.is_blocked = True
+                rec.status_message = _(
+                    "You are about %(distance)d m away from the customer. "
+                    "You must be within %(allowed)d m of the customer's "
+                    "location to start the visit.",
+                    distance=round(rec.distance_km * 1000),
+                    allowed=threshold_m)
 
     def action_confirm(self):
         self.ensure_one()
         if not self.gps_ok:
-            raise UserError(
+            raise UserError(_(
                 "Location access is required to proceed. Please allow "
-                "GPS access in your browser.")
-        if not self.is_within_range and not self.exception_reason:
-            raise UserError(
-                "You appear to be %.2f km away from the expected "
-                "location (allowed: %.2f km). Please explain why "
-                "before continuing."
-                % (self.distance_km, self.proximity_threshold_km))
+                "GPS access in your browser."))
+        # Re-evaluated server side: never rely on the form having
+        # hidden the button.
+        self._compute_distance()
+        if self.is_blocked:
+            raise UserError(self.status_message)
 
         if self.stage == 'trip_start':
             self.visit_id._do_start_trip(
-                self.latitude, self.longitude, self.exception_reason)
+                self.latitude, self.longitude, False)
         elif self.stage == 'arrival':
             self.visit_id._do_confirm_arrival(
                 self.latitude, self.longitude, self.distance_km,
-                self.is_within_range, self.exception_reason)
+                self.is_within_range, False)
         elif self.stage == 'complete':
             self.visit_id._do_complete_visit(
                 self.latitude, self.longitude, self.distance_km,
-                self.is_within_range, self.exception_reason)
+                self.is_within_range, False)
         elif self.stage == 'return_to_branch':
             self.route_id._do_return_to_branch(
                 self.latitude, self.longitude, self.distance_km,
-                self.is_within_range, self.exception_reason)
+                self.is_within_range, False)
         return True

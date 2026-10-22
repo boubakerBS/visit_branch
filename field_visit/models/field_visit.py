@@ -90,6 +90,9 @@ class FieldVisit(models.Model):
 
     notes = fields.Text(string="Visit Notes")
 
+    photo_ids = fields.One2many('field.visit.photo', 'visit_id', string="Photos")
+    photo_count = fields.Integer(compute='_compute_photo_count')
+
     sale_order_ids = fields.One2many('field.sale.order', 'visit_id')
     sale_order_count = fields.Integer(compute='_compute_sale_order_count')
     payment_ids = fields.One2many('field.payment', 'visit_id')
@@ -98,6 +101,28 @@ class FieldVisit(models.Model):
         compute='_compute_payment_count',
         currency_field='currency_id')
     currency_id = fields.Many2one(related='company_id.currency_id')
+
+    @api.depends('photo_ids')
+    def _compute_photo_count(self):
+        for visit in self:
+            visit.photo_count = len(visit.photo_ids)
+
+    def action_add_photo(self):
+        """Opens the camera dialog (on a phone the button inside it
+        launches the device camera directly)."""
+        self.ensure_one()
+        if self.state != 'in_progress':
+            raise UserError(_(
+                "Photos can only be added while the visit is in "
+                "progress."))
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _("Take Photo"),
+            'res_model': 'field.visit.photo',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_visit_id': self.id},
+        }
 
     def _compute_sale_order_count(self):
         for visit in self:
@@ -371,6 +396,13 @@ class FieldVisit(models.Model):
     def _do_confirm_arrival(self, latitude, longitude, distance_km,
                              is_within_range, exception_reason):
         self.ensure_one()
+        # A visit can only be started while physically at the customer.
+        # The GPS wizard already blocks this; repeated here so no other
+        # caller can bypass the rule.
+        if not is_within_range:
+            raise UserError(_(
+                "You must be at the customer's location to start the "
+                "visit."))
         vals = {
             'state': 'in_progress',
             'datetime_arrival': fields.Datetime.now(),

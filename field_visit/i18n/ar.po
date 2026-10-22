@@ -1110,22 +1110,21 @@ msgstr "يحتوي على رسالة"
 #: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
 msgid ""
 "How close (in meters) a delegate's captured GPS position must be to a "
-"customer's registered coordinates when starting or completing a visit. "
-"Outside this range, a reason is required."
+"customer's registered coordinates when starting a visit. The delegate cannot"
+" start the visit outside this range."
 msgstr ""
-"إلى أي مدى (بالمتر) يجب أن يكون موقع GPS الملتقط للمندوب قريباً من إحداثيات "
-"العميل المسجَّلة عند بدء أو إنهاء الزيارة. خارج هذا النطاق، يُطلب سبب."
+"أقصى مسافة (بالمتر) بين موقع المندوب وإحداثيات العميل المسجّلة عند بدء "
+"الزيارة. لا يستطيع المندوب بدء الزيارة خارج هذا النطاق."
 
 #. module: field_visit
 #: model:ir.model.fields,help:field_visit.field_res_config_settings__field_visit_proximity_threshold_meters
 msgid ""
 "How close (in meters) a delegate's captured GPS position must be to a "
-"customer's registered coordinates when starting or completing a visit. "
-"Outside this range, the delegate must provide a reason before proceeding."
+"customer's registered coordinates when starting a visit. The delegate cannot"
+" start the visit outside this range."
 msgstr ""
-"إلى أي مدى (بالمتر) يجب أن يكون موقع GPS الملتقط للمندوب قريباً من إحداثيات "
-"العميل المسجَّلة عند بدء أو إنهاء الزيارة. خارج هذا النطاق، يجب على المندوب "
-"توضيح السبب قبل المتابعة."
+"أقصى مسافة (بالمتر) بين موقع المندوب وإحداثيات العميل المسجّلة عند بدء "
+"الزيارة. لا يستطيع المندوب بدء الزيارة خارج هذا النطاق."
 
 #. module: field_visit
 #: model:ir.model.fields,help:field_visit.field_field_customer_assignment__weekly_visit_frequency
@@ -2390,6 +2389,238 @@ msgid "~Visits/Day"
 msgstr "~الزيارات/اليوم"
 
 #. module: field_visit
-#: model:ir.model.fields,field_description:field_visit.field_field_payment__notes
 msgid "Notes"
 msgstr "ملاحظات"
+
+#. module: field_visit
+msgid "Add any notes about this payment..."
+msgstr "أضف أي ملاحظات حول هذا السند..."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_gps_checkin.py:0
+msgid ""
+"This customer has no registered location, so your arrival cannot be "
+"verified. Please ask your supervisor to set the customer's location."
+msgstr ""
+"لا يوجد موقع مسجّل لهذا العميل، لذلك لا يمكن التحقق من وصولك. يرجى من المشرف"
+" تحديد موقع العميل."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_gps_checkin.py:0
+msgid ""
+"You are about %(distance)d m away from the customer. You must be within "
+"%(allowed)d m of the customer's location to start the visit."
+msgstr ""
+"أنت على بُعد حوالي %(distance)d م من العميل. يجب أن تكون ضمن %(allowed)d م "
+"من موقع العميل لبدء الزيارة."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_gps_checkin.py:0
+msgid ""
+"Location access is required to proceed. Please allow GPS access in your "
+"browser."
+msgstr ""
+"الوصول إلى الموقع مطلوب للمتابعة. يرجى السماح بالوصول إلى GPS في المتصفح."
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_visit.py:0
+msgid "You must be at the customer's location to start the visit."
+msgstr "يجب أن تكون في موقع العميل لبدء الزيارة."
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_visit.py:0
+#: code:addons/field_visit/models/field_visit_photo.py:0
+msgid "Photos can only be added while the visit is in progress."
+msgstr "لا يمكن إضافة الصور إلا أثناء سير الزيارة."
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_visit.py:0
+#: code:addons/field_visit/static/src/xml/camera_field.xml:0
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Take Photo"
+msgstr "التقاط صورة"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/xml/camera_field.xml:0
+msgid "Retake Photo"
+msgstr "إعادة التقاط الصورة"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/xml/camera_field.xml:0
+msgid "Processing photo..."
+msgstr "جارٍ معالجة الصورة..."
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/xml/gps_capture.xml:0
+msgid "Refresh Location"
+msgstr "تحديث الموقع"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/camera_field.js:0
+msgid "Could not read the photo. Please try again."
+msgstr "تعذّرت قراءة الصورة. يرجى المحاولة مرة أخرى."
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/branch_map_action.js:0
+msgid "just now"
+msgstr "الآن"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/branch_map_action.js:0
+msgid "%s min ago"
+msgstr "قبل %s دقيقة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit__photo_ids
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_form
+msgid "Photos"
+msgstr "الصور"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_photo__image
+msgid "Photo"
+msgstr "الصورة"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_photo
+msgid "Field Visit Photo"
+msgstr "صورة الزيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_photo__taken_by_id
+msgid "Taken By"
+msgstr "التقطها"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_photo__taken_at
+msgid "Taken At"
+msgstr "وقت الالتقاط"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_photo__caption
+msgid "Caption"
+msgstr "الوصف"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_photo_form
+msgid "Optional description (e.g. shop front, shelf, receipt)..."
+msgstr "وصف اختياري (مثال: واجهة المحل، الرف، الإيصال)..."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_payment__sms_state
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_form
+msgid "Customer SMS"
+msgstr "رسالة العميل النصية"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__sms_state__not_sent
+msgid "Not Sent"
+msgstr "لم تُرسل"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__sms_state__sent
+msgid "Sent"
+msgstr "أُرسلت"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__sms_state__failed
+msgid "Failed"
+msgstr "فشلت"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__sms_state__no_phone
+msgid "No Phone Number"
+msgstr "لا يوجد رقم هاتف"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_form
+msgid "Resend SMS"
+msgstr "إعادة إرسال الرسالة"
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_payment.py:0
+msgid ""
+"Customer SMS is turned off. Enable it in Settings > Field Visit > SMS "
+"Notifications."
+msgstr ""
+"رسائل العميل النصية متوقفة. فعّلها من الإعدادات > زيارات المناديب > إشعارات "
+"الرسائل النصية."
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_payment.py:0
+msgid ""
+"Dear customer, we received %(amount)s on %(date)s (receipt no. %(receipt)s) "
+"- %(company)s. Thank you."
+msgstr ""
+"عميلنا العزيز، تم استلام مبلغ %(amount)s بتاريخ %(date)s (سند رقم "
+"%(receipt)s) - %(company)s. شكراً لتعاملكم معنا."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "SMS Notifications"
+msgstr "إشعارات الرسائل النصية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_sms_enabled
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "SMS to Customer on Payment"
+msgstr "رسالة نصية للعميل عند التحصيل"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"Sends the customer a confirmation SMS when a payment voucher is issued."
+msgstr "ترسل للعميل رسالة تأكيد عند إصدار سند القبض."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_sms_template
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "SMS Message"
+msgstr "نص الرسالة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"Optional. Placeholders: {amount}, {date}, {receipt}, {customer}, {company}."
+msgstr ""
+"اختياري. المتغيرات: {amount}, {date}, {receipt}, {customer}, {company}."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Live Tracking"
+msgstr "التتبع المباشر"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_tracking_enabled
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Live Delegate Tracking"
+msgstr "تتبع المندوب المباشر"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"Shows delegates' current position on the map while they are traveling or "
+"visiting. Works while the page stays open on the delegate's phone."
+msgstr ""
+"يعرض موقع المندوب الحالي على الخريطة أثناء تنقله أو زيارته. يعمل طالما بقيت "
+"الصفحة مفتوحة على جوال المندوب."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Update Interval"
+msgstr "فترة التحديث"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_tracking_interval_seconds
+msgid "Update Every (seconds)"
+msgstr "التحديث كل (ثانية)"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "seconds"
+msgstr "ثانية"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__current_accuracy_m
+msgid "GPS Accuracy (m)"
+msgstr "دقة GPS (م)"

@@ -32,6 +32,7 @@ Key concepts
         'contacts',
         'web',
         'product',
+        'sms',
     ],
     'data': [
         'security/field_visit_security.xml',
@@ -55,6 +56,7 @@ Key concepts
         'views/field_visit_route_views.xml',
         'views/field_sale_order_views.xml',
         'views/field_payment_views.xml',
+        'views/field_visit_photo_views.xml',
         'views/field_visit_views.xml',
         'views/res_config_settings_views.xml',
         'views/field_customer_supervisor_views.xml',
@@ -66,6 +68,9 @@ Key concepts
         'web.assets_backend': [
             'field_visit/static/src/js/gps_capture.js',
             'field_visit/static/src/xml/gps_capture.xml',
+            'field_visit/static/src/js/camera_field.js',
+            'field_visit/static/src/xml/camera_field.xml',
+            'field_visit/static/src/js/location_tracker.js',
             'field_visit/static/src/js/branch_map_action.js',
             'field_visit/static/src/xml/branch_map_action.xml',
             'field_visit/static/src/js/dashboard_action.js',

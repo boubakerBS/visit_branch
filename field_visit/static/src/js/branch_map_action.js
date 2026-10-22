@@ -3,6 +3,7 @@
 import { registry } from "@web/core/registry";
 import { Component, onWillStart, onMounted, onWillUnmount, useRef, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { _t } from "@web/core/l10n/translation";
 import { loadJS, loadCSS } from "@web/core/assets";
 
 const LEAFLET_JS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
@@ -70,11 +71,11 @@ export class FieldVisitMap extends Component {
         onMounted(() => {
             this.renderMap();
             this.refreshActiveDelegates();
-            // Not real-time GPS streaming - just re-checks the latest
-            // recorded checkpoint every 30s so the map feels live
-            // without needing any background tracking infrastructure.
+            // Delegates' browsers report their position every ~30s while
+            // they are working (see location_tracker.js); the map simply
+            // re-reads the latest stored position every 15s.
             this.refreshInterval = setInterval(
-                () => this.refreshActiveDelegates(), 30000);
+                () => this.refreshActiveDelegates(), 15000);
         });
 
         onWillUnmount(() => {
@@ -262,18 +263,30 @@ export class FieldVisitMap extends Component {
 
         this.delegateLayer.clearLayers();
 
-        const icon = L.divIcon({
+        const STALE_MINUTES = 5;
+        const makeIcon = (color, glow) => L.divIcon({
             className: "",
-            html: `<div style="background:#1c7430;width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 4px rgba(28,116,48,.35);"></div>`,
+            html: `<div style="background:${color};width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 4px ${glow};"></div>`,
             iconSize: [16, 16],
             iconAnchor: [8, 8],
         });
+        const liveIcon = makeIcon("#1c7430", "rgba(28,116,48,.35)");
+        const staleIcon = makeIcon("#8a8a8a", "rgba(138,138,138,.35)");
+        const now = Date.now();
         for (const d of delegates) {
-            L.marker([d.current_latitude, d.current_longitude], { icon })
+            // Odoo datetimes are UTC "YYYY-MM-DD HH:MM:SS".
+            const updated = d.current_location_updated_at
+                ? new Date(d.current_location_updated_at.replace(" ", "T") + "Z")
+                : null;
+            const ageMin = updated ? Math.max(0, Math.round((now - updated.getTime()) / 60000)) : null;
+            const isLive = ageMin !== null && ageMin < STALE_MINUTES;
+            const ageText = ageMin === null ? "" : (ageMin < 1 ? _t("just now") : _t("%s min ago", ageMin));
+            L.marker([d.current_latitude, d.current_longitude],
+                     { icon: isLive ? liveIcon : staleIcon })
                 .addTo(this.delegateLayer)
                 .bindPopup(
                     `<b>${d.user_id[1]}</b><br/>${d.current_status || ""}<br/>` +
-                    `<span class="text-muted">as of ${d.current_location_updated_at}</span>`
+                    `<span class="text-muted">${ageText}</span>`
                 );
         }
     }

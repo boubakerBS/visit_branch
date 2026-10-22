@@ -14,6 +14,9 @@
                     Location captured:
                     <span t-esc="state.lat.toFixed(6)"/>, <span t-esc="state.lng.toFixed(6)"/>
                 </span>
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-auto" t-on-click="retry">
+                    <i class="fa fa-refresh"/> Refresh Location
+                </button>
             </t>
             <t t-if="state.status === 'error'">
                 <i class="fa fa-exclamation-triangle text-danger"/>

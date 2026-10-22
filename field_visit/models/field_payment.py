@@ -47,6 +47,17 @@ class FieldPayment(models.Model):
         ('sent_to_dynamics', 'Sent to Dynamics'),
     ], default='in_custody', required=True, tracking=True)
 
+    # ---------------- SMS to the customer ----------------
+    sms_state = fields.Selection([
+        ('not_sent', 'Not Sent'),
+        ('sent', 'Sent'),
+        ('failed', 'Failed'),
+        ('no_phone', 'No Phone Number'),
+    ], default='not_sent', readonly=True, copy=False,
+        string="Customer SMS")
+    sms_error = fields.Char(readonly=True, copy=False)
+    sms_datetime = fields.Datetime(readonly=True, copy=False)
+
     handed_over_datetime = fields.Datetime(readonly=True)
     handed_over_by_id = fields.Many2one(
         'res.users', readonly=True, string="Received By")
@@ -68,7 +79,88 @@ class FieldPayment(models.Model):
                     'field.payment') or 'New'
         payments = super().create(vals_list)
         payments._check_custody_threshold()
+        # Confirmation SMS to the customer. Must never block or break
+        # the collection itself, whatever happens with the gateway.
+        payments._send_receipt_sms()
         return payments
+
+    # ------------------------------------------------------------
+    # SMS confirmation to the customer
+    # ------------------------------------------------------------
+    def _sms_enabled(self):
+        return self.env['ir.config_parameter'].sudo().get_param(
+            'field_visit.sms_enabled') == 'True'
+
+    def _get_customer_phone(self):
+        self.ensure_one()
+        partner = self.customer_id
+        mobile = partner._fields.get('mobile') and partner.mobile
+        return mobile or partner.phone or False
+
+    def _get_sms_body(self):
+        self.ensure_one()
+        partner = self.customer_id.with_context(lang=self.customer_id.lang)
+        payment = self.with_context(lang=partner.lang)
+        template = self.env['ir.config_parameter'].sudo().get_param(
+            'field_visit.sms_template')
+        values = {
+            'amount': f"{payment.amount:,.2f} {payment.currency_id.name or ''}".strip(),
+            'receipt': payment.name,
+            'date': fields.Date.to_string(payment.payment_date),
+            'customer': partner.name or '',
+            'company': payment.company_id.name or '',
+        }
+        if template:
+            try:
+                return template.format(**values)
+            except (KeyError, IndexError, ValueError):
+                pass  # malformed custom template: fall back to default
+        # env._ translates into the CUSTOMER's language (payment env).
+        return payment.env._(
+            "Dear customer, we received %(amount)s on %(date)s "
+            "(receipt no. %(receipt)s) - %(company)s. Thank you.",
+            **values)
+
+    def _send_receipt_sms(self):
+        """Sends the 'amount received' SMS. Records the outcome on the
+        voucher; never raises."""
+        if not self._sms_enabled():
+            return
+        for payment in self:
+            number = payment._get_customer_phone()
+            if not number:
+                payment.sudo().write({'sms_state': 'no_phone'})
+                continue
+            try:
+                with self.env.cr.savepoint():
+                    sms = self.env['sms.sms'].sudo().create({
+                        'number': number,
+                        'body': payment._get_sms_body(),
+                        'partner_id': payment.customer_id.id,
+                    })
+                    sms.send(unlink_failed=False, unlink_sent=False,
+                             raise_exception=False)
+                    failed = sms.state == 'error'
+                    error = sms.failure_type if failed else False
+                payment.sudo().write({
+                    'sms_state': 'failed' if failed else 'sent',
+                    'sms_error': error or False,
+                    'sms_datetime': fields.Datetime.now(),
+                })
+            except Exception as exc:  # noqa: BLE001 - gateway must not break collection
+                payment.sudo().write({
+                    'sms_state': 'failed',
+                    'sms_error': str(exc)[:200],
+                })
+
+    def action_resend_sms(self):
+        for payment in self:
+            if not payment._sms_enabled():
+                raise UserError(_(
+                    "Customer SMS is turned off. Enable it in Settings "
+                    "> Field Visit > SMS Notifications."))
+        self._send_receipt_sms()
+        return True
 
     def action_hand_over(self):
         """Supervisor confirms they physically received the cash/check

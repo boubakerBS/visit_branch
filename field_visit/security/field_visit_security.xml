@@ -253,5 +253,44 @@
         <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
     </record>
 
+    <!-- ============ field.visit.photo ============ -->
+    <record id="rule_field_visit_photo_company" model="ir.rule">
+        <field name="name">Field Visit Photo: multi-company</field>
+        <field name="model_id" ref="model_field_visit_photo"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+    <record id="rule_field_visit_photo_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own visit photos only</field>
+        <field name="model_id" ref="model_field_visit_photo"/>
+        <field name="domain_force">[('delegate_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+    </record>
+    <record id="rule_field_visit_photo_supervisor_own_branch" model="ir.rule">
+        <field name="name">Supervisor: visit photos of own branch(es) only</field>
+        <field name="model_id" ref="model_field_visit_photo"/>
+        <field name="domain_force">[('branch_id.supervisor_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_field_supervisor'))]"/>
+    </record>
+    <record id="rule_field_visit_photo_admin_all" model="ir.rule">
+        <field name="name">Administrator: all visit photos (within company)</field>
+        <field name="model_id" ref="model_field_visit_photo"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('group_field_admin'))]"/>
+    </record>
+
+    <!-- Privacy: a delegate may only read their OWN configuration
+         record. It carries the live GPS position, which must not be
+         visible to other delegates. (Supervisors/admins keep their
+         branch-wide rules; group rules of the same model are OR-ed.) -->
+    <record id="rule_field_delegate_config_delegate_own" model="ir.rule">
+        <field name="name">Delegate: own configuration only</field>
+        <field name="model_id" ref="model_field_delegate_config"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_field_delegate'))]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
 </data>
 </odoo>

@@ -28,3 +28,5 @@ access_field_sale_order_line_delegate,field.sale.order.line.delegate,model_field
 access_field_payment_supervisor,field.payment.supervisor,model_field_payment,group_field_supervisor,1,1,1,1
 access_field_payment_delegate,field.payment.delegate,model_field_payment,group_field_delegate,1,1,1,0
 access_field_payment_receive_supervisor,field.payment.receive.supervisor,model_field_payment_receive,group_field_supervisor,1,1,1,1
+access_field_visit_photo_supervisor,field.visit.photo.supervisor,model_field_visit_photo,group_field_supervisor,1,1,1,1
+access_field_visit_photo_delegate,field.visit.photo.delegate,model_field_visit_photo,group_field_delegate,1,0,1,0

@@ -49,6 +49,7 @@ class FieldDelegateConfig(models.Model):
     # visit state, timing, or any live join.
     current_latitude = fields.Float(digits=(10, 7), readonly=True)
     current_longitude = fields.Float(digits=(10, 7), readonly=True)
+    current_accuracy_m = fields.Float(readonly=True, string="GPS Accuracy (m)")
     current_status = fields.Char(readonly=True)
     current_location_updated_at = fields.Datetime(readonly=True)
 
@@ -102,3 +103,64 @@ class FieldDelegateConfig(models.Model):
             if config.weekly_visit_frequency < 1:
                 raise ValidationError(
                     "Weekly visit frequency must be at least 1.")
+
+    # ------------------------------------------------------------
+    # Live location (heartbeat from the delegate's browser)
+    # ------------------------------------------------------------
+    @api.model
+    def get_tracking_info(self):
+        """Tells the web client whether (and how often) to report the
+        current GPS position. Tracking is only active while the
+        delegate is actually working: traveling to a customer or
+        visiting one - never outside of that."""
+        user = self.env.user
+        if not self.sudo().search_count([('user_id', '=', user.id)]):
+            return {'is_delegate': False}
+        params = self.env['ir.config_parameter'].sudo()
+        enabled = params.get_param('field_visit.tracking_enabled', 'True') == 'True'
+        try:
+            interval = max(10, int(params.get_param(
+                'field_visit.tracking_interval_seconds', 30)))
+        except ValueError:
+            interval = 30
+        active = bool(enabled and self.env['field.visit'].sudo().search_count([
+            ('delegate_id.user_id', '=', user.id),
+            ('visit_date', '=', fields.Date.context_today(self)),
+            ('state', 'in', ('traveling', 'in_progress')),
+        ]))
+        return {
+            'is_delegate': True,
+            'enabled': enabled,
+            'interval': interval,
+            'active': active,
+        }
+
+    @api.model
+    def update_my_location(self, latitude, longitude, accuracy=0.0):
+        """Stores the calling delegate's latest GPS position. Only the
+        caller's own configuration is ever touched."""
+        try:
+            latitude = float(latitude)
+            longitude = float(longitude)
+            accuracy = float(accuracy or 0.0)
+        except (TypeError, ValueError):
+            return False
+        if not (-90 <= latitude <= 90 and -180 <= longitude <= 180):
+            return False
+        if not (latitude or longitude):
+            return False
+        configs = self.sudo().search([('user_id', '=', self.env.user.id)])
+        if not configs:
+            return False
+        now = fields.Datetime.now()
+        for config in configs:
+            last = config.current_location_updated_at
+            if last and (now - last).total_seconds() < 5:
+                continue  # ignore floods
+            config.write({
+                'current_latitude': latitude,
+                'current_longitude': longitude,
+                'current_accuracy_m': accuracy,
+                'current_location_updated_at': now,
+            })
+        return True

@@ -29,9 +29,37 @@
                            name="location_verification_container">
                         <setting string="Verification Range"
                                  id="field_visit_proximity_threshold_setting"
-                                 help="How close (in meters) a delegate's captured GPS position must be to a customer's registered coordinates when starting or completing a visit. Outside this range, a reason is required.">
+                                 help="How close (in meters) a delegate's captured GPS position must be to a customer's registered coordinates when starting a visit. The delegate cannot start the visit outside this range.">
                             <field name="field_visit_proximity_threshold_meters"/>
                             <span>meters</span>
+                        </setting>
+                    </block>
+                    <block title="SMS Notifications"
+                           name="sms_notifications_container">
+                        <setting string="SMS to Customer on Payment"
+                                 id="field_visit_sms_enabled_setting"
+                                 help="Sends the customer a confirmation SMS when a payment voucher is issued.">
+                            <field name="field_visit_sms_enabled"/>
+                        </setting>
+                        <setting string="SMS Message"
+                                 id="field_visit_sms_template_setting"
+                                 invisible="not field_visit_sms_enabled"
+                                 help="Optional. Placeholders: {amount}, {date}, {receipt}, {customer}, {company}.">
+                            <field name="field_visit_sms_template"/>
+                        </setting>
+                    </block>
+                    <block title="Live Tracking"
+                           name="live_tracking_container">
+                        <setting string="Live Delegate Tracking"
+                                 id="field_visit_tracking_enabled_setting"
+                                 help="Shows delegates' current position on the map while they are traveling or visiting. Works while the page stays open on the delegate's phone.">
+                            <field name="field_visit_tracking_enabled"/>
+                        </setting>
+                        <setting string="Update Interval"
+                                 id="field_visit_tracking_interval_setting"
+                                 invisible="not field_visit_tracking_enabled">
+                            <field name="field_visit_tracking_interval_seconds"/>
+                            <span>seconds</span>
                         </setting>
                     </block>
                 </app>
