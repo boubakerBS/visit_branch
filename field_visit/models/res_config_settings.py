@@ -34,7 +34,7 @@ class ResConfigSettings(models.TransientModel):
         help="Send an SMS to the customer as soon as a payment voucher "
              "is issued. Uses Odoo's SMS service (requires SMS credits "
              "or a configured SMS provider).")
-    field_visit_sms_template = fields.Text(
+    field_visit_sms_template = fields.Char(
         string="SMS Message",
         config_parameter='field_visit.sms_template',
         help="Optional custom text. Available placeholders: {amount}, "
