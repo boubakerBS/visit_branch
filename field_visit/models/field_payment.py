@@ -175,7 +175,18 @@ class FieldPayment(models.Model):
         self._send_receipt_sms()
         return True
 
+    # Fields that can no longer change once the voucher was received /
+    # verified by the supervisor. (State, hand-over info and SMS status
+    # are written by the system and stay allowed.)
+    _LOCKED_FIELDS = {'amount', 'payment_method', 'payment_date', 'notes',
+                      'visit_id'}
+
     def write(self, vals):
+        if self._LOCKED_FIELDS & set(vals) and self.filtered(
+                lambda p: p.state not in ('in_custody', 'to_verify')):
+            raise UserError(_(
+                "This voucher was already received and can no longer be "
+                "modified."))
         res = super().write(vals)
         # Changing the method of a still-pending voucher moves it
         # between "In Delegate's Custody" (cash) and "Verify Amount".

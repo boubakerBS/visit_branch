@@ -56,16 +56,17 @@
                         <group>
                             <field name="customer_id" readonly="1"/>
                             <field name="visit_id" readonly="1"/>
-                            <field name="payment_date"/>
+                            <field name="payment_date" readonly="state not in ('in_custody', 'to_verify')"/>
                         </group>
                         <group>
                             <field name="delegate_id" readonly="1"/>
-                            <field name="amount"/>
-                            <field name="payment_method"/>
+                            <field name="amount" readonly="state not in ('in_custody', 'to_verify')"/>
+                            <field name="payment_method" readonly="state not in ('in_custody', 'to_verify')"/>
                         </group>
                     </group>
                     <group>
-                        <field name="notes" placeholder="Add any notes about this payment..."/>
+                        <field name="notes" placeholder="Add any notes about this payment..."
+                               readonly="state not in ('in_custody', 'to_verify')"/>
                     </group>
                     <group string="Customer SMS">
                         <field name="sms_state" readonly="1" widget="badge"

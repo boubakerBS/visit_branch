@@ -2720,3 +2720,8 @@ msgstr "تم التحقق"
 #: code:addons/field_visit/models/field_payment.py:0
 msgid "%s is not pending (already handed over, verified or sent)."
 msgstr "%s ليس قيد الانتظار (سبق تسليمه أو التحقق منه أو إرساله)."
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_payment.py:0
+msgid "This voucher was already received and can no longer be modified."
+msgstr "تم استلام هذا السند ولا يمكن تعديله بعد الآن."
