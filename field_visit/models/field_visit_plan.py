@@ -78,9 +78,10 @@ class FieldVisitPlan(models.Model):
     # State transitions
     # ------------------------------------------------------------
     def action_approve(self):
-        """Snapshot the current template lines as the confirmed
-        pattern. Called explicitly by the supervisor after reviewing
-        (and possibly editing) the trial period - never automatic."""
+        """Supervisor sign-off after reviewing (and possibly editing)
+        the trial period. The pattern that extensions repeat is always
+        the LAST generated week as it stands when extending (see
+        field.visit.plan.extend), so no snapshot is needed here."""
         for plan in self:
             if plan.state != 'trial':
                 raise UserError(

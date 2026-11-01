@@ -21,7 +21,7 @@ Key concepts
   batches (trial week, then explicit extensions) - never silently in
   bulk for a whole year.
 """,
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'category': 'Sales/Field Service',
     'author': "Meydan Field",
     'website': "https://example.com",

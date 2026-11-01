@@ -9,7 +9,12 @@
                 <group>
                     <field name="plan_id" readonly="1"/>
                     <field name="schedule_generated_until" readonly="1"/>
+                    <field name="pattern_week_start" readonly="1"/>
+                    <field name="pattern_week_end" readonly="1"/>
                 </group>
+                <div class="alert alert-info" role="alert">
+                    The last generated week will be repeated exactly as it is now, including any changes you made to the days and order of the visits.
+                </div>
                 <group>
                     <field name="extend_mode" widget="radio"/>
                     <field name="extend_days"

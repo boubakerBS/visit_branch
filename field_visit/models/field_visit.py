@@ -2,7 +2,7 @@
 import datetime
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import RedirectWarning, UserError
 from .field_visit_selection_data import WEEKDAYS, WEEKDAY_KEYS
 
 _PY_WEEKDAY_TO_KEY = {5: 'sat', 6: 'sun', 0: 'mon',
@@ -211,19 +211,87 @@ class FieldVisit(models.Model):
     ]
 
     def write(self, vals):
-        # Rescheduling a visit (changing its date) is a planning
-        # decision - reserved for the branch supervisor/administrator.
-        # The delegate executes the plan but must not be able to move
-        # their own visit date around. Enforced here (not just in the
-        # view) so it also protects writes coming from the API or any
-        # future wizard.
-        if 'visit_date' in vals and not self.env.user.has_group(
+        date_change = 'visit_date' in vals or 'visit_weekday' in vals
+        # Rescheduling a visit (changing its date or dragging it to
+        # another weekday) is a planning decision - reserved for the
+        # branch supervisor/administrator. The delegate executes the
+        # plan but must not be able to move their own visit around.
+        # Enforced here (not just in the view) so it also protects
+        # writes coming from the API or any future wizard.
+        if date_change and not self.env.user.has_group(
                 'field_visit.group_field_supervisor'):
             raise UserError(_(
                 "Only a branch supervisor or administrator can change "
                 "the visit date. Please ask your supervisor to "
                 "reschedule this visit."))
-        return super().write(vals)
+        if date_change and not self.env.context.get(
+                'field_visit_skip_scope_prompt'):
+            self._prompt_reschedule_scope(vals)
+        res = super().write(vals)
+        if date_change:
+            self._move_to_route_of_date()
+        return res
+
+    def _prompt_reschedule_scope(self, vals):
+        """A single recurring visit is being moved to another day. If
+        the same customer/day repeats in the following weeks, ask the
+        supervisor whether the change is for this visit only or for the
+        rest of the period. Done with a RedirectWarning so it works for
+        every entry point (form, kanban drag & drop) without custom
+        JavaScript: the pending write is rolled back and the choice
+        dialog (the reschedule wizard) opens instead."""
+        if len(self) != 1 or self.state != 'planned' or not self.plan_line_id:
+            return
+        if 'visit_date' in vals:
+            new_date = fields.Date.to_date(vals['visit_date'])
+        else:
+            old_index = WEEKDAY_KEYS.index(
+                _PY_WEEKDAY_TO_KEY[self.visit_date.weekday()])
+            new_index = WEEKDAY_KEYS.index(vals['visit_weekday'])
+            new_date = self.visit_date + datetime.timedelta(
+                days=new_index - old_index)
+        if not new_date or new_date == self.visit_date:
+            return
+        following = self.search_count([
+            ('plan_line_id', '=', self.plan_line_id.id),
+            ('state', '=', 'planned'),
+            ('visit_date', '>', self.visit_date),
+        ])
+        if not following:
+            return  # nothing repeats after it: just move this one
+        action = self.env.ref('field_visit.action_field_visit_plan_move_line')
+        raise RedirectWarning(
+            _("This visit repeats in the following weeks. Should the "
+              "change apply to the rest of the period, or only to this "
+              "visit?"),
+            action.id, _("Choose..."),
+            additional_context={
+                'default_visit_id': self.id,
+                'default_new_date': fields.Date.to_string(new_date),
+            })
+
+    def _move_to_route_of_date(self):
+        """After a visit changed day, put it in that day's route (and
+        drop the old route if it became empty and was never started)."""
+        Route = self.env['field.visit.route'].sudo()
+        for visit in self:
+            if not visit.plan_id or not visit.visit_date:
+                continue
+            old_route = visit.route_id
+            if old_route and old_route.route_date == visit.visit_date:
+                continue
+            route = Route.search([
+                ('plan_id', '=', visit.plan_id.id),
+                ('route_date', '=', visit.visit_date),
+            ], limit=1) or Route.create({
+                'plan_id': visit.plan_id.id,
+                'route_date': visit.visit_date,
+            })
+            visit.with_context(field_visit_skip_scope_prompt=True).write(
+                {'route_id': route.id})
+            if old_route and not old_route.visit_ids \
+                    and old_route.state == 'not_started':
+                old_route.unlink()
 
     @api.depends('customer_id', 'visit_date')
     def _compute_name(self):

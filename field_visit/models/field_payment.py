@@ -42,8 +42,13 @@ class FieldPayment(models.Model):
     notes = fields.Text(string="Notes")
 
     state = fields.Selection([
+        # Cash is the only method the delegate physically holds.
         ('in_custody', "In Delegate's Custody"),
         ('handed_over', 'Handed Over to Supervisor'),
+        # Any other method (card device, transfer, check): the delegate
+        # holds nothing, the supervisor only has to verify the amount.
+        ('to_verify', 'Verify Amount'),
+        ('verified', 'Verified'),
         ('sent_to_dynamics', 'Sent to Dynamics'),
     ], default='in_custody', required=True, tracking=True)
 
@@ -71,12 +76,20 @@ class FieldPayment(models.Model):
                     "payment voucher cannot be issued for a zero (or "
                     "negative) amount."))
 
+    @api.model
+    def _pending_state_for(self, payment_method):
+        """Cash stays in the delegate's custody until handed over; any
+        other method has nothing to hand over, only to be verified."""
+        return 'in_custody' if payment_method == 'cash' else 'to_verify'
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
                 vals['name'] = self.env['ir.sequence'].next_by_code(
                     'field.payment') or 'New'
+            vals['state'] = self._pending_state_for(
+                vals.get('payment_method', 'cash'))
         payments = super().create(vals_list)
         payments._check_custody_threshold()
         # Confirmation SMS to the customer. Must never block or break
@@ -162,20 +175,35 @@ class FieldPayment(models.Model):
         self._send_receipt_sms()
         return True
 
+    def write(self, vals):
+        res = super().write(vals)
+        # Changing the method of a still-pending voucher moves it
+        # between "In Delegate's Custody" (cash) and "Verify Amount".
+        if 'payment_method' in vals and 'state' not in vals:
+            for payment in self.filtered(
+                    lambda p: p.state in ('in_custody', 'to_verify')):
+                new_state = self._pending_state_for(payment.payment_method)
+                if payment.state != new_state:
+                    super(FieldPayment, payment).write({'state': new_state})
+        return res
+
     def action_hand_over(self):
-        """Supervisor confirms they physically received the cash/check
-        from the delegate. Usable individually or on a multi-selection
-        (bulk 'Receive All')."""
+        """Supervisor confirms the voucher: cash that was physically
+        received from the delegate (-> Handed Over), or the amount of
+        any other method after checking it (-> Verified). Usable
+        individually or on a multi-selection (bulk 'Receive All')."""
         for payment in self:
-            if payment.state != 'in_custody':
-                raise UserError(
-                    f"{payment.name} is not in custody (already "
-                    f"handed over or sent).")
-        self.write({
-            'state': 'handed_over',
-            'handed_over_datetime': fields.Datetime.now(),
-            'handed_over_by_id': self.env.user.id,
-        })
+            if payment.state not in ('in_custody', 'to_verify'):
+                raise UserError(_(
+                    "%s is not pending (already handed over, verified or "
+                    "sent).", payment.name))
+        for payment in self:
+            payment.write({
+                'state': ('handed_over' if payment.state == 'in_custody'
+                          else 'verified'),
+                'handed_over_datetime': fields.Datetime.now(),
+                'handed_over_by_id': self.env.user.id,
+            })
 
     def _check_custody_threshold(self):
         """Warn the supervisor by email once a delegate's total

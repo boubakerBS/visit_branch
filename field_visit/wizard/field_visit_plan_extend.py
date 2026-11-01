@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 _PY_WEEKDAY_TO_KEY = {5: 'sat', 6: 'sun', 0: 'mon',
@@ -29,6 +29,69 @@ class FieldVisitPlanExtend(models.TransientModel):
              "generating visits indefinitely.")
     extend_days = fields.Integer(default=7)
     extend_until_date = fields.Date()
+
+    # The pattern that gets repeated is the LAST generated week exactly
+    # as the supervisor arranged it (moved/reordered visits included).
+    pattern_week_start = fields.Date(
+        compute='_compute_pattern_week', string="Repeated Week From")
+    pattern_week_end = fields.Date(
+        compute='_compute_pattern_week', string="Repeated Week To")
+
+    @api.depends('plan_id.schedule_generated_until')
+    def _compute_pattern_week(self):
+        for wiz in self:
+            until = wiz.plan_id.schedule_generated_until
+            wiz.pattern_week_end = until or False
+            wiz.pattern_week_start = (
+                until - datetime.timedelta(days=6)) if until else False
+
+    def _sync_template_from_last_week(self):
+        """Makes the plan's weekly template equal to the last 7
+        generated days, as they stand NOW (after any change the
+        supervisor made to the visits: moved to another day, reordered).
+        Each (customer, weekday) found in that week becomes a template
+        line; lines for combinations no longer present are archived."""
+        self.ensure_one()
+        plan = self.plan_id
+        until = plan.schedule_generated_until
+        if not until:
+            raise UserError(_(
+                "There is no generated schedule to repeat yet."))
+        week_start = until - datetime.timedelta(days=6)
+        visits = self.env['field.visit'].search([
+            ('plan_id', '=', plan.id),
+            ('visit_date', '>=', week_start),
+            ('visit_date', '<=', until),
+            ('state', '!=', 'cancelled'),
+        ])
+        if not visits:
+            raise UserError(_(
+                "There are no visits in the last generated week "
+                "(%(start)s to %(end)s), so there is nothing to repeat.",
+                start=week_start, end=until))
+
+        Line = self.env['field.visit.plan.line'].with_context(active_test=False)
+        existing = Line.search([('plan_id', '=', plan.id)])
+        by_key = {(l.customer_id.id, l.visit_day): l for l in existing}
+        keep = self.env['field.visit.plan.line']
+        for visit in visits.sorted(lambda v: (v.visit_date, v.sequence)):
+            day_key = _PY_WEEKDAY_TO_KEY[visit.visit_date.weekday()]
+            key = (visit.customer_id.id, day_key)
+            vals = {
+                'sequence': visit.sequence,
+                'estimated_distance_km': visit.distance_from_previous_km,
+                'active': True,
+            }
+            line = by_key.get(key)
+            if line:
+                line.write(vals)
+            else:
+                line = Line.create(dict(
+                    vals, plan_id=plan.id, customer_id=visit.customer_id.id,
+                    visit_day=day_key))
+                by_key[key] = line
+            keep |= line
+        (existing - keep).write({'active': False})
 
     def _compute_range(self):
         self.ensure_one()
@@ -61,6 +124,9 @@ class FieldVisitPlanExtend(models.TransientModel):
                 "'Approve Pattern' first.")
 
         start, end = self._compute_range()
+
+        # Repeat the last generated week exactly as it is now.
+        self._sync_template_from_last_week()
 
         lines_by_day = {}
         for line in plan.line_ids:

@@ -9,14 +9,16 @@
                 <group>
                     <field name="customer_id" readonly="1"/>
                     <field name="current_visit_date" readonly="1"/>
-                    <field name="new_day"/>
+                    <field name="new_date"/>
                 </group>
                 <group>
-                    <field name="apply_to_remaining"/>
+                    <field name="scope" widget="radio"/>
+                    <field name="following_count" readonly="1"
+                           invisible="scope != 'rest'"/>
                 </group>
                 <footer>
                     <button name="action_move" type="object"
-                            string="Move" class="btn-primary"/>
+                            string="Confirm" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary"
                             special="cancel"/>
                 </footer>
@@ -25,7 +27,7 @@
     </record>
 
     <record id="action_field_visit_plan_move_line" model="ir.actions.act_window">
-        <field name="name">Move Customer To Another Day</field>
+        <field name="name">Reschedule Visit</field>
         <field name="res_model">field.visit.plan.move.line</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

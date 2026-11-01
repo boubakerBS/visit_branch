@@ -404,6 +404,7 @@ msgstr "أضف أول مندوب لك"
 
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_gps_checkin_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
 msgid "Confirm"
 msgstr "تأكيد"
 
@@ -1401,15 +1402,10 @@ msgid "Monday"
 msgstr "الاثنين"
 
 #. module: field_visit
-#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
-msgid "Move"
-msgstr "نقل"
-
-#. module: field_visit
 #: model:ir.actions.act_window,name:field_visit.action_field_visit_plan_move_line
 #: model:ir.model,name:field_visit.model_field_visit_plan_move_line
-msgid "Move Customer To Another Day"
-msgstr "نقل العميل ليوم آخر"
+msgid "Reschedule Visit"
+msgstr "إعادة جدولة الزيارة"
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_payment__my_activity_date_deadline
@@ -2624,3 +2620,103 @@ msgstr "ثانية"
 #: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__current_accuracy_m
 msgid "GPS Accuracy (m)"
 msgstr "دقة GPS (م)"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_extend_form
+msgid ""
+"The last generated week will be repeated exactly as it is now, including any"
+" changes you made to the days and order of the visits."
+msgstr ""
+"سيُكرَّر آخر أسبوع تم توليده كما هو الآن تماماً، بما في ذلك أي تغييرات "
+"أجريتها على أيام الزيارات وترتيبها."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__pattern_week_start
+msgid "Repeated Week From"
+msgstr "الأسبوع المكرَّر من"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__pattern_week_end
+msgid "Repeated Week To"
+msgstr "الأسبوع المكرَّر إلى"
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid "There is no generated schedule to repeat yet."
+msgstr "لا توجد جدولة مولّدة لتكرارها بعد."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid ""
+"There are no visits in the last generated week (%(start)s to %(end)s), so "
+"there is nothing to repeat."
+msgstr ""
+"لا توجد زيارات في آخر أسبوع تم توليده (%(start)s إلى %(end)s)، لذلك لا يوجد "
+"ما يمكن تكراره."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__new_date
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
+msgid "New Date"
+msgstr "التاريخ الجديد"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__scope
+msgid "Apply To"
+msgstr "تطبيق على"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__scope__this
+msgid "This visit only"
+msgstr "هذه الزيارة فقط"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__scope__rest
+msgid "This visit and all following ones (rest of the period)"
+msgstr "هذه الزيارة وكل الزيارات التالية (باقي المدة)"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__following_count
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
+msgid "Following Visits"
+msgstr "الزيارات التالية"
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_move_line.py:0
+msgid "Only a planned visit can be rescheduled."
+msgstr "لا يمكن إعادة جدولة إلا الزيارة المخططة."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_move_line.py:0
+msgid "This customer already has a visit from the same weekly pattern on %s."
+msgstr "لدى هذا العميل زيارة من النمط الأسبوعي نفسه بتاريخ %s."
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_visit.py:0
+msgid ""
+"This visit repeats in the following weeks. Should the change apply to the "
+"rest of the period, or only to this visit?"
+msgstr ""
+"هذه الزيارة تتكرر في الأسابيع التالية. هل يشمل التعديل باقي المدة أم هذه "
+"الزيارة فقط؟"
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_visit.py:0
+msgid "Choose..."
+msgstr "اختيار..."
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__state__to_verify
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_payment_form
+msgid "Verify Amount"
+msgstr "التحقق من المبلغ"
+
+#. module: field_visit
+#: model:ir.model.fields.selection,name:field_visit.selection__field_payment__state__verified
+msgid "Verified"
+msgstr "تم التحقق"
+
+#. module: field_visit
+#: code:addons/field_visit/models/field_payment.py:0
+msgid "%s is not pending (already handed over, verified or sent)."
+msgstr "%s ليس قيد الانتظار (سبق تسليمه أو التحقق منه أو إرساله)."

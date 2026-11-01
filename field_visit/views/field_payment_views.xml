@@ -5,8 +5,8 @@
         <field name="name">field.payment.list</field>
         <field name="model">field.payment</field>
         <field name="arch" type="xml">
-            <list decoration-warning="state == 'in_custody'"
-                  decoration-success="state == 'handed_over'">
+            <list decoration-warning="state in ('in_custody', 'to_verify')"
+                  decoration-success="state in ('handed_over', 'verified')">
                 <field name="name"/>
                 <field name="payment_date"/>
                 <field name="customer_id"/>
@@ -35,8 +35,18 @@
                             string="Confirm Receipt" class="btn-primary"
                             invisible="state != 'in_custody'"
                             groups="field_visit.group_field_supervisor"/>
+                    <button name="action_hand_over" type="object"
+                            string="Verify Amount" class="btn-primary"
+                            invisible="state != 'to_verify'"
+                            groups="field_visit.group_field_supervisor"/>
+                    <!-- Cash is held by the delegate; every other method
+                         only needs the amount to be verified. -->
                     <field name="state" widget="statusbar"
-                           statusbar_visible="in_custody,handed_over"/>
+                           statusbar_visible="in_custody,handed_over"
+                           invisible="payment_method != 'cash'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="to_verify,verified"
+                           invisible="payment_method == 'cash'"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -65,7 +75,7 @@
                         <field name="sms_datetime" readonly="1" invisible="not sms_datetime"/>
                         <field name="sms_error" readonly="1" invisible="not sms_error"/>
                     </group>
-                    <group invisible="state == 'in_custody'">
+                    <group invisible="state in ('in_custody', 'to_verify')">
                         <field name="handed_over_datetime" readonly="1"/>
                         <field name="handed_over_by_id" readonly="1"/>
                     </group>
