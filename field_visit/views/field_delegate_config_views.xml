@@ -60,6 +60,11 @@
                     </group>
                     <notebook>
                         <page string="Assigned Customers">
+                            <button name="%(action_field_delegate_assign_customers)d"
+                                    type="action" string="Add Customers"
+                                    class="btn-primary mb-2"
+                                    context="{'default_delegate_id': id}"
+                                    invisible="not id"/>
                             <field name="customer_assignment_ids">
                                 <list editable="bottom">
                                     <field name="customer_id"/>

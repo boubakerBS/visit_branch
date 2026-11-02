@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_delegate_assign_customers_form" model="ir.ui.view">
+        <field name="name">field.delegate.assign.customers.form</field>
+        <field name="model">field.delegate.assign.customers</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="delegate_id" readonly="1"/>
+                    <field name="skip_assigned_elsewhere"/>
+                    <field name="assigned_customer_ids" invisible="1"/>
+                </group>
+                <p class="text-muted">
+                    Use "Add a line", search, tick as many customers as you
+                    need and confirm - they are all added at once.
+                </p>
+                <field name="customer_ids" nolabel="1"
+                       domain="[('user_ids', '=', False), ('id', 'not in', assigned_customer_ids)]">
+                    <list>
+                        <field name="display_name"/>
+                        <field name="phone" optional="show"/>
+                        <field name="city" optional="show"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_assign" type="object"
+                            string="Add Customers" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_delegate_assign_customers" model="ir.actions.act_window">
+        <field name="name">Add Customers To Delegate</field>
+        <field name="res_model">field.delegate.assign.customers</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

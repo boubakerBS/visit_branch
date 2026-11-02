@@ -597,6 +597,7 @@ msgstr "خط طول العميل المسجل"
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__customer_ids
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__customer_ids
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_assign_customers__customer_ids
 msgid "Customers"
 msgstr "العملاء"
 
@@ -661,6 +662,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_route__delegate_id
 #: model:res.groups,name:field_visit.group_field_delegate
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_search
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_assign_customers__delegate_id
 msgid "Delegate"
 msgstr "المندوب"
 
@@ -2798,6 +2800,7 @@ msgstr "لا يمكن إضافة عملاء إلا لخطة في حالة الت
 
 #. module: field_visit
 #: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+#: code:addons/field_visit/wizard/field_delegate_assign_customers.py:0
 msgid "Select at least one customer."
 msgstr "اختر عميلاً واحداً على الأقل."
 
@@ -2901,6 +2904,8 @@ msgstr ""
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_assign_customers_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_config_form
 msgid "Add Customers"
 msgstr "إضافة عملاء"
 
@@ -2974,3 +2979,49 @@ msgid ""
 msgstr ""
 "لدى هذا المندوب خطة نشطة (%s). لإضافة عملاء جدد استخدم «إضافة عملاء» في تلك "
 "الخطة، وللبدء من جديد ألغِها أولاً."
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_delegate_assign_customers
+#: model:ir.actions.act_window,name:field_visit.action_field_delegate_assign_customers
+msgid "Add Customers To Delegate"
+msgstr "إضافة عملاء إلى المندوب"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_assign_customers__skip_assigned_elsewhere
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_assign_customers_form
+msgid "Skip customers assigned to another delegate"
+msgstr "تخطي العملاء المُسندين لمندوب آخر"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_delegate_assign_customers__skip_assigned_elsewhere
+msgid ""
+"On (default): customers that already belong to another delegate are not "
+"added and are listed in the result. Off: they are added to this delegate as "
+"well."
+msgstr ""
+"مفعّل (افتراضي): لا يُضاف العملاء التابعون لمندوب آخر وتُذكر أسماؤهم في "
+"النتيجة. متوقف: يُضافون لهذا المندوب أيضاً."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_delegate_assign_customers_form
+msgid ""
+"Use \"Add a line\", search, tick as many customers as you need and confirm -"
+" they are all added at once."
+msgstr ""
+"استخدم «إضافة سطر» وابحث وحدّد العدد الذي تحتاجه من العملاء ثم أكّد، "
+"فيُضافون كلهم دفعة واحدة."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_delegate_assign_customers.py:0
+msgid "%d customer(s) added to the delegate."
+msgstr "تمت إضافة %d عميل للمندوب."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_delegate_assign_customers.py:0
+msgid "Skipped (already assigned to another delegate): %s."
+msgstr "تم تخطي (مُسندون لمندوب آخر): %s."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_delegate_assign_customers.py:0
+msgid "Customers added"
+msgstr "تمت إضافة العملاء"
