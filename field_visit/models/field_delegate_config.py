@@ -39,6 +39,12 @@ class FieldDelegateConfig(models.Model):
         'field.customer.assignment', 'delegate_id', string="Customers")
     customer_count = fields.Integer(compute='_compute_customer_count')
 
+    vehicle_reference = fields.Char(
+        string="Vehicle Reference",
+        help="Identifier of this delegate's work car in the vehicle "
+             "tracking system (device ID or plate number). Used to show "
+             "the car's live position on the map.")
+
     # ---------------- Current location ----------------
     # Simple, always-current fields - just like a customer's
     # coordinates. Updated in-place by field.visit / field.visit.route
@@ -164,3 +170,18 @@ class FieldDelegateConfig(models.Model):
                 'current_location_updated_at': now,
             })
         return True
+
+    @api.model
+    def get_map_settings(self):
+        """Map preferences read by the live map screen."""
+        params = self.env['ir.config_parameter'].sudo()
+        try:
+            refresh = int(params.get_param('field_visit.map_refresh_seconds', 60))
+        except ValueError:
+            refresh = 60
+        if refresh > 0:
+            refresh = max(10, refresh)
+        return {
+            'default_layer': params.get_param('field_visit.map_default_layer', 'osm'),
+            'refresh_seconds': max(0, refresh),
+        }

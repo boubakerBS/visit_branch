@@ -8,6 +8,7 @@
             <list>
                 <field name="user_id"/>
                 <field name="branch_id"/>
+                <field name="vehicle_reference" optional="show"/>
                 <field name="customer_count"/>
                 <field name="weekly_visit_frequency"/>
                 <field name="visits_per_day_estimate" string="~Visits/Day"/>
@@ -35,6 +36,7 @@
                         <group>
                             <field name="user_id"/>
                             <field name="branch_id"/>
+                            <field name="vehicle_reference"/>
                         </group>
                         <group>
                             <field name="weekly_visit_frequency"/>

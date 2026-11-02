@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..models.field_visit_selection_data import WEEKDAY_KEYS
@@ -117,6 +117,19 @@ class FieldVisitPlanGenerate(models.TransientModel):
                 "These customers have no GPS coordinates yet, so a "
                 "route cannot be ordered by distance: %s"
                 % ', '.join(missing_coords.mapped('name')))
+
+        # Never silently create a second, overlapping plan for the same
+        # delegate (it would duplicate visits and bury the old work).
+        active_plan = self.env['field.visit.plan'].search([
+            ('delegate_id', '=', delegate.id),
+            ('state', 'in', ('trial', 'approved')),
+            ('date_end', '>=', self.date_start),
+        ], limit=1)
+        if active_plan:
+            raise UserError(_(
+                "This delegate already has an active plan (%s). To add "
+                "new customers use \"Add Customers\" on that plan; to "
+                "start over, cancel it first.", active_plan.name))
 
         trial_days = 14 if self.trial_length == 'two_weeks' else 7
 

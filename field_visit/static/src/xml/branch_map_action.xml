@@ -22,6 +22,14 @@
                     <span style="display:inline-block;width:12px;height:12px;background:#1c7430;border-radius:50%;box-shadow:0 0 0 3px rgba(28,116,48,.3);"/>
                     Delegate Now
                 </span>
+                <button class="btn btn-sm btn-primary ms-3" t-on-click="onRefresh"
+                        t-att-disabled="state.refreshing">
+                    <i class="fa fa-refresh" t-att-class="{'fa-spin': state.refreshing}"/>
+                    Refresh
+                </button>
+                <span class="text-muted small" t-if="state.lastRefresh">
+                    Last update: <t t-esc="state.lastRefresh"/>
+                </span>
                 <div class="ms-auto d-flex align-items-center gap-2">
                     <label for="route_select" class="mb-0">Show delegate route:</label>
                     <select id="route_select" class="form-select form-select-sm"

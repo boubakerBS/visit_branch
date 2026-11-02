@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_visit_plan_add_customers_form" model="ir.ui.view">
+        <field name="name">field.visit.plan.add.customers.form</field>
+        <field name="model">field.visit.plan.add.customers</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="plan_id" readonly="1"/>
+                    <field name="delegate_id" readonly="1"/>
+                </group>
+                <group string="Customers">
+                    <field name="include_existing"/>
+                    <field name="available_customer_ids" invisible="1"/>
+                    <field name="customer_ids" widget="many2many_tags"
+                           options="{'no_create': True}"
+                           domain="[('id', 'in', available_customer_ids)]"/>
+                </group>
+                <group string="Visit Days">
+                    <group>
+                        <field name="day_sat"/>
+                        <field name="day_sun"/>
+                        <field name="day_mon"/>
+                        <field name="day_tue"/>
+                    </group>
+                    <group>
+                        <field name="day_wed"/>
+                        <field name="day_thu"/>
+                        <field name="day_fri"/>
+                    </group>
+                </group>
+                <p class="text-muted">
+                    Leave all days unticked to let the system pick the
+                    least busy working days, according to the delegate's
+                    weekly visit frequency.
+                </p>
+                <group string="Period">
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+                <p class="text-muted">
+                    Only new visits are created. Existing visits and their
+                    order are never changed, and a customer never gets a
+                    second visit on a day that already has one.
+                </p>
+                <footer>
+                    <button name="action_add" type="object"
+                            string="Add Customers" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_visit_plan_add_customers" model="ir.actions.act_window">
+        <field name="name">Add Customers To Plan</field>
+        <field name="res_model">field.visit.plan.add.customers</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

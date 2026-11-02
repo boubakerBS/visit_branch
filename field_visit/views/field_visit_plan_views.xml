@@ -33,7 +33,11 @@
                     <button name="action_approve" type="object"
                             string="Approve Pattern" class="btn-primary"
                             invisible="state != 'trial'"
-                            help="Snapshot the current weekly template as the confirmed, reusable pattern."/>
+                            help="Confirm that the trial period matches reality. Extensions repeat each customer's last generated week."/>
+                    <button name="%(action_field_visit_plan_add_customers)d"
+                            type="action" string="Add Customers"
+                            class="btn-secondary"
+                            invisible="state not in ('trial', 'approved')"/>
                     <button name="%(action_field_visit_plan_extend)d"
                             type="action" string="Extend Schedule"
                             class="btn-primary"

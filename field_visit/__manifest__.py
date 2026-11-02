@@ -21,7 +21,7 @@ Key concepts
   batches (trial week, then explicit extensions) - never silently in
   bulk for a whole year.
 """,
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.3.0',
     'category': 'Sales/Field Service',
     'author': "Meydan Field",
     'website': "https://example.com",
@@ -40,6 +40,7 @@ Key concepts
         'data/ir_sequence_data.xml',
         'wizard/views/field_visit_plan_generate_views.xml',
         'wizard/views/field_visit_plan_extend_views.xml',
+        'wizard/views/field_visit_plan_add_customers_views.xml',
         'wizard/views/field_visit_plan_move_line_views.xml',
         'wizard/views/field_visit_not_done_views.xml',
         'wizard/views/field_visit_gps_checkin_views.xml',

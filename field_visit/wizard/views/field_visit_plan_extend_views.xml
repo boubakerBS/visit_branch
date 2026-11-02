@@ -9,13 +9,16 @@
                 <group>
                     <field name="plan_id" readonly="1"/>
                     <field name="schedule_generated_until" readonly="1"/>
-                    <field name="pattern_week_start" readonly="1"/>
-                    <field name="pattern_week_end" readonly="1"/>
                 </group>
                 <div class="alert alert-info" role="alert">
-                    The last generated week will be repeated exactly as it is now, including any changes you made to the days and order of the visits.
+                    Each customer continues from its own last generated visit and repeats its last generated week exactly as it is now, including any changes you made to the days and order of the visits. Existing visits are never changed.
                 </div>
                 <group>
+                    <field name="available_customer_ids" invisible="1"/>
+                    <field name="customer_ids" widget="many2many_tags"
+                           options="{'no_create': True}"
+                           placeholder="All customers"
+                           domain="[('id', 'in', available_customer_ids)]"/>
                     <field name="extend_mode" widget="radio"/>
                     <field name="extend_days"
                            invisible="extend_mode != 'days'"/>

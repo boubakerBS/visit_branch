@@ -9,6 +9,14 @@ _PY_WEEKDAY_TO_KEY = {5: 'sat', 6: 'sun', 0: 'mon',
 
 
 class FieldVisitPlanExtend(models.TransientModel):
+    """Extends the schedule by repeating, FOR EACH CUSTOMER, the last
+    week that was generated for that customer, exactly as it is now
+    (including days/order changed by the supervisor).
+
+    Every customer continues from its OWN last generated visit, so a
+    customer added later (with a shorter schedule) simply catches up.
+    Nothing that already exists is modified or deleted: only missing
+    visits are added."""
     _name = 'field.visit.plan.extend'
     _description = 'Extend Visit Plan Schedule'
 
@@ -17,6 +25,13 @@ class FieldVisitPlanExtend(models.TransientModel):
         default=lambda self: self.env.context.get('active_id'))
     schedule_generated_until = fields.Date(
         related='plan_id.schedule_generated_until', readonly=True)
+
+    available_customer_ids = fields.Many2many(
+        'res.partner', compute='_compute_available_customers')
+    customer_ids = fields.Many2many(
+        'res.partner', 'field_visit_plan_extend_rel',
+        'wizard_id', 'partner_id', string="Customers",
+        help="Leave empty to extend all the plan's customers.")
 
     extend_mode = fields.Selection([
         ('days', 'A number of days'),
@@ -30,155 +45,166 @@ class FieldVisitPlanExtend(models.TransientModel):
     extend_days = fields.Integer(default=7)
     extend_until_date = fields.Date()
 
-    # The pattern that gets repeated is the LAST generated week exactly
-    # as the supervisor arranged it (moved/reordered visits included).
-    pattern_week_start = fields.Date(
-        compute='_compute_pattern_week', string="Repeated Week From")
-    pattern_week_end = fields.Date(
-        compute='_compute_pattern_week', string="Repeated Week To")
-
-    @api.depends('plan_id.schedule_generated_until')
-    def _compute_pattern_week(self):
+    @api.depends('plan_id')
+    def _compute_available_customers(self):
         for wiz in self:
-            until = wiz.plan_id.schedule_generated_until
-            wiz.pattern_week_end = until or False
-            wiz.pattern_week_start = (
-                until - datetime.timedelta(days=6)) if until else False
+            visits = self.env['field.visit'].search([
+                ('plan_id', '=', wiz.plan_id.id),
+                ('state', '!=', 'cancelled')])
+            wiz.available_customer_ids = visits.mapped('customer_id')
 
-    def _sync_template_from_last_week(self):
-        """Makes the plan's weekly template equal to the last 7
-        generated days, as they stand NOW (after any change the
-        supervisor made to the visits: moved to another day, reordered).
-        Each (customer, weekday) found in that week becomes a template
-        line; lines for combinations no longer present are archived."""
+    def _compute_end(self):
         self.ensure_one()
         plan = self.plan_id
-        until = plan.schedule_generated_until
-        if not until:
-            raise UserError(_(
-                "There is no generated schedule to repeat yet."))
-        week_start = until - datetime.timedelta(days=6)
-        visits = self.env['field.visit'].search([
-            ('plan_id', '=', plan.id),
-            ('visit_date', '>=', week_start),
-            ('visit_date', '<=', until),
-            ('state', '!=', 'cancelled'),
-        ])
-        if not visits:
-            raise UserError(_(
-                "There are no visits in the last generated week "
-                "(%(start)s to %(end)s), so there is nothing to repeat.",
-                start=week_start, end=until))
-
-        Line = self.env['field.visit.plan.line'].with_context(active_test=False)
-        existing = Line.search([('plan_id', '=', plan.id)])
-        by_key = {(l.customer_id.id, l.visit_day): l for l in existing}
-        keep = self.env['field.visit.plan.line']
-        for visit in visits.sorted(lambda v: (v.visit_date, v.sequence)):
-            day_key = _PY_WEEKDAY_TO_KEY[visit.visit_date.weekday()]
-            key = (visit.customer_id.id, day_key)
-            vals = {
-                'sequence': visit.sequence,
-                'estimated_distance_km': visit.distance_from_previous_km,
-                'active': True,
-            }
-            line = by_key.get(key)
-            if line:
-                line.write(vals)
-            else:
-                line = Line.create(dict(
-                    vals, plan_id=plan.id, customer_id=visit.customer_id.id,
-                    visit_day=day_key))
-                by_key[key] = line
-            keep |= line
-        (existing - keep).write({'active': False})
-
-    def _compute_range(self):
-        self.ensure_one()
-        plan = self.plan_id
-        start = (plan.schedule_generated_until or plan.date_start) + \
-            datetime.timedelta(days=1)
-
+        baseline = plan.schedule_generated_until or plan.date_start
         if self.extend_mode == 'days':
-            end = start + datetime.timedelta(days=max(self.extend_days, 1) - 1)
+            end = baseline + datetime.timedelta(days=max(self.extend_days, 1))
         elif self.extend_mode == 'week':
-            end = start + datetime.timedelta(days=6)
+            end = baseline + datetime.timedelta(days=7)
         elif self.extend_mode == 'until_date':
             end = self.extend_until_date
         else:  # until_plan_end
             end = plan.date_end
-
-        if not end or end < start:
-            raise UserError("Invalid extension range.")
-        if end > plan.date_end:
-            end = plan.date_end
-        return start, end
+        if not end:
+            raise UserError(_("Invalid extension range."))
+        return min(end, plan.date_end)
 
     def action_extend(self):
         self.ensure_one()
         plan = self.plan_id
         if plan.state != 'approved':
-            raise UserError(
+            raise UserError(_(
                 "The plan's pattern must be Approved before it can be "
                 "extended. Review the trial period and use "
-                "'Approve Pattern' first.")
+                "'Approve Pattern' first."))
 
-        start, end = self._compute_range()
+        Visit = self.env['field.visit']
+        Line = self.env['field.visit.plan.line'].with_context(active_test=False)
+        Route = self.env['field.visit.route']
+        end = self._compute_end()
 
-        # Repeat the last generated week exactly as it is now.
-        self._sync_template_from_last_week()
+        # ---- Each customer's own last generated week ----
+        domain = [('plan_id', '=', plan.id), ('state', '!=', 'cancelled')]
+        if self.customer_ids:
+            domain.append(('customer_id', 'in', self.customer_ids.ids))
+        rows = Visit.search_read(
+            domain, ['customer_id', 'visit_date', 'sequence',
+                     'distance_from_previous_km'])
+        by_customer = {}
+        for row in rows:
+            row['visit_date'] = fields.Date.to_date(row['visit_date'])
+            by_customer.setdefault(row['customer_id'][0], []).append(row)
+        horizons = {cid: max(r['visit_date'] for r in lst)
+                    for cid, lst in by_customer.items()}
 
-        lines_by_day = {}
-        for line in plan.line_ids:
-            lines_by_day.setdefault(line.visit_day, self.env['field.visit.plan.line'])
-            lines_by_day[line.visit_day] |= line
+        no_pattern = self.customer_ids.filtered(
+            lambda c: c.id not in by_customer)
+        todo = {cid: h for cid, h in horizons.items() if h < end}
+        if not todo and not no_pattern:
+            raise UserError(_(
+                "Nothing to extend: every selected customer already has "
+                "visits up to %s.", end))
 
-        existing = self.env['field.visit'].search([
-            ('plan_id', '=', plan.id),
-            ('visit_date', '>=', start),
-            ('visit_date', '<=', end),
-        ])
-        existing_keys = {(v.plan_line_id.id, v.visit_date) for v in existing}
+        # ---- Visits that already exist (never duplicated) ----
+        busy = set()
+        if todo:
+            for v in Visit.search([
+                    ('delegate_id', '=', plan.delegate_id.id),
+                    ('customer_id', 'in', list(todo)),
+                    ('visit_date', '>', min(todo.values())),
+                    ('visit_date', '<=', end)]):
+                if v.plan_id == plan or v.state != 'cancelled':
+                    busy.add((v.customer_id.id, v.visit_date))
 
-        current = start
-        while current <= end:
-            day_key = _PY_WEEKDAY_TO_KEY[current.weekday()]
-            day_lines = lines_by_day.get(day_key)
-            if not day_lines:
+        all_lines = Line.search([
+            ('plan_id', '=', plan.id), ('customer_id', 'in', list(todo))])
+        routes = {}
+        visit_vals = []
+        extended_customers = set()
+        for cid, horizon in todo.items():
+            window_start = horizon - datetime.timedelta(days=6)
+            source = sorted(
+                [r for r in by_customer[cid] if r['visit_date'] >= window_start],
+                key=lambda r: (r['visit_date'], r['sequence']))
+
+            # Template lines of THIS customer follow its last week
+            # (other customers' lines are never touched).
+            lines = {}
+            keep = Line
+            for row in source:
+                day_key = _PY_WEEKDAY_TO_KEY[row['visit_date'].weekday()]
+                vals = {
+                    'sequence': row['sequence'],
+                    'estimated_distance_km': row['distance_from_previous_km'],
+                    'active': True,
+                }
+                line = all_lines.filtered(
+                    lambda l: l.customer_id.id == cid
+                    and l.visit_day == day_key)[:1]
+                if line:
+                    line.write(vals)
+                else:
+                    line = Line.create(dict(
+                        vals, plan_id=plan.id, customer_id=cid,
+                        visit_day=day_key))
+                    all_lines |= line
+                lines[day_key] = line
+                keep |= line
+            (all_lines.filtered(lambda l: l.customer_id.id == cid) - keep) \
+                .write({'active': False})
+
+            # New visits, day by day, after this customer's own horizon.
+            current = horizon + datetime.timedelta(days=1)
+            while current <= end:
+                line = lines.get(_PY_WEEKDAY_TO_KEY[current.weekday()])
+                if line and (cid, current) not in busy:
+                    if current not in routes:
+                        routes[current] = Route.search([
+                            ('plan_id', '=', plan.id),
+                            ('route_date', '=', current)], limit=1) \
+                            or Route.create({
+                                'plan_id': plan.id, 'route_date': current})
+                    visit_vals.append({
+                        'plan_id': plan.id,
+                        'plan_line_id': line.id,
+                        'route_id': routes[current].id,
+                        'customer_id': cid,
+                        'visit_date': current,
+                        'sequence': line.sequence,
+                        'distance_from_previous_km': line.estimated_distance_km,
+                    })
+                    busy.add((cid, current))
+                    extended_customers.add(cid)
                 current += datetime.timedelta(days=1)
-                continue
 
-            new_lines = day_lines.filtered(
-                lambda line: (line.id, current) not in existing_keys)
-            if not new_lines:
-                current += datetime.timedelta(days=1)
-                continue
+        visits = Visit.create(visit_vals) if visit_vals else Visit
+        if visits and end > (plan.schedule_generated_until or plan.date_start):
+            plan.schedule_generated_until = end
 
-            route = self.env['field.visit.route'].search([
-                ('plan_id', '=', plan.id), ('route_date', '=', current),
-            ], limit=1) or self.env['field.visit.route'].create({
-                'plan_id': plan.id,
-                'route_date': current,
-            })
-
-            visit_vals = [{
-                'plan_id': plan.id,
-                'plan_line_id': line.id,
-                'route_id': route.id,
-                'customer_id': line.customer_id.id,
-                'visit_date': current,
-                'sequence': line.sequence,
-                'distance_from_previous_km': line.estimated_distance_km,
-            } for line in new_lines.sorted('sequence')]
-            self.env['field.visit'].create(visit_vals)
-            current += datetime.timedelta(days=1)
-
-        plan.schedule_generated_until = end
-
+        message = _(
+            "%(visits)d visits created for %(customers)d customer(s), "
+            "up to %(end)s.",
+            visits=len(visits), customers=len(extended_customers), end=end)
+        if no_pattern:
+            message += " " + _(
+                "No visits to repeat for: %s.",
+                ', '.join(no_pattern.mapped('name')))
         return {
-            'type': 'ir.actions.act_window',
-            'name': 'Visits',
-            'res_model': 'field.visit',
-            'view_mode': 'list,form',
-            'domain': [('plan_id', '=', plan.id)],
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _("Schedule extended"),
+                'message': message,
+                'type': 'warning' if no_pattern else 'success',
+                'sticky': bool(no_pattern),
+                'next': {
+                    'type': 'ir.actions.act_window',
+                    'name': _("Visits"),
+                    'res_model': 'field.visit',
+                    'views': [[False, 'list'], [False, 'form']],
+                    'view_mode': 'list,form',
+                    'target': 'current',
+                    'domain': [('plan_id', '=', plan.id)],
+                },
+            },
         }

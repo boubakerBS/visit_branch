@@ -28,13 +28,18 @@ export class FieldVisitMap extends Component {
     setup() {
         this.orm = useService("orm");
         this.mapRef = useRef("mapContainer");
-        this.state = useState({ loading: true, routes: [], selectedRouteId: null });
+        this.state = useState({
+            loading: true, routes: [], selectedRouteId: null,
+            refreshing: false, lastRefresh: "",
+        });
         this.map = null;
         this.routeLayer = null; // holds the polyline + numbered stop markers
         this.delegateLayer = null; // "where is the delegate right now" markers
         this.refreshInterval = null;
 
         onWillStart(async () => {
+            this.mapSettings = await this.orm.call(
+                "field.delegate.config", "get_map_settings", []);
             await loadCSS(LEAFLET_CSS);
             await loadJS(LEAFLET_JS);
             this.branches = await this.orm.searchRead(
@@ -71,11 +76,17 @@ export class FieldVisitMap extends Component {
         onMounted(() => {
             this.renderMap();
             this.refreshActiveDelegates();
-            // Delegates' browsers report their position every ~30s while
-            // they are working (see location_tracker.js); the map simply
-            // re-reads the latest stored position every 15s.
-            this.refreshInterval = setInterval(
-                () => this.refreshActiveDelegates(), 15000);
+            // Delegates' positions are read again every N seconds
+            // (Settings > Field Visit > Map), only while this screen is
+            // visible. 0 = manual only, via the Refresh button.
+            const seconds = this.mapSettings.refresh_seconds;
+            if (seconds > 0) {
+                this.refreshInterval = setInterval(() => {
+                    if (document.visibilityState === "visible") {
+                        this.refreshActiveDelegates();
+                    }
+                }, seconds * 1000);
+            }
         });
 
         onWillUnmount(() => {
@@ -98,10 +109,58 @@ export class FieldVisitMap extends Component {
         const center = allPoints.length ? allPoints[0] : [24.7136, 46.6753];
 
         this.map = L.map(this.mapRef.el).setView(center, 11);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "&copy; OpenStreetMap contributors",
-            maxZoom: 19,
-        }).addTo(this.map);
+
+        // Selectable map styles. The supervisor's last choice is kept in
+        // the browser; the default comes from the settings.
+        const esriAttr = "Tiles &copy; Esri";
+        const layers = {
+            osm: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "&copy; OpenStreetMap contributors",
+                maxZoom: 19,
+            }),
+            satellite: L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                { attribution: esriAttr, maxZoom: 19 }),
+            hybrid: L.layerGroup([
+                L.tileLayer(
+                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                    { attribution: esriAttr, maxZoom: 19 }),
+                L.tileLayer(
+                    "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",
+                    { maxZoom: 19 }),
+            ]),
+            terrain: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+                attribution: "&copy; OpenStreetMap contributors, SRTM | &copy; OpenTopoMap",
+                maxZoom: 17,
+            }),
+        };
+        const names = {
+            osm: _t("Standard"),
+            satellite: _t("Satellite"),
+            hybrid: _t("Satellite + Labels"),
+            terrain: _t("Terrain"),
+        };
+        const baseLayers = {};
+        for (const key of Object.keys(layers)) {
+            baseLayers[names[key]] = layers[key];
+        }
+        let chosen = this.mapSettings.default_layer;
+        try {
+            chosen = window.localStorage.getItem("field_visit.map_layer") || chosen;
+        } catch (e) { /* storage unavailable: use the default */ }
+        if (!layers[chosen]) {
+            chosen = "osm";
+        }
+        layers[chosen].addTo(this.map);
+        L.control.layers(baseLayers, null, { position: "topright" }).addTo(this.map);
+        this.map.on("baselayerchange", (ev) => {
+            const key = Object.keys(names).find((k) => names[k] === ev.name);
+            try {
+                if (key) {
+                    window.localStorage.setItem("field_visit.map_layer", key);
+                }
+            } catch (e) { /* ignore */ }
+        });
 
         const branchIcon = L.divIcon({
             className: "",
@@ -247,6 +306,15 @@ export class FieldVisitMap extends Component {
      * delegate confirms a GPS check-in (start trip, arrival,
      * complete, return to branch) - see _update_delegate_current_location.
      */
+    async onRefresh() {
+        this.state.refreshing = true;
+        try {
+            await this.refreshActiveDelegates();
+        } finally {
+            this.state.refreshing = false;
+        }
+    }
+
     async refreshActiveDelegates() {
         if (!this.map) return;
         const L = window.L;
@@ -262,6 +330,7 @@ export class FieldVisitMap extends Component {
         );
 
         this.delegateLayer.clearLayers();
+        this.state.lastRefresh = new Date().toLocaleTimeString();
 
         const STALE_MINUTES = 5;
         const makeIcon = (color, glow) => L.divIcon({

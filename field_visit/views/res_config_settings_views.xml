@@ -48,6 +48,19 @@
                             <field name="field_visit_sms_template"/>
                         </setting>
                     </block>
+                    <block title="Map" name="map_container">
+                        <setting string="Default Map Layer"
+                                 id="field_visit_map_default_layer_setting"
+                                 help="Map style shown first (standard, satellite, terrain). Supervisors can switch it on the map.">
+                            <field name="field_visit_map_default_layer"/>
+                        </setting>
+                        <setting string="Map Auto-Refresh"
+                                 id="field_visit_map_refresh_setting"
+                                 help="How often the live map re-reads delegates' positions while open. 0 = manual refresh only.">
+                            <field name="field_visit_map_refresh_seconds"/>
+                            <span>seconds</span>
+                        </setting>
+                    </block>
                     <block title="Live Tracking"
                            name="live_tracking_container">
                         <setting string="Live Delegate Tracking"

@@ -52,3 +52,19 @@ class ResConfigSettings(models.TransientModel):
         string="Update Every (seconds)",
         default=30,
         config_parameter='field_visit.tracking_interval_seconds')
+
+    field_visit_map_default_layer = fields.Selection([
+        ('osm', 'Standard'),
+        ('satellite', 'Satellite'),
+        ('hybrid', 'Satellite + Labels'),
+        ('terrain', 'Terrain'),
+    ], string="Default Map Layer", default='osm',
+        config_parameter='field_visit.map_default_layer',
+        help="Map style shown first. Each supervisor can switch styles on "
+             "the map and the browser remembers their choice.")
+    field_visit_map_refresh_seconds = fields.Integer(
+        string="Map Auto-Refresh (seconds)", default=60,
+        config_parameter='field_visit.map_refresh_seconds',
+        help="How often the live map re-reads delegates' positions while "
+             "it is open and visible. Use 0 for manual refresh only "
+             "(Refresh button). Minimum 10.")

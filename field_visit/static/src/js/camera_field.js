@@ -76,5 +76,4 @@ export class FieldVisitCamera extends Component {
 
 registry.category("fields").add("field_visit_camera", {
     component: FieldVisitCamera,
-    supportedTypes: ["binary", "image"],
 });

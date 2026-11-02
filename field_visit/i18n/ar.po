@@ -594,6 +594,9 @@ msgstr "خط طول العميل المسجل"
 #: model:ir.actions.act_window,name:field_visit.action_field_customer
 #: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__customer_assignment_ids
 #: model:ir.ui.menu,name:field_visit.menu_field_customer
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__customer_ids
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__customer_ids
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
 msgid "Customers"
 msgstr "العملاء"
 
@@ -1024,6 +1027,7 @@ msgstr "أيقونة Font Awesome مثل fa-tasks"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__fri
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__fri
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__fri
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_fri
 msgid "Friday"
 msgstr "الجمعة"
 
@@ -1359,6 +1363,7 @@ msgstr "جهاز مدى"
 #. module: field_visit
 #: model:ir.actions.client,name:field_visit.action_field_visit_map
 #: model:ir.ui.menu,name:field_visit.menu_field_visit_map
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
 msgid "Map"
 msgstr "الخريطة"
 
@@ -1398,6 +1403,7 @@ msgstr "الرسائل"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__mon
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__mon
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__mon
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_mon
 msgid "Monday"
 msgstr "الاثنين"
 
@@ -1874,6 +1880,7 @@ msgstr "مبيعات اليوم"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__sat
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__sat
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__sat
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_sat
 msgid "Saturday"
 msgstr "السبت"
 
@@ -1923,9 +1930,11 @@ msgstr "عرض مسار المندوب:"
 #. module: field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
 msgid ""
-"Snapshot the current weekly template as the confirmed, reusable pattern."
+"Confirm that the trial period matches reality. Extensions repeat each "
+"customer's last generated week."
 msgstr ""
-"أخذ لقطة من القالب الأسبوعي الحالي كنمط مؤكَّد وقابل لإعادة الاستخدام."
+"أكّد أن فترة التجربة تطابق الواقع. التمديدات تكرّر آخر أسبوع مولَّد لكل "
+"عميل."
 
 #. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_gps_checkin__stage
@@ -1993,6 +2002,7 @@ msgstr "المجموع الفرعي"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__sun
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__sun
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__sun
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_sun
 msgid "Sunday"
 msgstr "الأحد"
 
@@ -2072,6 +2082,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__thu
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__thu
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__thu
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_thu
 msgid "Thursday"
 msgstr "الخميس"
 
@@ -2157,6 +2168,7 @@ msgstr "أعد المحاولة"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__tue
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__tue
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__tue
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_tue
 msgid "Tuesday"
 msgstr "الثلاثاء"
 
@@ -2273,6 +2285,8 @@ msgstr "خطط الزيارات"
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_route__visit_ids
 #: model:ir.ui.menu,name:field_visit.menu_field_visit
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
 msgid "Visits"
 msgstr "الزيارات"
 
@@ -2294,6 +2308,7 @@ msgstr "الزيارات هذا الأسبوع"
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit__visit_weekday__wed
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_line__visit_day__wed
 #: model:ir.model.fields.selection,name:field_visit.selection__field_visit_plan_move_line__new_day__wed
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__day_wed
 msgid "Wednesday"
 msgstr "الأربعاء"
 
@@ -2622,39 +2637,6 @@ msgid "GPS Accuracy (m)"
 msgstr "دقة GPS (م)"
 
 #. module: field_visit
-#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_extend_form
-msgid ""
-"The last generated week will be repeated exactly as it is now, including any"
-" changes you made to the days and order of the visits."
-msgstr ""
-"سيُكرَّر آخر أسبوع تم توليده كما هو الآن تماماً، بما في ذلك أي تغييرات "
-"أجريتها على أيام الزيارات وترتيبها."
-
-#. module: field_visit
-#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__pattern_week_start
-msgid "Repeated Week From"
-msgstr "الأسبوع المكرَّر من"
-
-#. module: field_visit
-#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_extend__pattern_week_end
-msgid "Repeated Week To"
-msgstr "الأسبوع المكرَّر إلى"
-
-#. module: field_visit
-#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
-msgid "There is no generated schedule to repeat yet."
-msgstr "لا توجد جدولة مولّدة لتكرارها بعد."
-
-#. module: field_visit
-#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
-msgid ""
-"There are no visits in the last generated week (%(start)s to %(end)s), so "
-"there is nothing to repeat."
-msgstr ""
-"لا توجد زيارات في آخر أسبوع تم توليده (%(start)s إلى %(end)s)، لذلك لا يوجد "
-"ما يمكن تكراره."
-
-#. module: field_visit
 #: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_move_line__new_date
 #: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_move_line_form
 msgid "New Date"
@@ -2725,3 +2707,270 @@ msgstr "%s ليس قيد الانتظار (سبق تسليمه أو التحقق
 #: code:addons/field_visit/models/field_payment.py:0
 msgid "This voucher was already received and can no longer be modified."
 msgstr "تم استلام هذا السند ولا يمكن تعديله بعد الآن."
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/branch_map_action.js:0
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_map_default_layer__osm
+msgid "Standard"
+msgstr "عادية"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/branch_map_action.js:0
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_map_default_layer__satellite
+msgid "Satellite"
+msgstr "قمر صناعي"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/branch_map_action.js:0
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_map_default_layer__hybrid
+msgid "Satellite + Labels"
+msgstr "قمر صناعي مع الأسماء"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/js/branch_map_action.js:0
+#: model:ir.model.fields.selection,name:field_visit.selection__res_config_settings__field_visit_map_default_layer__terrain
+msgid "Terrain"
+msgstr "تضاريس"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "Refresh"
+msgstr "تحديث"
+
+#. module: field_visit
+#: code:addons/field_visit/static/src/xml/branch_map_action.xml:0
+msgid "Last update:"
+msgstr "آخر تحديث:"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_delegate_config__vehicle_reference
+msgid "Vehicle Reference"
+msgstr "الرقم المرجعي للسيارة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_delegate_config__vehicle_reference
+msgid ""
+"Identifier of this delegate's work car in the vehicle tracking system "
+"(device ID or plate number). Used to show the car's live position on the "
+"map."
+msgstr ""
+"معرّف سيارة عمل هذا المندوب في نظام تتبع السيارات (رقم الجهاز أو رقم "
+"اللوحة). يُستخدم لعرض موقع السيارة المباشر على الخريطة."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_map_default_layer
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Default Map Layer"
+msgstr "طبقة الخريطة الافتراضية"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"Map style shown first (standard, satellite, terrain). Supervisors can switch"
+" it on the map."
+msgstr ""
+"نمط الخريطة الذي يظهر أولاً (عادية، قمر صناعي، تضاريس). يستطيع المشرف تغييره"
+" من الخريطة."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid "Map Auto-Refresh"
+msgstr "التحديث التلقائي للخريطة"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_res_config_settings__field_visit_map_refresh_seconds
+msgid "Map Auto-Refresh (seconds)"
+msgstr "التحديث التلقائي للخريطة (ثانية)"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_res_config_settings_field_visit
+msgid ""
+"How often the live map re-reads delegates' positions while open. 0 = manual "
+"refresh only."
+msgstr ""
+"كم مرة تعيد الخريطة المباشرة قراءة مواقع المناديب أثناء فتحها. 0 = تحديث "
+"يدوي فقط."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "Customers can only be added to a plan in Trial or Approved state."
+msgstr "لا يمكن إضافة عملاء إلا لخطة في حالة التجربة أو المعتمدة."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "Select at least one customer."
+msgstr "اختر عميلاً واحداً على الأقل."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "These customers are not assigned to this delegate: %s"
+msgstr "هؤلاء العملاء غير مُسندين لهذا المندوب: %s"
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "The start date cannot be in the past."
+msgstr "لا يمكن أن يكون تاريخ البداية في الماضي."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid ""
+"The period must start before it ends (and before the plan's end date %s)."
+msgstr "يجب أن تبدأ المدة قبل نهايتها (وقبل تاريخ انتهاء الخطة %s)."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "This delegate has no working days configured."
+msgstr "لم تُضبط أيام عمل لهذا المندوب."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "%(visits)d visits created for %(customers)d customer(s)."
+msgstr "تم إنشاء %(visits)d زيارة لـ %(customers)d عميل."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "%d already existed and were skipped."
+msgstr "وتم تخطي %d زيارة لأنها موجودة مسبقاً."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_add_customers.py:0
+msgid "Customers added to the plan"
+msgstr "تمت إضافة العملاء للخطة"
+
+#. module: field_visit
+#: model:ir.model,name:field_visit.model_field_visit_plan_add_customers
+msgid "Add Customers To Visit Plan"
+msgstr "إضافة عملاء إلى خطة الزيارات"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__include_existing
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+msgid "Include customers already in the plan"
+msgstr "إظهار العملاء الموجودين في الخطة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_add_customers__include_existing
+msgid ""
+"Off: only customers that have no visit days in this plan yet are offered. "
+"On: all of the delegate's customers are offered, e.g. to add one more visit "
+"day to a customer."
+msgstr ""
+"متوقف: تظهر فقط العملاء الذين ليس لهم أيام زيارة في هذه الخطة. مفعّل: تظهر "
+"كل عملاء المندوب، مثلاً لإضافة يوم زيارة آخر لعميل."
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__date_from
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+msgid "From"
+msgstr "من"
+
+#. module: field_visit
+#: model:ir.model.fields,field_description:field_visit.field_field_visit_plan_add_customers__date_to
+msgid "To"
+msgstr "إلى"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+msgid "Visit Days"
+msgstr "أيام الزيارة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+msgid "Period"
+msgstr "المدة"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+msgid ""
+"Leave all days unticked to let the system pick the least busy working days, "
+"according to the delegate's weekly visit frequency."
+msgstr ""
+"اترك كل الأيام بدون تحديد ليختار النظام أيام العمل الأقل ازدحاماً بحسب عدد "
+"زيارات المندوب الأسبوعية."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+msgid ""
+"Only new visits are created. Existing visits and their order are never "
+"changed, and a customer never gets a second visit on a day that already has "
+"one."
+msgstr ""
+"تُنشأ زيارات جديدة فقط. لا تتغير الزيارات الموجودة ولا ترتيبها، ولا يحصل "
+"العميل على زيارة ثانية في يوم لديه فيه زيارة."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_add_customers_form
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_form
+msgid "Add Customers"
+msgstr "إضافة عملاء"
+
+#. module: field_visit
+#: model:ir.actions.act_window,name:field_visit.action_field_visit_plan_add_customers
+msgid "Add Customers To Plan"
+msgstr "إضافة عملاء للخطة"
+
+#. module: field_visit
+#: model:ir.model.fields,help:field_visit.field_field_visit_plan_extend__customer_ids
+msgid "Leave empty to extend all the plan's customers."
+msgstr "اتركه فارغاً لتمديد كل عملاء الخطة."
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_extend_form
+msgid "All customers"
+msgstr "كل العملاء"
+
+#. module: field_visit
+#: model_terms:ir.ui.view,arch_db:field_visit.view_field_visit_plan_extend_form
+msgid ""
+"Each customer continues from its own last generated visit and repeats its "
+"last generated week exactly as it is now, including any changes you made to "
+"the days and order of the visits. Existing visits are never changed."
+msgstr ""
+"يكمل كل عميل من آخر زيارة مولَّدة له ويكرّر آخر أسبوع مولَّد له كما هو الآن "
+"تماماً، بما في ذلك أي تغييرات أجريتها على أيام الزيارات وترتيبها. لا تتغير "
+"الزيارات الموجودة أبداً."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid ""
+"Nothing to extend: every selected customer already has visits up to %s."
+msgstr "لا يوجد ما يُمدَّد: لدى كل العملاء المحددين زيارات حتى %s."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid ""
+"%(visits)d visits created for %(customers)d customer(s), up to %(end)s."
+msgstr "تم إنشاء %(visits)d زيارة لـ %(customers)d عميل حتى %(end)s."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid "No visits to repeat for: %s."
+msgstr "لا توجد زيارات لتكرارها للعملاء: %s."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid "Schedule extended"
+msgstr "تم تمديد الجدولة"
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid "Invalid extension range."
+msgstr "نطاق التمديد غير صالح."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_extend.py:0
+msgid ""
+"The plan's pattern must be Approved before it can be extended. Review the "
+"trial period and use 'Approve Pattern' first."
+msgstr ""
+"يجب اعتماد نمط الخطة قبل تمديدها. راجع فترة التجربة واستخدم «اعتماد النمط» "
+"أولاً."
+
+#. module: field_visit
+#: code:addons/field_visit/wizard/field_visit_plan_generate.py:0
+msgid ""
+"This delegate already has an active plan (%s). To add new customers use "
+"\"Add Customers\" on that plan; to start over, cancel it first."
+msgstr ""
+"لدى هذا المندوب خطة نشطة (%s). لإضافة عملاء جدد استخدم «إضافة عملاء» في تلك "
+"الخطة، وللبدء من جديد ألغِها أولاً."
